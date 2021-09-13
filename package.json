@@ -6,8 +6,8 @@
   "author": "Vector Contributors <vector@timber.io>",
   "license": "MPL-2.0",
   "scripts": {
-    "start": "parcel src/index.html --open",
-    "build": "parcel build src/index.html"
+    "start": "NODE_ENV=local parcel src/index.html --open",
+    "build": "NODE_ENV=production parcel build src/index.html"
   },
   "dependencies": {
     "axios": "^0.21.4",

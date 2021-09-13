@@ -5,6 +5,9 @@ import { createGlobalState } from 'react-hooks-global-state';
 var n = 0;
 const initialState = { scenario: data[n], output: null, resolved: null };
 const { useGlobalState } = createGlobalState(initialState);
+const vrlWebServerAddress = process.env.VRL_WEB_SERVER_ADDRESS;
+const resolveEndpoint = `${vrlWebServerAddress}/resolve`;
+const functionsEndpoint = `${vrlWebServerAddress}/functions`;
 
 function Navbar() {
   const [resolved, setResolved] = useGlobalState('resolved');
@@ -69,7 +72,7 @@ function Main(props) {
       program: props.scenario.program
     }
 
-    axios.post('http://localhost:8080/resolve', payload)
+    axios.post(resolveEndpoint, payload)
       .then(res => {
         console.log(res);
 
