@@ -40,43 +40,41 @@ function Navbar() {
   </nav>
 }
 
-function Event(props) {
+function Event({ event }) {
   return <div>
     <p className="text-lg font-semibold">
       Event
     </p>
 
-    <Code code={props.event} />
+    <Code code={event} />
   </div>
 }
 
-function Program(props) {
+function Program({ program }) {
   return <div>
     <p className="text-lg font-semibold">
       Program
     </p>
 
-    <Code code={props.program} />
+    <Code code={program} />
   </div>
 }
 
-function Code(props) {
-  const formatted = (typeof props.code === 'object') ? JSON.stringify(props.code, null, 2) : props.code;
+function Code({ code }) {
+  const formatted = (typeof code === 'object') ? JSON.stringify(code, null, 2) : code;
 
   return <pre className="font-mono bg-black text-white p-3 text-sm rounded">
     {formatted}
   </pre>
 }
 
-function Main(props) {
+function Main({ scenario }) {
   const [resolved, setResolved] = useGlobalState('resolved');
   const [output, setOutput] = useGlobalState('output');
+  const showResolveButton = (resolved === null && output === null);
 
   function resolve() {
-    const payload = {
-      event: props.scenario.event,
-      program: props.scenario.program
-    }
+    const payload = { event: scenario.event, program: scenario.program };
 
     axios.post(resolveEndpoint, payload)
       .then(res => {
@@ -89,9 +87,9 @@ function Main(props) {
 
   return <div className="p-4">
     <div className="grid grid-cols-2 gap-x-8">
-      <Event event={props.scenario.event} />
+      <Event event={scenario.event} />
 
-      <Program program={props.scenario.program} />
+      <Program program={scenario.program} />
     </div>
 
     <div className="mt-4 grid grid-cols-2 gap-x-8">
@@ -118,11 +116,13 @@ function Main(props) {
       )}
     </div>
 
-    <div className="mt-6">
-      <button onClick={resolve} className="border py-1.5 px-2 rounded-md bg-gray-200">
-        Resolve
-      </button>
-    </div>
+    {showResolveButton && (
+      <div className="mt-6">
+        <button onClick={resolve} className="border py-1.5 px-2 rounded-md bg-gray-200">
+          Resolve
+        </button>
+      </div>
+    )}
   </div>
 }
 
