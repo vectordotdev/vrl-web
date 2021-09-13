@@ -5,25 +5,69 @@ var n = 0;
 const initialState = { scenario: data[n] };
 const { useGlobalState } = createGlobalState(initialState);
 
-export function App() {
+function Navbar() {
   const [scenario, setScenario] = useGlobalState('scenario');
 
-  const changeScenario = () => {
-    n = (n == 0) ? 1 : 0;
-    setScenario(data[n]);
+  function updateScenario(id) {
+    const scenario = data.filter(s => s.id === id)[0];
+    setScenario(scenario);
   }
 
-  return <>
-    <h1>
+  return <nav>
+    <span>
       The VRL Playground
-    </h1>
+    </span>
 
+    <ul>
+      {data.map(s => (
+        <li key={s.id}>
+          <button onClick={() => updateScenario(s.id)}>
+            {s.title}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </nav>
+}
+
+function Event(props) {
+  return <div>
     <p>
-      {JSON.stringify(scenario)}
+      Event
     </p>
 
-    <button onClick={changeScenario}>
-      Change it up
-    </button>
+    <span>
+      {JSON.stringify(props.event)}
+    </span>
+  </div>
+}
+
+function Program(props) {
+  return <div>
+    <p>
+      Program
+    </p>
+
+    <span>
+      {props.program}
+    </span>
+  </div>
+}
+
+function Main(props) {
+  return <div>
+    <Event event={props.scenario.event} />
+
+    <Program program={props.scenario.program} />
+  </div>
+}
+
+export function App() {
+  const [scenario] = useGlobalState('scenario');
+
+  return <>
+    <Navbar />
+
+    <Main scenario={scenario} />
   </>
 }
