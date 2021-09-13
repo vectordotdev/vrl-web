@@ -69,12 +69,14 @@ function Code({ code }) {
 }
 
 function Main({ scenario }) {
+  const { event, program } = scenario;
+
   const [resolved, setResolved] = useGlobalState('resolved');
   const [output, setOutput] = useGlobalState('output');
   const showResolveButton = (resolved === null && output === null);
 
   function resolve() {
-    const payload = { event: scenario.event, program: scenario.program };
+    const payload = { event: event, program: program };
 
     axios.post(resolveEndpoint, payload)
       .then(res => {
@@ -87,9 +89,9 @@ function Main({ scenario }) {
 
   return <div className="p-4">
     <div className="grid grid-cols-2 gap-x-8">
-      <Event event={scenario.event} />
+      <Event event={event} />
 
-      <Program program={scenario.program} />
+      <Program program={program} />
     </div>
 
     <div className="mt-4 grid grid-cols-2 gap-x-8">
