@@ -1,6 +1,7 @@
 import { Code } from "./Code";
 import { Event } from "./Event";
 import { Program } from "./Program";
+import { Resolved } from "./Resolved";
 import { resolveEndpoint } from "../values";
 import { useGlobalState } from "../state";
 
@@ -59,29 +60,7 @@ export function Main({ scenario }) {
       <Program program={program} />
     </div>
 
-    <div className="mt-4 grid grid-cols-2 gap-x-8">
-      {resolved != null && (
-        <>
-          <div>
-            <p className="text-lg font-semibold">
-              Resolved
-            </p>
-
-            <Code code={resolved} />
-          </div>
-
-          {output != null && (
-            <div>
-              <p className="text-lg font-semibold">
-                Output
-              </p>
-
-              <Code code={output} />
-            </div>
-          )}
-        </>
-      )}
-    </div>
+    <Resolved resolved={resolved} output={output} />
 
     {showResolveButton && (
       <div className="mt-6">
