@@ -2,7 +2,16 @@ import axios from "axios";
 import './style.css';
 import { Navbar } from "./Navbar";
 import { useGlobalState } from "./state";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  useParams
+} from "react-router-dom";
 
+const host = process.env.HOST;
 const vrlWebServerAddress = process.env.VRL_WEB_SERVER_ADDRESS;
 const resolveEndpoint = `${vrlWebServerAddress}/resolve`;
 
@@ -43,11 +52,31 @@ function Footer() {
 }
 
 function Main({ scenario }) {
+  let { hash } = useParams();
+
   const { event, program } = scenario;
 
+  const [hashUrl, setHashUrl] = useState(null);
   const [resolved, setResolved] = useGlobalState('resolved');
   const [output, setOutput] = useGlobalState('output');
   const showResolveButton = (resolved === null && output === null);
+  
+  if (hash != null) {
+    const unhashed = atob(hash);
+    const obj = JSON.parse(unhashed);
+    console.log(obj);
+  }
+
+  function exportScenario() {
+    const hashInput = {
+      event, program, output, resolved
+    }
+
+    const hash = btoa(JSON.stringify(hashInput));
+    const url = `${host}/h/${hash}`;
+
+    setHashUrl(url);
+  }
 
   function resolve() {
     const payload = { event: event, program: program };
@@ -94,11 +123,41 @@ function Main({ scenario }) {
 
     {showResolveButton && (
       <div className="mt-6">
-        <button onClick={resolve} className="border py-1.5 px-2 rounded-md bg-gray-200">
+        <button onClick={resolve} className="border py-1.5 px-2 rounded-md bg-gray-200 hover:bg-gray-300">
           Resolve
         </button>
       </div>
     )}
+
+    <div className="mt-6">
+      <button onClick={exportScenario} className="border py-1.5 px-2 rounded-md bg-gray-200 hover:bg-gray-300">
+        Export
+      </button>
+    </div>
+
+    {hashUrl && (
+      <div className="mt-8">
+        <p>
+          Your URL for this scenario:
+        </p>
+
+        <pre className="mt-2 bg-black text-white p-2 rounded text-sm">
+          {hashUrl}
+        </pre>
+
+        <p className="mt-3">
+          Or click <a href={hashUrl} className="text-blue-500 font-semibold" target="_blank">here</a>
+        </p>
+      </div>
+    )}
+  </div>
+}
+
+export function NotFound() {
+  return <div>
+    <p>
+      NOT FOUND
+    </p>
   </div>
 }
 
@@ -108,7 +167,21 @@ export function App() {
   return <div className="font-sans antialiased bg-gray-50 min-h-screen flex flex-col">
     <Navbar />
 
-    <Main scenario={scenario} />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Main scenario={scenario} />
+        </Route>
+
+        <Route path="/h/:hash">
+          <Main scenario={scenario} />
+        </Route>
+
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
+    </BrowserRouter>
 
     <Footer />
   </div>

@@ -1,3 +1,8 @@
 [build]
 base = "client"
 command = "make build"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
