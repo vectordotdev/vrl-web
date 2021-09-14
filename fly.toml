@@ -1,0 +1,4 @@
+app = "vrl-server"
+
+[build]
+  image = "lucperkins/vrl-server:latest"

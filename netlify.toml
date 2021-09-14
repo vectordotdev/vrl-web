@@ -1,0 +1,3 @@
+[build]
+base = "client"
+command = "make build"

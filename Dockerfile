@@ -1,9 +1,11 @@
-FROM rust:1.55 AS builder
+FROM rust:1.55-alpine3.13
+
+RUN apk update && apk add clang
 
 WORKDIR /vrl-server
 
-COPY ./vector/rust-toolchain ./vector/Cargo.* ./vector/lib/shared/ ./vector/lib/vrl/ ./
+COPY ./server ./
 
-RUN cargo build --package vrl-server --release
+RUN cargo build
 
-CMD ["./target/release/vrl-server"]
+CMD ["./target/debug/vrl-server"]
