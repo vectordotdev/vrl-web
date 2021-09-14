@@ -16,7 +16,9 @@ export function Navbar() {
   return <nav className="bg-gray-200 py-2 px-4">
     <div className="flex justify-between items-center">
       <span className="text-3xl font-bold">
-        The VRL Playground
+        <a href="/">
+          The VRL Playground
+        </a>
       </span>
 
       <ul className="flex space-x-2">
