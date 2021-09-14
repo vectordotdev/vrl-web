@@ -1,5 +1,5 @@
-import data from './scenarios.yaml';
-import { useGlobalState } from "./state";
+import data from '../scenarios.yaml';
+import { useGlobalState } from "../state";
 
 export function Navbar() {
   const [_resolved, setResolved] = useGlobalState('resolved');

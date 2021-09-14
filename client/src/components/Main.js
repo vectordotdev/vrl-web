@@ -1,57 +1,16 @@
+import { Code } from "./Code";
+import { Event } from "./Event";
+import { Program } from "./Program";
+import { resolveEndpoint } from "../values";
+import { useGlobalState } from "../state";
+
 import axios from "axios";
-import './style.css';
-import { Navbar } from "./Navbar";
-import { useGlobalState } from "./state";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import React, { useState } from "react";
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  useParams
-} from "react-router-dom";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const host = process.env.HOST;
-const vrlWebServerAddress = process.env.VRL_WEB_SERVER_ADDRESS;
-const resolveEndpoint = `${vrlWebServerAddress}/resolve`;
 
-function Event({ event }) {
-  return <div>
-    <p className="text-lg font-semibold">
-      Event
-    </p>
-
-    <Code code={event} />
-  </div>
-}
-
-function Program({ program }) {
-  return <div>
-    <p className="text-lg font-semibold">
-      Program
-    </p>
-
-    <Code code={program} />
-  </div>
-}
-
-function Code({ code }) {
-  const formatted = (typeof code === 'object') ? JSON.stringify(code, null, 2) : code;
-
-  return <pre className="font-mono bg-black text-white p-3 text-sm rounded">
-    {formatted}
-  </pre>
-}
-
-function Footer() {
-  return <footer className="bg-gray-200 py-3 px-4">
-    <p>
-      Connected to the server at <strong>{vrlWebServerAddress}</strong>.
-    </p>
-  </footer>
-}
-
-function Main({ scenario }) {
+export function Main({ scenario }) {
   let { hash } = useParams();
 
   const { event, program } = scenario;
@@ -87,6 +46,9 @@ function Main({ scenario }) {
 
         setOutput(res.data.success.output);
         setResolved(res.data.success.result);
+      })
+      .catch(e => {
+        alert(e);
       });
   }
 
@@ -150,39 +112,5 @@ function Main({ scenario }) {
         </p>
       </div>
     )}
-  </div>
-}
-
-export function NotFound() {
-  return <div>
-    <p>
-      NOT FOUND
-    </p>
-  </div>
-}
-
-export function App() {
-  const [scenario] = useGlobalState('scenario');
-
-  return <div className="font-sans antialiased bg-gray-50 min-h-screen flex flex-col">
-    <Navbar />
-
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/">
-          <Main scenario={scenario} />
-        </Route>
-
-        <Route path="/h/:hash">
-          <Main scenario={scenario} />
-        </Route>
-
-        <Route path="*">
-          <NotFound />
-        </Route>
-      </Switch>
-    </BrowserRouter>
-
-    <Footer />
   </div>
 }
