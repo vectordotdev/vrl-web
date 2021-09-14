@@ -1,44 +1,10 @@
-import data from "./scenarios.yaml";
 import axios from "axios";
-import { createGlobalState } from 'react-hooks-global-state';
 import './style.css';
+import { Navbar } from "./Navbar";
+import { useGlobalState } from "./state";
 
-const initialState = { scenario: data[0], output: null, resolved: null };
-const { useGlobalState } = createGlobalState(initialState);
 const vrlWebServerAddress = process.env.VRL_WEB_SERVER_ADDRESS;
 const resolveEndpoint = `${vrlWebServerAddress}/resolve`;
-const functionsEndpoint = `${vrlWebServerAddress}/functions`;
-
-function Navbar() {
-  const [resolved, setResolved] = useGlobalState('resolved');
-  const [output, setOutput] = useGlobalState('output');
-  const [scenario, setScenario] = useGlobalState('scenario');
-
-  function updateScenario(id) {
-    const scenario = data.filter(s => s.id === id)[0];
-    setScenario(scenario);
-    setResolved(null);
-    setOutput(null);
-  }
-
-  return <nav className="bg-gray-200 py-2 px-4">
-    <div className="flex justify-between items-center">
-      <span className="text-3xl font-bold">
-        The VRL Playground
-      </span>
-
-      <ul className="flex space-x-2">
-        {data.map(s => (
-          <li key={s.id} className="hover:text-gray-700">
-            <button onClick={() => updateScenario(s.id)}>
-              {s.title}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </nav>
-}
 
 function Event({ event }) {
   return <div>
@@ -68,6 +34,14 @@ function Code({ code }) {
   </pre>
 }
 
+function Footer() {
+  return <footer className="bg-gray-200 py-3 px-4">
+    <p>
+      Connected to the server at <strong>{vrlWebServerAddress}</strong>.
+    </p>
+  </footer>
+}
+
 function Main({ scenario }) {
   const { event, program } = scenario;
 
@@ -87,7 +61,7 @@ function Main({ scenario }) {
       });
   }
 
-  return <div className="p-4">
+  return <div className="p-4 flex-grow">
     <div className="grid grid-cols-2 gap-x-8">
       <Event event={event} />
 
@@ -135,5 +109,7 @@ export function App() {
     <Navbar />
 
     <Main scenario={scenario} />
+
+    <Footer />
   </div>
 }

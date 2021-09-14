@@ -1,3 +1,4 @@
+import data from './scenarios.yaml';
 import { useGlobalState } from "./state";
 
 export function Navbar() {

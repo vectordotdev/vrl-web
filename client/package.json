@@ -6,7 +6,7 @@
   "author": "Vector Contributors <vector@timber.io>",
   "license": "MPL-2.0",
   "scripts": {
-    "start": "NODE_ENV=local parcel src/index.html --open",
+    "start": "NODE_ENV=local parcel src/index.html --port 1313 --open",
     "build": "NODE_ENV=production parcel build src/index.html"
   },
   "dependencies": {
