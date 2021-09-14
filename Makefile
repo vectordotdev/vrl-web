@@ -4,10 +4,10 @@ client-dev:
 	(cd client && yarn run start)
 
 docker-build:
-	docker build -t $(IMAGE) .
+	docker buildx build -t $(IMAGE) .
 
-docker-run: docker-build
+docker-run:
 	docker run --rm -it -p 8080:8080 $(IMAGE)
 
-docker-push: docker-build
+docker-push:
 	docker push $(IMAGE)
