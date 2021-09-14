@@ -5,4 +5,10 @@ app = "vrl-server"
 
 [[services]]
   internal_port = 8080
-  protocol = "tcp"
+  protocol = "TCP"
+
+  [services.port.80]
+    handlers = ["HTTP"]
+
+  [services.port.443]
+    handlers = ["TLS", "HTTP"]
