@@ -2,3 +2,7 @@ app = "vrl-server"
 
 [build]
   image = "lucperkins/vrl-server:latest"
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
