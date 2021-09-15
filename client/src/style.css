@@ -12,7 +12,7 @@
   }
 
   button {
-    @apply bg-black rounded text-white font-semibold py-1 pb-1.5 px-3 hover:bg-gray-300 hover:text-black;
+    @apply bg-blue-800 rounded text-white font-semibold py-1 pb-1.5 px-3 hover:bg-gray-300 hover:text-black;
   }
 
   pre {

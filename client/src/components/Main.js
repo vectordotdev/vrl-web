@@ -1,16 +1,33 @@
-import { VRL_RESOLVE_ENDPOINT } from '../values';
+import { HOST, VRL_RESOLVE_ENDPOINT } from '../values';
 import { Context } from '../state';
 
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from 'react-router';
 
 export const Main = () => {
+  const [hashUrl, setHashUrl] = useState(null);
+
+  const { hash } = useParams();
+
   const { titleState, eventState, programState, outputState, resultState } = useContext(Context);
-  const [title] = titleState;
-  const [event] = eventState;
-  const [program] = programState;
+  const [title, setTitle] = titleState;
+  const [event, setEvent] = eventState;
+  const [program, setProgram] = programState;
   const [output, setOutput] = outputState;
   const [result, setResult] = resultState;
+
+  useEffect(() => {
+    if (hash != null) {
+      const h = atob(hash);
+      const obj = JSON.parse(h);
+      setTitle(obj.title);
+      setEvent(obj.event);
+      setProgram(obj.program);
+      setOutput(obj.output);
+      setResult(obj.result);
+    }
+  }, [setTitle, setEvent, setProgram, setOutput, setResult]);
 
   const resolve = () => {
     const resolvePayload = { event, program };
@@ -25,6 +42,14 @@ export const Main = () => {
           setResult(result.success.result);
         }
       });
+  }
+
+  const exportHash = () => {
+    const hashable = { title, event, program, output, result };
+    const s = JSON.stringify(hashable);
+    const hashed = btoa(s);
+    const url = `${HOST}/h/${hashed}`;
+    setHashUrl(url);
   }
 
   return <main>
@@ -74,12 +99,28 @@ export const Main = () => {
       </>
     )}
 
-    {!output && !result && (
-      <div className="mt-8">
+    {hashUrl && (
+      <div>
+        <p>
+          {hashUrl}
+        </p>
+
+        <a href={hashUrl}>
+          Or click to go there
+        </a>
+      </div>
+    )}
+
+    <div className="mt-8 flex space-x-2">
+      {!output && !result && (
         <button onClick={resolve}>
           Resolve
         </button>
-      </div>
-    )}
+      )}
+
+      <button onClick={exportHash}>
+        Export
+      </button>
+    </div>
   </main>
 }
