@@ -4,6 +4,7 @@ import { Context } from '../state';
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router';
+import { computeHash } from '../helpers';
 
 export const Main = () => {
   const [hashUrl, setHashUrl] = useState(null);
@@ -55,10 +56,7 @@ export const Main = () => {
   }
 
   const exportHash = () => {
-    const hashable = { title, event, program, output, result };
-    const s = JSON.stringify(hashable);
-    console.log(s);
-    const hashed = btoa(s);
+    const hashed = computeHash(title, event, program, output, result);
     const url = `${HOST}/h/${hashed}`;
     setHashUrl(url);
     setErrorMsg(null);
