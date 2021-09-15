@@ -408,7 +408,7 @@ dependencies = [
 [[package]]
 name = "datadog-search-syntax"
 version = "0.1.0"
-source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#5add377b47d26d7105fbb3f20dc99044c3af39da"
+source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#dfdc0e50ca39b41157aff16eecd8afa42e272620"
 dependencies = [
  "itertools",
  "lazy_static",
@@ -1047,7 +1047,7 @@ dependencies = [
 [[package]]
 name = "lookup"
 version = "0.1.0"
-source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#5add377b47d26d7105fbb3f20dc99044c3af39da"
+source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#dfdc0e50ca39b41157aff16eecd8afa42e272620"
 dependencies = [
  "inherent",
  "lalrpop",
@@ -1811,7 +1811,7 @@ dependencies = [
 [[package]]
 name = "shared"
 version = "0.1.0"
-source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#5add377b47d26d7105fbb3f20dc99044c3af39da"
+source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#dfdc0e50ca39b41157aff16eecd8afa42e272620"
 dependencies = [
  "bytes",
  "chrono",
@@ -2296,7 +2296,7 @@ checksum = "5fecdca9a5291cc2b8dcf7dc02453fee791a280f3743cb0905f8822ae463b3fe"
 [[package]]
 name = "vrl"
 version = "0.1.0"
-source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#5add377b47d26d7105fbb3f20dc99044c3af39da"
+source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#dfdc0e50ca39b41157aff16eecd8afa42e272620"
 dependencies = [
  "bytes",
  "indoc",
@@ -2312,7 +2312,7 @@ dependencies = [
 [[package]]
 name = "vrl-compiler"
 version = "0.1.0"
-source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#5add377b47d26d7105fbb3f20dc99044c3af39da"
+source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#dfdc0e50ca39b41157aff16eecd8afa42e272620"
 dependencies = [
  "bitflags",
  "bytes",
@@ -2334,7 +2334,7 @@ dependencies = [
 [[package]]
 name = "vrl-diagnostic"
 version = "0.1.0"
-source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#5add377b47d26d7105fbb3f20dc99044c3af39da"
+source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#dfdc0e50ca39b41157aff16eecd8afa42e272620"
 dependencies = [
  "codespan-reporting",
  "termcolor",
@@ -2343,7 +2343,7 @@ dependencies = [
 [[package]]
 name = "vrl-parser"
 version = "0.1.0"
-source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#5add377b47d26d7105fbb3f20dc99044c3af39da"
+source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#dfdc0e50ca39b41157aff16eecd8afa42e272620"
 dependencies = [
  "lalrpop",
  "lalrpop-util",
@@ -2365,7 +2365,7 @@ dependencies = [
 [[package]]
 name = "vrl-server"
 version = "0.1.0"
-source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#5add377b47d26d7105fbb3f20dc99044c3af39da"
+source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#dfdc0e50ca39b41157aff16eecd8afa42e272620"
 dependencies = [
  "http",
  "serde",
@@ -2379,7 +2379,7 @@ dependencies = [
 [[package]]
 name = "vrl-stdlib"
 version = "0.1.0"
-source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#5add377b47d26d7105fbb3f20dc99044c3af39da"
+source = "git+https://github.com/vectordotdev/vector?branch=vrl-web-server#dfdc0e50ca39b41157aff16eecd8afa42e272620"
 dependencies = [
  "base64",
  "bytes",
