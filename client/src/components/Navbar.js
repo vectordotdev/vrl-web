@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Context, State } from "../state";
+import { Context } from "../state";
 import { SCENARIOS } from "../values";
 
 export function Navbar() {

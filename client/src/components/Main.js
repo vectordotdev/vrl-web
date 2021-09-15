@@ -26,7 +26,7 @@ export function Main() {
       });
   }
 
-  return <div>
+  return <main>
     <p>
       Event
     </p>
@@ -74,5 +74,5 @@ export function Main() {
         Resolve
       </button>
     )}
-  </div>
+  </main>
 }
