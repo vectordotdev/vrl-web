@@ -92,7 +92,7 @@ export const Main = () => {
             </p>
 
             <pre>
-              {JSON.stringify(result)}
+              {JSON.stringify(result, null, 2)}
             </pre>
           </div>
         )}
@@ -101,13 +101,13 @@ export const Main = () => {
 
     {hashUrl && (
       <div>
-        <p>
+        <pre>
           {hashUrl}
-        </p>
+        </pre>
 
-        <a href={hashUrl}>
-          Or click to go there
-        </a>
+        <button onClick={() => window.location = hashUrl}>
+          Or click here to navigate to exported URL
+        </button>
       </div>
     )}
 
