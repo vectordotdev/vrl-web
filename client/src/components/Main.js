@@ -50,6 +50,10 @@ export const Main = () => {
       });
   }
 
+  const copyUrlToClipboard = () => {
+    navigator.clipboard.writeText(hashUrl);
+  }
+
   const exportHash = () => {
     const hashable = { title, event, program, output, result };
     const s = JSON.stringify(hashable);
@@ -119,9 +123,15 @@ export const Main = () => {
           {hashUrl}
         </pre>
 
-        <button onClick={() => window.location = hashUrl}>
-          Or click here to navigate to exported URL
-        </button>
+        <div className="flex space-x-2">
+          <button onClick={copyUrlToClipboard}>
+            Copy URL to clipboard
+          </button>
+
+          <button onClick={() => window.location = hashUrl}>
+            Navigate to exported URL
+          </button>
+        </div>
       </div>
     )}
 
