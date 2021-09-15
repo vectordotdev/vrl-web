@@ -17,6 +17,7 @@ export const ContextProvider = (props) => {
   const [program, setProgram] = useState(defaults.program);
   const [output, setOutput] = useState(null);
   const [result, setResult] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   return <Context.Provider
     value={{
@@ -24,7 +25,8 @@ export const ContextProvider = (props) => {
       eventState: [event, setEvent],
       programState: [program, setProgram],
       outputState: [output, setOutput],
-      resultState: [result, setResult]
+      resultState: [result, setResult],
+      errorState: [errorMsg, setErrorMsg]
     }}
   >
     {props.children}

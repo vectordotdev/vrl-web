@@ -10,12 +10,13 @@ export const Main = () => {
 
   const { hash } = useParams();
 
-  const { titleState, eventState, programState, outputState, resultState } = useContext(Context);
+  const { titleState, eventState, programState, outputState, resultState, errorState } = useContext(Context);
   const [title, setTitle] = titleState;
   const [event, setEvent] = eventState;
   const [program, setProgram] = programState;
   const [output, setOutput] = outputState;
   const [result, setResult] = resultState;
+  const [errorMsg, setErrorMsg] = errorState;
 
   useEffect(() => {
     if (hash != null) {
@@ -36,20 +37,27 @@ export const Main = () => {
       .then(res => {
         const result = res.data;
 
-        console.log(result.success);
         if (result.success) {
           setOutput(result.success.output);
           setResult(result.success.result);
+        } else if (result.error) {
+          setErrorMsg(result.error);
         }
+      })
+      .catch(e => {
+        const msg = `Server error: ${e}`;
+        setErrorMsg(msg);
       });
   }
 
   const exportHash = () => {
     const hashable = { title, event, program, output, result };
     const s = JSON.stringify(hashable);
+    console.log(s);
     const hashed = btoa(s);
     const url = `${HOST}/h/${hashed}`;
     setHashUrl(url);
+    setErrorMsg(null);
   }
 
   return <main>
@@ -72,6 +80,12 @@ export const Main = () => {
     <pre>
       {program}
     </pre>
+
+    {errorMsg && (
+      <p className="text-xl text-red-500 font-bold">
+        {errorMsg}
+      </p>
+    )}
 
     {output && (
       <>

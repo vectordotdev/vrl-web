@@ -3,7 +3,16 @@
   event:
     message: <102>1 2020-12-22T15:22:31.111Z vector-user.biz su 2666 ID389 - Something went wrong
   program: |
-    . |= parse_syslog!(.message)
+    parsed, err = parse_syslog(.message)
+    if err != null {
+      log(err, level: "error")
+    }
+
+    . = parsed
+
+    foo
+
+
 - id: 2
   title: Key/value (logfmt) logs
   event:
