@@ -86,7 +86,7 @@ export const Main = () => {
         <Editor
           height="400px"
           theme="vs-dark"
-          defaultValue={JSON.stringify(event, null, 2)}
+          value={JSON.stringify(event, null, 2)}
           onChange={onEventChange}
         />
       </div>
@@ -99,7 +99,7 @@ export const Main = () => {
         <Editor
           height="400px"
           theme="vs-dark"
-          defaultValue={program}
+          value={program}
           onChange={onProgramChange}
         />
       </div>
