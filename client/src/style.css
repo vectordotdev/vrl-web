@@ -10,4 +10,18 @@
   footer {
     @apply bg-gray-100 py-3 px-4;
   }
+
+  button {
+    @apply bg-black rounded text-white font-semibold py-1 pb-1.5 px-3 hover:bg-gray-300 hover:text-black;
+  }
+
+  pre {
+    @apply bg-black text-white rounded p-4 text-base font-mono mb-4 overflow-auto;
+  }
+}
+
+@layer components {
+  .title {
+    @apply text-xl mb-2;
+  }
 }

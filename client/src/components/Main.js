@@ -27,52 +27,54 @@ export function Main() {
   }
 
   return <main>
-    <p>
+    <p className="title">
       Event
     </p>
     
-    <p>
-      {JSON.stringify(event)}
-    </p>
+    <pre>
+      {JSON.stringify(event, null, 2)}
+    </pre>
 
-    <p>
+    <p className="title">
       Program
     </p>
 
-    <p>
+    <pre>
       {program}
-    </p>
+    </pre>
 
     {output && (
       <>
         <div>
-          <p>
+        <p className="title">
             Output
           </p>
 
-          <p>
-            {JSON.stringify(output)}
-          </p>
+          <pre>
+            {JSON.stringify(output, null, 2)}
+          </pre>
         </div>
 
         {result && (
           <div>
-            <p>
+            <p className="title">
               Resolved
             </p>
 
-            <p>
+            <pre>
               {JSON.stringify(result)}
-            </p>
+            </pre>
           </div>
         )}
       </>
     )}
 
     {!output && !result && (
-      <button onClick={resolve}>
-        Resolve
-      </button>
+      <div className="mt-8">
+        <button onClick={resolve}>
+          Resolve
+        </button>
+      </div>
     )}
   </main>
 }
