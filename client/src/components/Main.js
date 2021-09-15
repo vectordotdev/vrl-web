@@ -3,7 +3,6 @@ import { Event } from "./Event";
 import { Program } from "./Program";
 import { Resolved } from "./Resolved";
 import { resolveEndpoint } from "../values";
-import { useGlobalState } from "../state";
 
 import axios from "axios";
 import { useState } from "react";
@@ -17,8 +16,7 @@ export function Main({ scenario }) {
   const { event, program } = scenario;
 
   const [hashUrl, setHashUrl] = useState(null);
-  const [resolved, setResolved] = useGlobalState('resolved');
-  const [output, setOutput] = useGlobalState('output');
+  
   const showResolveButton = (resolved === null && output === null);
   
   if (hash != null) {
