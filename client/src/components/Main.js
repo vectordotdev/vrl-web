@@ -60,15 +60,6 @@ export const Main = () => {
       setOutput(obj.output);
       setResult(obj.result);
     }
-
-    const keyboardListener = e => {
-      if (e.ctrlKey && e.key == "R") {
-        e.preventDefault();
-        resolve();
-      }
-    }
-
-    document.addEventListener("keydown", keyboardListener);
   }, [setTitle, setEvent, setProgram, setOutput, setResult]);
 
   const copyUrlToClipboard = () => {
