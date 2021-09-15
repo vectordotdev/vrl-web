@@ -45,11 +45,15 @@ export const Main = () => {
           setResult(result.success.result);
         } else if (result.error) {
           setErrorMsg(result.error);
+          setResult(null);
+          setOutput(null);
         }
       })
       .catch(e => {
         const msg = `Server error: ${e}`;
         setErrorMsg(msg);
+        setResult(null);
+        setOutput(null);
       });
   }
 
