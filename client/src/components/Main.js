@@ -6,6 +6,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router';
 import { computeHash } from '../helpers';
+import Editor from '@monaco-editor/react';
 
 export const Main = () => {
   const [hashUrl, setHashUrl] = useState(null);
@@ -63,26 +64,46 @@ export const Main = () => {
     setErrorMsg(null);
   }
 
+  const onProgramChange = (val) => {
+    setProgram(val);
+  }
+
+  const onEventChange = (val) => {
+    setEvent(JSON.parse(val));
+  }
+
   return <main>
     <p className="text-3xl mb-6">
       {title}
     </p>
 
-    <p className="title">
-      Event
-    </p>
-    
-    <pre>
-      {JSON.stringify(event, null, 2)}
-    </pre>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <p className="title">
+          Event
+        </p>
+        
+        <Editor
+          height="400px"
+          theme="vs-dark"
+          defaultValue={JSON.stringify(event, null, 2)}
+          onChange={onEventChange}
+        />
+      </div>
 
-    <p className="title">
-      Program
-    </p>
+      <div>
+        <p className="title">
+          Program
+        </p>
 
-    <pre>
-      {program}
-    </pre>
+        <Editor
+          height="400px"
+          theme="vs-dark"
+          defaultValue={program}
+          onChange={onProgramChange}
+        />
+      </div>
+    </div>
 
     {errorMsg && (
       <p className="text-xl text-red-500 font-bold">
@@ -91,29 +112,29 @@ export const Main = () => {
     )}
 
     {output && (
-      <>
-        <div>
-        <p className="title">
-            Output
-          </p>
-
-          <pre>
-            {JSON.stringify(output, null, 2)}
-          </pre>
-        </div>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {result && (
           <div>
             <p className="title">
               Resolved
             </p>
 
-            <pre>
+            <pre className="text-sm">
               {JSON.stringify(result, null, 2)}
             </pre>
           </div>
         )}
-      </>
+
+        <div>
+          <p className="title">
+            Output
+          </p>
+
+          <pre className="text-sm">
+            {JSON.stringify(output, null, 2)}
+          </pre>
+        </div>
+      </div>
     )}
 
     {hashUrl && (
@@ -135,11 +156,9 @@ export const Main = () => {
     )}
 
     <div className="mt-8 flex space-x-2">
-      {!output && !result && (
-        <button onClick={resolve}>
-          Resolve
-        </button>
-      )}
+      <button onClick={resolve}>
+        Resolve
+      </button>
 
       <button onClick={exportHash}>
         Export
