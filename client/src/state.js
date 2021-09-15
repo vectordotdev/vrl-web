@@ -1,6 +1,6 @@
-import { SCENARIOS } from "./values";
+import { SCENARIOS, VRL_FUNCTIONS_ENDPOINT } from "./values";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
 const defaultScenario = SCENARIOS[0];
 const defaults = {

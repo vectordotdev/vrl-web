@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { VRL_FUNCTIONS_ENDPOINT } from "../values";
 
+const VRL_SHOW_FUNCTIONS_KEY = "__show_vrl_functions";
 const VRL_FUNCTIONS_STORAGE_KEY = "__vrl_functions"
 
 const FunctionLink = ({ name, idx }) => {
@@ -19,21 +20,31 @@ export const Functions = () => {
   const [functions, setFunctions] = useState(null);
 
   useEffect(() => {
-    if (localStorage.getItem(VRL_FUNCTIONS_STORAGE_KEY) != null) {
-      setFunctions(JSON.parse(localStorage.getItem()))
+    if (localStorage.getItem(VRL_SHOW_FUNCTIONS_KEY) === "true") {
+      setShowFunctions(true);
+    } else {
+      setShowFunctions(false);
+    }
+
+    if (localStorage.getItem(VRL_FUNCTIONS_STORAGE_KEY)) {
+      setFunctions(JSON.parse(localStorage.getItem(VRL_FUNCTIONS_STORAGE_KEY)));
     } else {
       axios.get(VRL_FUNCTIONS_ENDPOINT)
         .then(res => {
-          setFunctions(res.data.functions);
+          const funcs = res.data.functions;
+          localStorage.setItem(VRL_FUNCTIONS_STORAGE_KEY, JSON.stringify(funcs));
+          setFunctions(funcs);
         });
     }
-  });
+  }, [setFunctions, setShowFunctions]);
 
   const displayFunctions = () => {
+    localStorage.setItem(VRL_SHOW_FUNCTIONS_KEY, true);
     setShowFunctions(true);
   }
 
   const hideFunctions = () => {
+    localStorage.setItem(VRL_SHOW_FUNCTIONS_KEY, false);
     setShowFunctions(false);
   }
 
