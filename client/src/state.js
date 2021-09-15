@@ -1,6 +1,6 @@
 import { SCENARIOS } from "./values";
 
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const defaultScenario = SCENARIOS[0];
 const defaults = {

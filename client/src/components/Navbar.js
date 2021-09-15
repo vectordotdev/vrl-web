@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { Context } from "../state";
+import { Context, State } from "../state";
 import { SCENARIOS } from "../values";
 
 export function Navbar() {
   const { eventState, programState, outputState, resultState } = useContext(Context);
-  const [_event, setEvent] = eventState;
-  const [_program, setProgram] = programState;
-  const [_output, setOutput] = outputState;
-  const [_result, setResult] = resultState;
+  const [, setEvent] = eventState;
+  const [, setProgram] = programState;
+  const [, setOutput] = outputState;
+  const [, setResult] = resultState;
 
   function updateScenario(id) {
     const scenario = SCENARIOS.filter(s => s.id === id)[0];
