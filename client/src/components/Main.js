@@ -1,15 +1,20 @@
+import { computeHash } from '../helpers';
+import { Context, key } from '../state';
 import { HOST, VRL_RESOLVE_ENDPOINT } from '../values';
-import { Context } from '../state';
 import { Help } from './Help';
 
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from 'react-router';
-import { computeHash } from '../helpers';
 import Editor from '@monaco-editor/react';
+import useLocalStorage from 'use-local-storage';
+
+const keys = {
+  hashUrl: key("hash_url")
+}
 
 export const Main = () => {
-  const [hashUrl, setHashUrl] = useState(null);
+  const [hashUrl, setHashUrl] = useLocalStorage(keys.hashUrl, null);
 
   const { hash } = useParams();
 
@@ -57,8 +62,6 @@ export const Main = () => {
     }
 
     const keyboardListener = e => {
-
-
       if (e.ctrlKey && e.key == "R") {
         e.preventDefault();
         resolve();

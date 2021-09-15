@@ -1,6 +1,20 @@
 import { SCENARIOS } from "./values";
 
 import { createContext, useState } from "react";
+import useLocalStorage from "use-local-storage";
+
+export const key = (s) => {
+  return `__vrl_scenario_${s}`;
+}
+
+const keys = {
+  title: key("title"),
+  event: key("event"),
+  program: key("program"),
+  output: key("output"),
+  result: key("result"),
+  errorMsg: key("error_msg")
+}
 
 const defaultScenario = SCENARIOS[0];
 const defaults = {
@@ -12,12 +26,12 @@ const defaults = {
 export const Context = createContext();
 
 export const ContextProvider = (props) => {
-  const [title, setTitle] = useState(defaults.title);
-  const [event, setEvent] = useState(defaults.event);
-  const [program, setProgram] = useState(defaults.program);
-  const [output, setOutput] = useState(null);
-  const [result, setResult] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [title, setTitle] = useLocalStorage(keys.title, defaults.title);
+  const [event, setEvent] = useLocalStorage(keys.event, defaults.event);
+  const [program, setProgram] = useLocalStorage(keys.program, defaults.program);
+  const [output, setOutput] = useLocalStorage(keys.output, null);
+  const [result, setResult] = useLocalStorage(keys.result, null);
+  const [errorMsg, setErrorMsg] = useLocalStorage(keys.errorMsg, null);
 
   return <Context.Provider
     value={{
