@@ -1,5 +1,6 @@
 import { HOST, VRL_RESOLVE_ENDPOINT } from '../values';
 import { Context } from '../state';
+import { Help } from './Help';
 
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
@@ -144,5 +145,7 @@ export const Main = () => {
         Export
       </button>
     </div>
+
+    <Help />
   </main>
 }
