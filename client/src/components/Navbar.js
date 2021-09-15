@@ -2,14 +2,14 @@ import { useContext } from "react";
 import { Context } from "../state";
 import { SCENARIOS } from "../values";
 
-export function Navbar() {
+export const Navbar = () => {
   const { eventState, programState, outputState, resultState } = useContext(Context);
   const [, setEvent] = eventState;
   const [, setProgram] = programState;
   const [, setOutput] = outputState;
   const [, setResult] = resultState;
 
-  function updateScenario(id) {
+  const updateScenario = id => {
     const scenario = SCENARIOS.filter(s => s.id === id)[0];
     setEvent(scenario.event);
     setProgram(scenario.program);

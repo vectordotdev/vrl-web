@@ -4,8 +4,9 @@ import { Context } from '../state';
 import axios from "axios";
 import { useContext } from "react";
 
-export function Main() {
-  const { eventState, programState, outputState, resultState } = useContext(Context);
+export const Main = () => {
+  const { titleState, eventState, programState, outputState, resultState } = useContext(Context);
+  const [title] = titleState;
   const [event] = eventState;
   const [program] = programState;
   const [output, setOutput] = outputState;
@@ -27,6 +28,10 @@ export function Main() {
   }
 
   return <main>
+    <p className="text-3xl mb-6">
+      {title}
+    </p>
+
     <p className="title">
       Event
     </p>
