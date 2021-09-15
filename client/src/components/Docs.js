@@ -23,7 +23,7 @@ const LINKS = [
 
 export const Docs = () => {
   return <div>
-    <p class="title">
+    <p className="title">
       Docs
     </p>
 

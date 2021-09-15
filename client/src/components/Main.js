@@ -1,6 +1,6 @@
 import { computeHash } from '../helpers';
 import { Context, key } from '../state';
-import { HOST, VRL_RESOLVE_ENDPOINT } from '../values';
+import { EDITOR_OPTIONS, HOST, VRL_RESOLVE_ENDPOINT } from '../values';
 import { Help } from './Help';
 
 import axios from "axios";
@@ -14,10 +14,13 @@ const keys = {
 }
 
 export const Main = () => {
-  const [hashUrl, setHashUrl] = useLocalStorage(keys.hashUrl, null);
-
+  // Optional URL parameter for the /h/:hash endpoint
   const { hash } = useParams();
 
+  // Hooks specific to this component
+  const [hashUrl, setHashUrl] = useLocalStorage(keys.hashUrl, null);
+
+  // Global state hooks
   const { titleState, eventState, programState, outputState, resultState, errorState } = useContext(Context);
   const [title, setTitle] = titleState;
   const [event, setEvent] = eventState;
@@ -26,6 +29,28 @@ export const Main = () => {
   const [result, setResult] = resultState;
   const [errorMsg, setErrorMsg] = errorState;
 
+  // If a hash is supplied via the /h/:hash endpoint, set the global state accordingly
+  const getHashedScenario = (h) => {
+    return JSON.parse(atob(h));
+  }
+
+  const setScenario = (scenario) => {
+    setTitle(scenario.title);
+    setEvent(scenario.event);
+    setProgram(scenario.program);
+    setOutput(scenario.output);
+    setResult(scenario.result);
+  }
+
+  useEffect(() => {
+    if (hash != null) {
+      const scenario = getHashedScenario(hash);
+      setScenario(scenario);
+    }
+  }, [setTitle, setEvent, setProgram, setOutput, setResult]);
+
+
+  // Resolve the event+program by POSTing to the VRL server's /resolve endpoint
   const resolve = () => {
     const resolvePayload = { event, program };
 
@@ -36,6 +61,7 @@ export const Main = () => {
         if (result.success) {
           setOutput(result.success.output);
           setResult(result.success.result);
+          setErrorMsg(null);
         } else if (result.error) {
           setErrorMsg(result.error);
           setResult(null);
@@ -49,18 +75,6 @@ export const Main = () => {
         setOutput(null);
       });
   }
-
-  useEffect(() => {
-    if (hash != null) {
-      const h = atob(hash);
-      const obj = JSON.parse(h);
-      setTitle(obj.title);
-      setEvent(obj.event);
-      setProgram(obj.program);
-      setOutput(obj.output);
-      setResult(obj.result);
-    }
-  }, [setTitle, setEvent, setProgram, setOutput, setResult]);
 
   const copyUrlToClipboard = () => {
     navigator.clipboard.writeText(hashUrl);
@@ -94,9 +108,10 @@ export const Main = () => {
         
         <Editor
           height="400px"
-          theme="vs-dark"
+          language="json"
           value={JSON.stringify(event, null, 2)}
           onChange={onEventChange}
+          options={EDITOR_OPTIONS}
         />
       </div>
 
@@ -107,9 +122,10 @@ export const Main = () => {
 
         <Editor
           height="400px"
-          theme="vs-dark"
+          language="ruby"
           value={program}
           onChange={onProgramChange}
+          options={EDITOR_OPTIONS}
         />
       </div>
     </div>
@@ -151,9 +167,11 @@ export const Main = () => {
         Resolve
       </button>
 
-      <button onClick={exportHash}>
-        Export
-      </button>
+      {!errorMsg && (
+        <button onClick={exportHash}>
+          Export
+        </button>
+      )}
     </div>
 
     {hashUrl && (
