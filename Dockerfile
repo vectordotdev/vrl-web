@@ -13,6 +13,9 @@ RUN cargo build --target x86_64-unknown-linux-musl --release
 
 FROM alpine:3.14
 
+# For use by VRL's get_env_var()
+ENV ENV production
+
 WORKDIR /app
 
 EXPOSE 8080
