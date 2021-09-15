@@ -3,7 +3,8 @@ import { Context } from "../state";
 import { SCENARIOS } from "../values";
 
 export const Navbar = () => {
-  const { eventState, programState, outputState, resultState } = useContext(Context);
+  const { titleState, eventState, programState, outputState, resultState } = useContext(Context);
+  const [, setTitle] = titleState; 
   const [, setEvent] = eventState;
   const [, setProgram] = programState;
   const [, setOutput] = outputState;
@@ -11,6 +12,7 @@ export const Navbar = () => {
 
   const updateScenario = id => {
     const scenario = SCENARIOS.filter(s => s.id === id)[0];
+    setTitle(scenario.title);
     setEvent(scenario.event);
     setProgram(scenario.program);
     setOutput(null);

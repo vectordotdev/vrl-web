@@ -12,7 +12,7 @@ export const Main = () => {
   const [output, setOutput] = outputState;
   const [result, setResult] = resultState;
 
-  function resolve() {
+  const resolve = () => {
     const resolvePayload = { event, program };
 
     axios.post(VRL_RESOLVE_ENDPOINT, resolvePayload)
