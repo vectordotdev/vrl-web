@@ -1,3 +1,4 @@
+import { Docs } from "./Docs";
 import { Functions } from "./Functions";
 
 export const Help = () => {
@@ -6,6 +7,10 @@ export const Help = () => {
       Help center
     </p>
 
-    <Functions />
+    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <Docs />
+
+      <Functions />
+    </div>
   </div>
 }

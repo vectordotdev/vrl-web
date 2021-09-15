@@ -21,18 +21,6 @@ export const Main = () => {
   const [result, setResult] = resultState;
   const [errorMsg, setErrorMsg] = errorState;
 
-  useEffect(() => {
-    if (hash != null) {
-      const h = atob(hash);
-      const obj = JSON.parse(h);
-      setTitle(obj.title);
-      setEvent(obj.event);
-      setProgram(obj.program);
-      setOutput(obj.output);
-      setResult(obj.result);
-    }
-  }, [setTitle, setEvent, setProgram, setOutput, setResult]);
-
   const resolve = () => {
     const resolvePayload = { event, program };
 
@@ -56,6 +44,29 @@ export const Main = () => {
         setOutput(null);
       });
   }
+
+  useEffect(() => {
+    if (hash != null) {
+      const h = atob(hash);
+      const obj = JSON.parse(h);
+      setTitle(obj.title);
+      setEvent(obj.event);
+      setProgram(obj.program);
+      setOutput(obj.output);
+      setResult(obj.result);
+    }
+
+    const keyboardListener = e => {
+
+
+      if (e.ctrlKey && e.key == "R") {
+        e.preventDefault();
+        resolve();
+      }
+    }
+
+    document.addEventListener("keydown", keyboardListener);
+  }, [setTitle, setEvent, setProgram, setOutput, setResult]);
 
   const copyUrlToClipboard = () => {
     navigator.clipboard.writeText(hashUrl);
@@ -116,7 +127,7 @@ export const Main = () => {
     )}
 
     {output && (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
         {result && (
           <div>
             <p className="title">
@@ -141,12 +152,18 @@ export const Main = () => {
       </div>
     )}
 
-    {hashUrl && (
-      <div>
-        <pre>
-          {hashUrl}
-        </pre>
+    <div className="mt-8 flex space-x-2">
+      <button onClick={resolve}>
+        Resolve
+      </button>
 
+      <button onClick={exportHash}>
+        Export
+      </button>
+    </div>
+
+    {hashUrl && (
+      <div className="mt-6">
         <div className="flex space-x-2">
           <button onClick={copyUrlToClipboard}>
             Copy URL to clipboard
@@ -158,16 +175,6 @@ export const Main = () => {
         </div>
       </div>
     )}
-
-    <div className="mt-8 flex space-x-2">
-      <button onClick={resolve}>
-        Resolve
-      </button>
-
-      <button onClick={exportHash}>
-        Export
-      </button>
-    </div>
 
     <Help />
   </main>

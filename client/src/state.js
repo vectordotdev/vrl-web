@@ -1,4 +1,4 @@
-import { SCENARIOS, VRL_FUNCTIONS_ENDPOINT } from "./values";
+import { SCENARIOS } from "./values";
 
 import { createContext, useState } from "react";
 

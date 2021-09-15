@@ -38,6 +38,6 @@
       host: my.host.com
       instance_id: abcd1234
   program: |
-    .tags.environment = get_env_var!("ENV") # add
-    .tags.hostname = del(.tags.host) # rename
+    .tags.environment = get_env_var!("ENV")
+    .tags.hostname = del(.tags.host)
     del(.tags.email)

@@ -9,7 +9,7 @@ const FunctionLink = ({ name, idx }) => {
   const url = `https://vrl.dev/functions/#${name}`;
 
   return <li key={idx} className="font-mono overflow-auto">
-    <a href={url}>
+    <a href={url} target="_blank">
       {name}
     </a>
   </li>
@@ -48,7 +48,7 @@ export const Functions = () => {
     setShowFunctions(false);
   }
 
-  return <div className="mt-8">
+  return <div>
     <p className="title">
       Functions
     </p>
@@ -61,7 +61,7 @@ export const Functions = () => {
 
     {showFunctions && (
       <>
-        <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <ul className="grid grid-cols-2 md:grid-cols-3">
           {functions.map((func, idx) => (
             <FunctionLink name={func} idx={idx} />
           ))}
