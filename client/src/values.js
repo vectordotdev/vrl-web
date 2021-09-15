@@ -17,4 +17,5 @@ export const EDITOR_OPTIONS = {
   renderLineHighlight: "none",
   wordWrap: "off",
   autoClosingQuotes: true,
+  snippetSuggestions: "inline"
 };

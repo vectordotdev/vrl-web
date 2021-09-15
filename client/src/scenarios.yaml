@@ -3,12 +3,26 @@
   event:
     message: <102>1 2020-12-22T15:22:31.111Z vector-user.biz su 2666 ID389 - Something went wrong
   program: |
+    # Parse as JSON or error if malformed
     parsed, err = parse_syslog(.message)
     if err != null {
       log(err, level: "error")
     }
 
+    # Set the event to the parsed JSON value
     . = parsed
+
+    # Remove some fields
+    del(.msgid)
+    del(.appname)
+
+    # Reformat the timestamp
+    ts, err = parse_timestamp(.timestamp)
+    if err != null {
+      log(err, level: "error")
+    }
+
+    .timestamp = to_unix_timestamp(ts)
 - id: 2
   title: Key/value (logfmt) logs
   event:
