@@ -19,8 +19,7 @@
 - id: 3
   title: Multiple parsing strategies
   event:
-    message: >
-      <102>1 2020-12-22T15:22:31.111Z vector-user.biz su 2666 ID389 - Something went wrong
+    message: <102>1 2020-12-22T15:22:31.111Z vector-user.biz su 2666 ID389 - Something went wrong
   program: |
     structured =
       parse_syslog(.message) ??
