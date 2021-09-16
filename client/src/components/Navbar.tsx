@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { Context } from "../state";
 import { SCENARIOS } from "../values";
 
-export const Navbar = () => {
+export const Navbar = (): JSX.Element => {
   const { darkModeState, titleState, eventState, programState, outputState, resultState, errorState } = useContext(Context);
   const [darkMode, setDarkMode] = darkModeState;
   const [, setTitle] = titleState; 

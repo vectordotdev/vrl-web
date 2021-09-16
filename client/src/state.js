@@ -1,6 +1,6 @@
 import { SCENARIOS } from "./values";
 
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import useLocalStorage from "use-local-storage";
 
 export const key = (s) => {
