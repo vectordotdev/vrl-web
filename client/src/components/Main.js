@@ -165,7 +165,7 @@ export const Main = () => {
 
           <Editor
             height="400px"
-            language="javascript"
+            language="json"
             theme={editorTheme}
             value={JSON.stringify(output, null, 2)}
             options={EDITOR_OPTIONS}
