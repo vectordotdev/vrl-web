@@ -12,7 +12,7 @@ export const EDITOR_OPTIONS = {
     bottom: 10,
     top: 10,
   },
-  theme: "vs-dark",
+  theme: "hc-black",
   fontSize: 16,
   renderLineHighlight: "none",
   wordWrap: "off",

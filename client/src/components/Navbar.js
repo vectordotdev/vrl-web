@@ -3,7 +3,8 @@ import { Context } from "../state";
 import { SCENARIOS } from "../values";
 
 export const Navbar = () => {
-  const { titleState, eventState, programState, outputState, resultState, errorState } = useContext(Context);
+  const { darkModeState, titleState, eventState, programState, outputState, resultState, errorState } = useContext(Context);
+  const [darkMode, setDarkMode] = darkModeState;
   const [, setTitle] = titleState; 
   const [, setEvent] = eventState;
   const [, setProgram] = programState;
@@ -25,7 +26,7 @@ export const Navbar = () => {
     <div className="flex justify-between items-center">
       <span className="text-2xl font-bold tracking-tight">
         <a href="/">
-          The VRL Playground
+          The Vector Remap Language Playground {darkMode}
         </a>
       </span>
 

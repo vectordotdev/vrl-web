@@ -17,7 +17,7 @@
     del(.appname)
 
     # Reformat the timestamp
-    ts, err = parse_timestamp(.timestamp)
+    ts, err = parse_timestamp(.timestamp, format: "%s")
     if err != null {
       log(err, level: "error")
     }

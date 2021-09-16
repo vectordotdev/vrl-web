@@ -141,12 +141,15 @@ export const Main = () => {
         {result && (
           <div>
             <p className="title">
-              Resolved
+              Resulting event
             </p>
 
-            <pre className="text-sm">
-              {JSON.stringify(result, null, 2)}
-            </pre>
+            <Editor
+            height="400px"
+            language="json"
+            value={JSON.stringify(result, null, 2)}
+            options={EDITOR_OPTIONS}
+          />
           </div>
         )}
 
@@ -155,9 +158,12 @@ export const Main = () => {
             Output
           </p>
 
-          <pre className="text-sm">
-            {JSON.stringify(output, null, 2)}
-          </pre>
+          <Editor
+            height="400px"
+            language="javascript"
+            value={JSON.stringify(output, null, 2)}
+            options={EDITOR_OPTIONS}
+          />
         </div>
       </div>
     )}

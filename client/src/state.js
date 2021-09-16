@@ -23,9 +23,13 @@ const defaults = {
   program: defaultScenario.program
 }
 
+const defaultDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 export const Context = createContext();
 
 export const ContextProvider = (props) => {
+  const [darkMode, setDarkMode] = useState(defaultDarkMode);
+
   const [title, setTitle] = useLocalStorage(keys.title, defaults.title);
   const [event, setEvent] = useLocalStorage(keys.event, defaults.event);
   const [program, setProgram] = useLocalStorage(keys.program, defaults.program);
@@ -35,6 +39,7 @@ export const ContextProvider = (props) => {
 
   return <Context.Provider
     value={{
+      darkModeState: [darkMode, setDarkMode],
       titleState: [title, setTitle],
       eventState: [event, setEvent],
       programState: [program, setProgram],
