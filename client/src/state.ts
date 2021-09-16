@@ -1,4 +1,4 @@
-import { SCENARIOS, VRL_WEB_SERVER_ADDRESS } from "./values";
+import { HOST, SCENARIOS, VRL_WEB_SERVER_ADDRESS } from "./values";
 import createStore, { GetState, SetState, UseStore } from "zustand";
 import { configurePersist } from "zustand-persist";
 import { client, Outcome } from "./client";
@@ -7,6 +7,13 @@ import axios from "axios";
 export type Event = object
 export type Program = string
 export type Output = string
+
+type Hashable = {
+  event: Event;
+  program: Program;
+  result?: Event | null;
+  output?: Output | null;
+}
 
 export type Scenario = {
   id: number
@@ -38,13 +45,17 @@ type Persistent = {
   result?: Event | null;
   output?: Output | null;
   errorMsg?: string | null;
+  hashUrl: string | null;
 
   scenario: Scenario;
   scenarios: Scenario[];
 
+  getHashUrl: () => string;
+  setHashUrl: () => void;
   setScenario: (id: number) => void;
   resolve: () => void;
   resetOutcome: () => void;
+  setScenarioFromHash: (hash: string) => void;
 }
 
 const scenarios: Scenario[] = SCENARIOS;
@@ -98,13 +109,14 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
     errorMsg: null,
     scenario: scenarios[0],
     scenarios: scenarios,
-  
+    hashUrl: null,
 
     setScenario: (id: number) => {
       const s = get().scenarios[id];
 
       set({ id: s.id, title: s.title, event: s.event, program: s.program });
       get().resetOutcome();
+      get().setHashUrl();
     },
 
     resolve: () => {
@@ -130,6 +142,33 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
 
     resetOutcome: () => {
       set({ result: null, output: null });
+    },
+
+    getHashUrl: () => {
+      const input: Hashable = {
+        event: get().event,
+        program: get().program,
+        output: get().output,
+        result: get().result,
+      };
+
+      const s = JSON.stringify(input);
+      const hash = btoa(s);
+
+      return `${HOST}/h/${hash}`;
+    },
+
+    setHashUrl: () => {
+      const url = get().getHashUrl();
+      
+      set({ hashUrl: url });
+    },
+
+    setScenarioFromHash: (hash: string)  => {
+      const s: string = atob(hash);
+      const obj: Hashable = JSON.parse(s);
+
+      set({ event: obj.event, program: obj.program, output: obj.output, result: obj.result });
     }
   }))
 )
