@@ -36,7 +36,7 @@ export const Navbar = () => {
     setDarkMode(!darkMode);
   }
 
-  return <nav className="bg-gray-200 py-2 px-4 dark:bg-gray-600">
+  return <nav className="bg-gray-200 py-4 px-8 dark:bg-gray-600">
     <div className="flex justify-between items-center">
       <span className="text-2xl font-bold tracking-tight dark:text-gray-100">
         <a href="/">

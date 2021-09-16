@@ -94,7 +94,7 @@ export const Main = () => {
     setEvent(JSON.parse(val));
   }
 
-  return <main className="flex-grow py-6 px-4 dark:bg-gray-800 dark:text-gray-100">
+  return <main className="flex-grow p-8 dark:bg-gray-800 dark:text-gray-100">
     <p className="text-3xl mb-6">
       {title}
     </p>
