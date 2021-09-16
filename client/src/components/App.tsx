@@ -1,4 +1,4 @@
-import { useStore } from '../state'
+import { state } from '../state'
 import { useEffect } from 'react'
 
 import '../style.css'
@@ -8,7 +8,7 @@ import { Main } from './Main'
 import { Navbar } from './Navbar'
 
 export const App = (): JSX.Element => {
-  const setMode: () => void = useStore(s => s.setMode)
+  const setMode: () => void = state(s => s.setMode)
 
   useEffect(() => {
     setMode();

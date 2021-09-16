@@ -1,6 +1,6 @@
 import { SCENARIOS } from "./values"
-import create from "zustand"
-import { persist } from "zustand/middleware"
+import createStore from "zustand"
+import { configurePersist } from "zustand-persist"
 
 type Event = object
 
@@ -27,8 +27,15 @@ export const initialState = {
   darkMode: darkModeUserPreference
 }
 
-export const useStore = create<AppState>(persist<AppState>(
-  (set, get) => ({
+const { persist } = configurePersist({
+  storage: localStorage,
+  rootKey: "__vrl_playground"
+})
+
+export const state = createStore<AppState>(
+  persist<AppState>({
+    key: 'scenario',
+  }, (set, get) => ({
     darkMode: darkModeUserPreference,
     scenario: defaultScenario,
     scenarios: scenarios,
@@ -44,9 +51,5 @@ export const useStore = create<AppState>(persist<AppState>(
         document.documentElement.classList.remove('dark');
       }
     }
-  }),
-  {
-    name: "__vrl_playground",
-    getStorage: () => sessionStorage,
-  }
-))
+  }))
+)
