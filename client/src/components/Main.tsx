@@ -2,32 +2,55 @@ import { Event, Output, Program, Scenario, state } from "../state";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Export } from "./Export";
+import Editor from '@monaco-editor/react';
+
+const EDITOR_OPTIONS = {}
 
 const EventEditor = (): JSX.Element => {
   const event: Event = state(s => s.event)
+  const setEvent: (s: string) => void = state(s => s.setEvent);
+
+  const onEventChange = (val: string) => {
+    setEvent(val);
+  }
 
   return <div>
-    <p className="text-2xl">
+    <p className="title">
       Event
     </p>
 
-    <p>
-      {JSON.stringify(event, null, 2)}
-    </p>
+    <Editor
+      height="400px"
+      language="json"
+      theme="vs-dark"
+      onChange={onEventChange}
+      value={JSON.stringify(event, null, 2)}
+      options={EDITOR_OPTIONS}
+    />
   </div>
 }
 
 const ProgramEditor = (): JSX.Element => {
-  const program: Program = state(s => s.program)
+  const program: Program = state(s => s.program);
+  const setProgram: (s: string) => void = state(s => s.setProgram);
+
+  const onEventChange = (val: string) => {
+    setProgram(val);
+  }
 
   return <div>
-    <p className="text-2xl">
+    <p className="title">
       Program
     </p>
 
-    <p>
-      {program}
-    </p>
+    <Editor
+      height="400px"
+      language="ruby"
+      theme="vs-dark"
+      value={program}
+      options={EDITOR_OPTIONS}
+      onChange={onEventChange}
+    />
   </div>
 }
 
@@ -36,13 +59,18 @@ const Result = (): JSX.Element => {
 
   return <>
     {result && <div>
-      <p className="text-2xl">
+      <p className="title">
         Result
       </p>
       
-      <p>
-        {JSON.stringify(result)}
-      </p>
+      <Editor
+        height="400px"
+        language="ruby"
+        theme="vs-dark"
+        readOnly={true}
+        value={JSON.stringify(result)}
+        options={EDITOR_OPTIONS}
+      />
     </div>}
   </>
 }
@@ -51,14 +79,19 @@ const Out = (): JSX.Element => {
   const output: Output | null = state(s => s.output);
 
   return <>
-    {output && <div>
-      <p className="text-2xl">
+    {output != null && <div>
+      <p className="title">
         Output
       </p>
       
-      <p>
-        {JSON.stringify(output)}
-      </p>
+      <Editor
+        height="400px"
+        language="ruby"
+        theme="vs-dark"
+        readOnly={true}
+        value={JSON.stringify(output)}
+        options={EDITOR_OPTIONS}
+      />
     </div>}
   </>
 }

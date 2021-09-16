@@ -33,6 +33,10 @@
     @apply min-h-screen flex flex-col dark:bg-black;
   }
 
+  .title {
+    @apply text-2xl mb-3;
+  }
+
   nav button {
     @apply bg-gray-500 text-white hover:bg-gray-700;
   }

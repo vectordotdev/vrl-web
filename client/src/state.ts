@@ -49,6 +49,9 @@ type Persistent = {
   scenario: Scenario;
   scenarios: Scenario[];
 
+  removeError: () => void;
+  setEvent: (s: string) => void;
+  setProgram: (s: string) => void;
   getHashUrl: () => string;
   setHashUrl: () => void;
   setScenario: (id: number) => void;
@@ -113,6 +116,10 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
       get().setHashUrl();
     },
 
+    removeError: () => {
+      set({ errorMsg: null });
+    },
+
     resolve: () => {
       const request = {
         event: get().event,
@@ -126,6 +133,7 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
             const res = outcome.success;
             set({ result: res.result, output: res.output});
             get().setHashUrl();
+            get().removeError();
           } else if (outcome.error) {
             set({ errorMsg: outcome.error });
           } else {
@@ -136,6 +144,15 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
 
     resetOutcome: () => {
       set({ result: null, output: null, errorMsg: null });
+    },
+
+    setEvent: (s: string) => {
+      const event: Event = JSON.parse(s);
+      set({ event: event })
+    },
+
+    setProgram: (s: string) => {
+      set({ program: s })
     },
 
     getHashUrl: () => {
