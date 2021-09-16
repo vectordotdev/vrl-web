@@ -1,11 +1,12 @@
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
+use warp::Filter;
+
 use crate::error::handle_err;
 use crate::funcs::function_metadata;
 use crate::health::healthy;
+use crate::info::info;
 use crate::resolve::resolve_vrl_input;
-
-use warp::Filter;
 
 pub async fn serve() {
     let cors = warp::cors()
@@ -24,12 +25,12 @@ pub async fn serve() {
 
     let health_endpoint = warp::path("health").and_then(healthy);
 
-    let home = warp::path::end().map(|| "The Vector Remap Language server");
+    let info_endpoint = warp::path::end().and_then(info);
 
     let routes = resolve_endpoint
         .or(functions_endpoint)
         .or(health_endpoint)
-        .or(home)
+        .or(info_endpoint)
         .recover(handle_err)
         .with(cors);
 

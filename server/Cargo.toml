@@ -7,7 +7,7 @@ edition = "2018"
 http = "0.2.4"
 serde = { version = "1.0.130", default-features = false, features = ["derive"] }
 tokio = { version = "1.11.0", default-features = false, features = ["full"] }
+vector-shared = { package = "shared", git = "https://github.com/vectordotdev/vector" }
 vrl = { git = "https://github.com/vectordotdev/vector" }
 vrl-stdlib = { git = "https://github.com/vectordotdev/vector" }
-vector-shared = { package = "shared", git = "https://github.com/vectordotdev/vector" }
 warp = "0.3.1"
