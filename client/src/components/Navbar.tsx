@@ -10,7 +10,7 @@ export const Navbar = (): JSX.Element => {
 
   return <nav className="flex items-center justify-between shadow-md">
     <div>
-      <p className="text-xl tracking-tight">
+      <p className="text-xl tracking-tight font-semibold">
         <a href="/">
           The VRL Playground
         </a>

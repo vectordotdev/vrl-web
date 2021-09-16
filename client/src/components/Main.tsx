@@ -1,5 +1,7 @@
 import { Event, Output, Program, Scenario, state } from "../state";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Export } from "./Export";
 
 const EventEditor = (): JSX.Element => {
   const event: Event = state(s => s.event)
@@ -61,61 +63,61 @@ const Out = (): JSX.Element => {
   </>
 }
 
-const Hash = (): JSX.Element => {
-  const hashUrl: string = state(s => s.hashUrl);
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(hashUrl);
-  }
+const ErrorDisplay = (): JSX.Element => {
+  const errorMsg: string | null = state(s => s.errorMsg);
 
   return <div>
-    <p>
-      Export
-    </p>
-    
-    <div className="flex space-x-10">
-      <button onClick={copyToClipboard}>
-        Copy URL to clipboard
-      </button>
-
-      <a href={hashUrl}>
-        Go to URL
-      </a>
-    </div>
+    {errorMsg && (
+      <p className="text-lg text-red-500">
+        {errorMsg}
+      </p>
+    )}
   </div>
 }
 
 export const Main = (): JSX.Element => {
-  const scenario: Scenario = state(s => s.scenario);
+  const { hash } = useParams();
+  const setScenarioFromHash: (hash: string) => void = state(s => s.setScenarioFromHash);
+
+  useEffect(() => {
+    if (hash != null) {
+      setScenarioFromHash(hash);
+      window.location.href = '/';
+    }
+  });
+
+  const title: string = state(s => s.title);
   const resolve: () => void = state(s => s.resolve);
   
-  return <main>
-    <p className="text-3xl font-semibold">
-      {scenario.title}
-    </p>
+  return <>
+    <main>
+      <p className="text-3xl font-semibold">
+        {title}
+      </p>
 
-    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="flex flex-col space-y-8">
-        <EventEditor />
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex flex-col space-y-8">
+          <EventEditor />
 
-        <ProgramEditor />
+          <ProgramEditor />
+        </div>
+
+        <div className="flex flex-col space-y-8">
+          <Result />
+
+          <Out />
+        </div>
       </div>
 
-      <div className="flex flex-col space-y-8">
-        <Result />
+      <ErrorDisplay />
 
-        <Out />
+      <div className="mt-12">
+        <button onClick={() => resolve()}>
+          Resolve
+        </button>
       </div>
-    </div>
+    </main>
 
-    <div className="mt-8">
-      <Hash />
-    </div>
-
-    <div className="mt-12">
-      <button onClick={() => resolve()}>
-        Resolve
-      </button>
-    </div>
-  </main>
+    <Export />
+  </>  
 }

@@ -7,9 +7,7 @@ export type Success = {
   output: any;
 }
 
-export type Error = {
-  message: string;
-}
+export type Error = string;
 
 export type Outcome = {
   success?: Success;
@@ -30,22 +28,8 @@ class Client {
     })
   }
 
-  async get<T>(path: string): Promise<T> {
-    return this.client.get(path)
-  }
-
-  async post<I, O>(path: string, request: I): Promise<O> {
-    return this.post<I, O>(path, request)
-  }
-
-  async getFunctions(): Promise<Functions> {
-    return this.get<Functions>('functions')
-      .then(res => res.functions)
-      .catch(e => e)
-  }
-
   async resolve(request: Request): Promise<Outcome> {
-    return this.post<Request, Outcome>('resolve', request)
+    return this.client.post<Request, Outcome>('resolve', request)
       .then(res => res)
       .catch(e => e)
   }

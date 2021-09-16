@@ -1,12 +1,14 @@
-import { globals } from '../state';
+import { globals, state } from '../state';
 import { useEffect } from 'react';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import '../style.css';
 
 import { Footer } from './Footer';
 import { Main } from './Main';
 import { Navbar } from './Navbar';
-import { client } from '../client';
+import { NotFound } from './NotFound';
+
 
 export const App = (): JSX.Element => {
   const setMode: () => void = globals(s => s.setMode);
@@ -18,7 +20,21 @@ export const App = (): JSX.Element => {
   return <div className="page">
     <Navbar />
 
-    <Main />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Main />
+        </Route>
+
+        <Route path="/h/:hash">
+          <Main />
+        </Route>
+
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
+    </BrowserRouter>
 
     <Footer />
   </div> 

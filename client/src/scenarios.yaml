@@ -28,19 +28,9 @@
   event:
     message: >
       @timestamp="Sun Jan 10 16:47:39 EST 2021" level=info msg="Stopping all fetchers" tag#production=stopping_fetchers id=ConsumerFetcherManager-1382721708341 module=kafka.consumer.ConsumerFetcherManager
-  program: >
+  program: |
     . = parse_key_value!(.message)
 - id: 2
-  title: Multiple parsing strategies
-  event:
-    message: <102>1 2020-12-22T15:22:31.111Z vector-user.biz su 2666 ID389 - Something went wrong
-  program: |
-    structured =
-      parse_syslog(.message) ??
-      parse_common_log(.message) ??
-      parse_regex!(.message, r'^(?P<timestamp>\d+/\d+/\d+ \d+:\d+:\d+) \[(?P<severity>\w+)\] (?P<pid>\d+)#(?P<tid>\d+):(?: \*(?P<connid>\d+))? (?P<message>.*)$')
-    . = merge(., structured)
-- id: 3
   title: Modify metric tags
   event:
     counter:
@@ -55,3 +45,9 @@
     .tags.environment = get_env_var!("ENV")
     .tags.hostname = del(.tags.host)
     del(.tags.email)
+- id: 3
+  title: This should error
+  event:
+    foo: "bar"
+  program: |
+    uh oh spaghettios

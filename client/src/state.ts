@@ -1,7 +1,7 @@
 import { HOST, SCENARIOS, VRL_WEB_SERVER_ADDRESS } from "./values";
 import createStore, { GetState, SetState, UseStore } from "zustand";
 import { configurePersist } from "zustand-persist";
-import { client, Outcome } from "./client";
+import { Error, Outcome } from "./client";
 import axios from "axios";
 
 export type Event = object
@@ -34,7 +34,6 @@ type Globals = {
   functions: string[]
   toggleDarkMode: () => void
   setMode: () => void
-  setFunctions: () => void
 }
 
 type Persistent = {
@@ -86,11 +85,6 @@ export const globals = createStore<Globals>(
         document.documentElement.classList.remove('dark');
       }
     },
-
-    setFunctions: () => {
-      client.getFunctions()
-        .then(res => set({ functions: res.functions }))
-    }
   }))
 )
 
@@ -131,9 +125,9 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
           if (outcome.success) {
             const res = outcome.success;
             set({ result: res.result, output: res.output});
+            get().setHashUrl();
           } else if (outcome.error) {
-            const res = outcome.error;
-            set({ errorMsg: res.message });
+            set({ errorMsg: outcome.error });
           } else {
             console.error('something went wrong in the POST request');
           }
@@ -141,7 +135,7 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
     },
 
     resetOutcome: () => {
-      set({ result: null, output: null });
+      set({ result: null, output: null, errorMsg: null });
     },
 
     getHashUrl: () => {
