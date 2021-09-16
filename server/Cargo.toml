@@ -4,5 +4,10 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
+http = "0.2.4"
+serde = { version = "1.0.130", default-features = false, features = ["derive"] }
 tokio = { version = "1.11.0", default-features = false, features = ["full"] }
-vrl-server = { git = "https://github.com/vectordotdev/vector", branch = "vrl-web-server" }
+vrl = { git = "https://github.com/vectordotdev/vector" }
+vrl-stdlib = { git = "https://github.com/vectordotdev/vector" }
+vector-shared = { package = "shared", git = "https://github.com/vectordotdev/vector" }
+warp = "0.3.1"

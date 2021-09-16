@@ -1,6 +1,6 @@
-use vrl_server::serve;
+use vrl_server::server;
 
 #[tokio::main]
 async fn main() {
-    serve().await
+    server::serve().await
 }
