@@ -1,100 +1,11 @@
-import { Event, Output, Program, Scenario, state } from "../state";
+import { Event, Output, state } from "../state";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Export } from "./Export";
-import Editor from '@monaco-editor/react';
-
-const EDITOR_OPTIONS = {}
-
-const EventEditor = (): JSX.Element => {
-  const event: Event = state(s => s.event)
-  const setEvent: (s: string) => void = state(s => s.setEvent);
-
-  const onEventChange = (val: string) => {
-    setEvent(val);
-  }
-
-  return <div>
-    <p className="title">
-      Event
-    </p>
-
-    <Editor
-      height="400px"
-      language="json"
-      theme="vs-dark"
-      onChange={onEventChange}
-      value={JSON.stringify(event, null, 2)}
-      options={EDITOR_OPTIONS}
-    />
-  </div>
-}
-
-const ProgramEditor = (): JSX.Element => {
-  const program: Program = state(s => s.program);
-  const setProgram: (s: string) => void = state(s => s.setProgram);
-
-  const onEventChange = (val: string) => {
-    setProgram(val);
-  }
-
-  return <div>
-    <p className="title">
-      Program
-    </p>
-
-    <Editor
-      height="400px"
-      language="ruby"
-      theme="vs-dark"
-      value={program}
-      options={EDITOR_OPTIONS}
-      onChange={onEventChange}
-    />
-  </div>
-}
-
-const Result = (): JSX.Element => {
-  const result: Event | null = state(s => s.result);
-
-  return <>
-    {result && <div>
-      <p className="title">
-        Result
-      </p>
-      
-      <Editor
-        height="400px"
-        language="ruby"
-        theme="vs-dark"
-        readOnly={true}
-        value={JSON.stringify(result)}
-        options={EDITOR_OPTIONS}
-      />
-    </div>}
-  </>
-}
-
-const Out = (): JSX.Element => {
-  const output: Output | null = state(s => s.output);
-
-  return <>
-    {output != null && <div>
-      <p className="title">
-        Output
-      </p>
-      
-      <Editor
-        height="400px"
-        language="ruby"
-        theme="vs-dark"
-        readOnly={true}
-        value={JSON.stringify(output)}
-        options={EDITOR_OPTIONS}
-      />
-    </div>}
-  </>
-}
+import { EventEditor } from "./EventEditor";
+import { ProgramEditor } from "./ProgramEditor";
+import { Result } from "./Result";
+import { Out } from "./Out";
 
 const ErrorDisplay = (): JSX.Element => {
   const errorMsg: string | null = state(s => s.errorMsg);
@@ -121,6 +32,8 @@ export const Main = (): JSX.Element => {
 
   const title: string = state(s => s.title);
   const resolve: () => void = state(s => s.resolve);
+  const result: Event | null = state(s => s.result);
+  const output: Output | null = state(s => s.output);
   
   return <>
     <main>
@@ -128,19 +41,44 @@ export const Main = (): JSX.Element => {
         {title}
       </p>
 
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col space-y-8">
-          <EventEditor />
+      <div className="mt-6 flex flex-col space-y-4">
+        <div>
+          <p className="title">
+            Program
+          </p>
 
           <ProgramEditor />
         </div>
 
-        <div className="flex flex-col space-y-8">
-          <Result />
+        <div>
+          <p className="title">
+            Event
+          </p>
 
-          <Out />
+          <EventEditor />
         </div>
       </div>
+
+
+      {(result && output) && (
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 space-x-6">
+          <div>
+            <p className="title">
+              Result
+            </p>
+  
+            <Result result={result}/>
+          </div>
+  
+          <div>
+            <p className="title">
+              Output
+            </p>
+  
+            <Out output={output} />
+          </div>
+        </div>
+      )}
 
       <ErrorDisplay />
 

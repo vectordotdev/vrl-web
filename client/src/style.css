@@ -40,11 +40,7 @@
   nav button {
     @apply bg-gray-500 text-white hover:bg-gray-700;
   }
-
-  nav button.active {
-    @apply bg-blue-500 hover:bg-blue-700;
-  }
-
+  
   main button {
     @apply bg-gray-200 text-black shadow-sm;
   }

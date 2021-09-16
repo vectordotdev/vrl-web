@@ -180,6 +180,6 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
       const obj: Hashable = JSON.parse(s);
 
       set({ event: obj.event, program: obj.program, output: obj.output, result: obj.result });
-    }
+    },
   }))
 )

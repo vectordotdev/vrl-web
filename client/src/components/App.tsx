@@ -1,4 +1,4 @@
-import { globals, state } from '../state';
+import { globals } from '../state';
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
