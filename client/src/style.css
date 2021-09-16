@@ -3,12 +3,16 @@
 @tailwind utilities;
 
 @layer base {
-  p, button {
+  p {
     @apply dark:text-white;
   }
 
+  button {
+    @apply dark:text-white hover:text-blue-800 dark:hover:text-blue-400;
+  }
+
   nav, main, footer {
-    @apply py-3 px-4;
+    @apply py-4 px-6;
   }
 
   nav {

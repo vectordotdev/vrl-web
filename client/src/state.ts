@@ -5,10 +5,10 @@ import { configurePersist } from "zustand-persist"
 type Event = object
 
 export type Scenario = {
+  id: number
   title: string
   event: Event
 }
-
 export type AppState = {
   darkMode: boolean
   scenario: Scenario
@@ -16,16 +16,12 @@ export type AppState = {
 
   toggleDarkMode: () => void
   setMode: () => void
+  setScenario: (id: number) => void
 }
 
 const scenarios: Array<Scenario> = SCENARIOS
-const defaultScenario: Scenario = scenarios[0]
 
 const darkModeUserPreference: boolean = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-export const initialState = {
-  darkMode: darkModeUserPreference
-}
 
 const { persist } = configurePersist({
   storage: localStorage,
@@ -37,7 +33,7 @@ export const state = createStore<AppState>(
     key: 'scenario',
   }, (set, get) => ({
     darkMode: darkModeUserPreference,
-    scenario: defaultScenario,
+    scenario: scenarios[0],
     scenarios: scenarios,
 
     toggleDarkMode: () => {
@@ -50,6 +46,9 @@ export const state = createStore<AppState>(
       } else {
         document.documentElement.classList.remove('dark');
       }
+    },
+    setScenario: (id: number) => {
+      set({ scenario: get().scenarios[id] })
     }
   }))
 )

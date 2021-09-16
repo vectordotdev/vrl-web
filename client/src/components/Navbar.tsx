@@ -1,18 +1,34 @@
-import { state } from '../state'
+import { Scenario, state } from '../state'
 
 export const Navbar = (): JSX.Element => {
-  const darkMode: boolean = state(s => s.darkMode);
-  const toggleDarkMode: () => void = state(s => s.toggleDarkMode);
+  const darkMode: boolean = state(s => s.darkMode)
+  const toggleDarkMode: () => void = state(s => s.toggleDarkMode)
+  const scenarios: Array<Scenario> = state(s => s.scenarios)
+  const setScenario: (idx: number) => void = state(s => s.setScenario)
 
   const buttonText: string = (darkMode) ? "Light" : "Dark";
 
-  return <nav>
-    <p>
-      Navbar
-    </p>
+  return <nav className="flex items-center justify-between shadow-md">
+    <div>
+      <p className="text-xl tracking-tight">
+        The VRL Playground
+      </p>
+    </div>
 
-    <button onClick={toggleDarkMode}>
-      {buttonText}
-    </button>
+    <div className="flex space-x-8">
+      <button onClick={toggleDarkMode} className="font-bold">
+        {buttonText}
+      </button>
+
+      <ul className="flex items-center space-x-3">
+        {scenarios.map((s: Scenario, idx: number) => (
+          <li key={idx}>
+            <button onClick={() => setScenario(idx)}>
+              {s.title}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   </nav>
 }
