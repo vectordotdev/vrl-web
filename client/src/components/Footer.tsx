@@ -1,11 +1,5 @@
 import { VRL_WEB_SERVER_ADDRESS } from '../values'
 
-const AwayLink = ({ text, href }: { text: string, href: string }): JSX.Element => {
-  return <a href={href}>
-    {text}
-  </a>
-}
-
 export const Footer = (): JSX.Element => {
   return <footer>
     <p>

@@ -25,7 +25,7 @@ pub async fn serve() {
 
     let health_endpoint = warp::path("health").and_then(healthy);
 
-    let info_endpoint = warp::path::end().and_then(info);
+    let info_endpoint = warp::path::end().and(warp::get()).and_then(info);
 
     let routes = resolve_endpoint
         .or(functions_endpoint)
