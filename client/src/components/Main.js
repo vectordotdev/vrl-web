@@ -18,7 +18,8 @@ export const Main = () => {
   const { hash } = useParams();
 
   // Global state hooks
-  const { titleState, eventState, programState, outputState, resultState, errorState, } = useContext(Context);
+  const { titleState, eventState, programState, outputState, resultState, errorState, darkModeState } = useContext(Context);
+  const [darkMode] = darkModeState;
   const [title, setTitle] = titleState;
   const [event, setEvent] = eventState;
   const [program, setProgram] = programState;
@@ -94,6 +95,8 @@ export const Main = () => {
     setEvent(JSON.parse(val));
   }
 
+  const editorTheme = (darkMode) ? "vs-dark" : "vs";
+
   return <main className="flex-grow p-8 dark:bg-gray-800 dark:text-gray-100">
     <p className="text-3xl mb-6">
       {title}
@@ -108,6 +111,7 @@ export const Main = () => {
         <Editor
           height="400px"
           language="json"
+          theme={editorTheme}
           value={JSON.stringify(event, null, 2)}
           onChange={onEventChange}
           options={EDITOR_OPTIONS}
@@ -122,6 +126,7 @@ export const Main = () => {
         <Editor
           height="400px"
           language="ruby"
+          theme={editorTheme}
           value={program}
           onChange={onProgramChange}
           options={EDITOR_OPTIONS}
@@ -146,6 +151,7 @@ export const Main = () => {
           <Editor
             height="400px"
             language="json"
+            theme={editorTheme}
             value={JSON.stringify(result, null, 2)}
             options={EDITOR_OPTIONS}
           />
@@ -160,6 +166,7 @@ export const Main = () => {
           <Editor
             height="400px"
             language="javascript"
+            theme={editorTheme}
             value={JSON.stringify(output, null, 2)}
             options={EDITOR_OPTIONS}
           />
