@@ -152,6 +152,7 @@ export const Main = () => {
             height="400px"
             language="json"
             theme={editorTheme}
+            readOnly={true}
             value={JSON.stringify(result, null, 2)}
             options={EDITOR_OPTIONS}
           />
@@ -168,6 +169,7 @@ export const Main = () => {
             language="json"
             theme={editorTheme}
             value={JSON.stringify(output, null, 2)}
+            readOnly={true}
             options={EDITOR_OPTIONS}
           />
         </div>

@@ -3,6 +3,11 @@ app = "vrl-server"
 [build]
   image = "lucperkins/vrl-server:latest"
 
+[env]
+  ENV = "production"
+  HOST = "vrl_web_server"
+  USER = "vector-power-user-1337"
+
 [[services]]
   internal_port = 8080
   protocol = "TCP"
