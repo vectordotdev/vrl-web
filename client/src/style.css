@@ -10,4 +10,22 @@
   nav, main, footer {
     @apply py-3 px-4;
   }
+
+  nav {
+    @apply bg-gray-200 dark:bg-gray-800;
+  }
+
+  main {
+    @apply flex-grow;
+  }
+
+  footer {
+    @apply bg-gray-200 dark:bg-gray-800;
+  }
+}
+
+@layer components {
+  .page {
+    @apply min-h-screen flex flex-col dark:bg-black;
+  }
 }

@@ -1,39 +1,11 @@
-import '../style.css'
 import { useStore } from '../state'
 import { useEffect } from 'react'
 
-const Navbar = (): JSX.Element => {
-  const darkMode: boolean = useStore(s => s.darkMode);
-  const toggleDarkMode: () => void = useStore(s => s.toggleDarkMode);
+import '../style.css'
 
-  const buttonText: string = (darkMode) ? "Light" : "Dark";
-
-  return <nav>
-    <p>
-      Navbar
-    </p>
-
-    <button onClick={toggleDarkMode}>
-      {buttonText}
-    </button>
-  </nav>
-}
-
-const Main = (): JSX.Element => {
-  return <main className="flex-grow">
-    <p>
-      Main
-    </p>
-  </main>
-}
-
-const Footer = (): JSX.Element => {
-  return <footer>
-    <p>
-      Footer
-    </p>
-  </footer>
-}
+import { Footer } from './Footer'
+import { Main } from './Main'
+import { Navbar } from './Navbar'
 
 export const App = (): JSX.Element => {
   const setMode: () => void = useStore(s => s.setMode)
@@ -42,7 +14,7 @@ export const App = (): JSX.Element => {
     setMode();
   });
 
-  return <div className="min-h-screen flex flex-col dark:bg-black">
+  return <div className="page">
     <Navbar />
 
     <Main />

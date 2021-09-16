@@ -1,9 +1,8 @@
 import { SCENARIOS } from "./values"
-
 import create from "zustand"
 import { persist } from "zustand/middleware"
 
-type Event = object;
+type Event = object
 
 export type Scenario = {
   title: string
@@ -13,13 +12,14 @@ export type Scenario = {
 export type AppState = {
   darkMode: boolean
   scenario: Scenario
+  scenarios: Array<Scenario>
 
   toggleDarkMode: () => void
   setMode: () => void
 }
 
-const scenarios: Array<Scenario> = SCENARIOS;
-const defaultScenario: Scenario = scenarios[0];
+const scenarios: Array<Scenario> = SCENARIOS
+const defaultScenario: Scenario = scenarios[0]
 
 const darkModeUserPreference: boolean = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -31,6 +31,7 @@ export const useStore = create<AppState>(persist<AppState>(
   (set, get) => ({
     darkMode: darkModeUserPreference,
     scenario: defaultScenario,
+    scenarios: scenarios,
 
     toggleDarkMode: () => {
       set({ darkMode: !get().darkMode })
