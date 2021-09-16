@@ -54,7 +54,7 @@ export const Functions = () => {
     </p>
 
     {!showFunctions && (
-      <button onClick={displayFunctions}>
+      <button className="button" onClick={displayFunctions}>
         Show available VRL functions
       </button>
     )}
@@ -68,7 +68,7 @@ export const Functions = () => {
         </ul>
 
         <div className="mt-6">
-          <button onClick={hideFunctions}>
+          <button className="button" onClick={hideFunctions}>
             Hide functions
           </button>
         </div>

@@ -13,7 +13,8 @@ const keys = {
   program: key("program"),
   output: key("output"),
   result: key("result"),
-  errorMsg: key("error_msg")
+  errorMsg: key("error_msg"),
+  darkMode: key("dark_mode")
 }
 
 const defaultScenario = SCENARIOS[0];
@@ -28,8 +29,7 @@ const defaultDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matche
 export const Context = createContext();
 
 export const ContextProvider = (props) => {
-  const [darkMode, setDarkMode] = useState(defaultDarkMode);
-
+  const [darkMode, setDarkMode] = useLocalStorage(keys.darkMode, defaultDarkMode);
   const [title, setTitle] = useLocalStorage(keys.title, defaults.title);
   const [event, setEvent] = useLocalStorage(keys.event, defaults.event);
   const [program, setProgram] = useLocalStorage(keys.program, defaults.program);

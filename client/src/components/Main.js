@@ -10,24 +10,24 @@ import Editor from '@monaco-editor/react';
 import useLocalStorage from 'use-local-storage';
 
 const keys = {
-  hashUrl: key("hash_url")
+  hashUrl: key("hash_url"),
 }
 
 export const Main = () => {
   // Optional URL parameter for the /h/:hash endpoint
   const { hash } = useParams();
 
-  // Hooks specific to this component
-  const [hashUrl, setHashUrl] = useLocalStorage(keys.hashUrl, null);
-
   // Global state hooks
-  const { titleState, eventState, programState, outputState, resultState, errorState } = useContext(Context);
+  const { titleState, eventState, programState, outputState, resultState, errorState, } = useContext(Context);
   const [title, setTitle] = titleState;
   const [event, setEvent] = eventState;
   const [program, setProgram] = programState;
   const [output, setOutput] = outputState;
   const [result, setResult] = resultState;
   const [errorMsg, setErrorMsg] = errorState;
+
+  // Hooks specific to this component
+  const [hashUrl, setHashUrl] = useLocalStorage(keys.hashUrl, null);
 
   // If a hash is supplied via the /h/:hash endpoint, set the global state accordingly
   const getHashedScenario = (h) => {
@@ -48,7 +48,6 @@ export const Main = () => {
       setScenario(scenario);
     }
   }, [setTitle, setEvent, setProgram, setOutput, setResult]);
-
 
   // Resolve the event+program by POSTing to the VRL server's /resolve endpoint
   const resolve = () => {
@@ -95,7 +94,7 @@ export const Main = () => {
     setEvent(JSON.parse(val));
   }
 
-  return <main>
+  return <main className="flex-grow py-6 px-4 dark:bg-gray-800 dark:text-gray-100">
     <p className="text-3xl mb-6">
       {title}
     </p>
@@ -144,7 +143,7 @@ export const Main = () => {
               Resulting event
             </p>
 
-            <Editor
+          <Editor
             height="400px"
             language="json"
             value={JSON.stringify(result, null, 2)}
@@ -169,12 +168,12 @@ export const Main = () => {
     )}
 
     <div className="mt-8 flex space-x-2">
-      <button onClick={resolve}>
+      <button className="button" onClick={resolve}>
         Resolve
       </button>
 
       {!errorMsg && (
-        <button onClick={exportHash}>
+        <button className="button" onClick={exportHash}>
           Export
         </button>
       )}
@@ -183,11 +182,11 @@ export const Main = () => {
     {hashUrl && (
       <div className="mt-6">
         <div className="flex space-x-2">
-          <button onClick={copyUrlToClipboard}>
+          <button className="button" onClick={copyUrlToClipboard}>
             Copy URL to clipboard
           </button>
 
-          <button onClick={() => window.location = hashUrl}>
+          <button className="button" onClick={() => window.location = hashUrl}>
             Navigate to exported URL
           </button>
         </div>

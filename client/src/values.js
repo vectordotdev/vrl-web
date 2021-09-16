@@ -12,10 +12,10 @@ export const EDITOR_OPTIONS = {
     bottom: 10,
     top: 10,
   },
-  theme: "hc-black",
-  fontSize: 16,
+  fontSize: 14,
   renderLineHighlight: "none",
   wordWrap: "off",
   autoClosingQuotes: true,
-  snippetSuggestions: "inline"
+  snippetSuggestions: "inline",
+  autoDetectHighContrast: false,
 };
