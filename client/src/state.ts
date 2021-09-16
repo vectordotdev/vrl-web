@@ -2,21 +2,32 @@ import { SCENARIOS } from "./values"
 import createStore from "zustand"
 import { configurePersist } from "zustand-persist"
 
-type Event = object
+export type Event = object
+
+export type Program = string
 
 export type Scenario = {
   id: number
   title: string
   event: Event
+  program: Program
 }
+
 export type AppState = {
   darkMode: boolean
   scenario: Scenario
   scenarios: Array<Scenario>
 
+  // Getters  
+  event: () => Event
+  program: () => Program
+
+  // Setters
   toggleDarkMode: () => void
-  setMode: () => void
   setScenario: (id: number) => void
+
+  // Methods with side effects
+  setMode: () => void
 }
 
 const scenarios: Array<Scenario> = SCENARIOS
@@ -35,6 +46,9 @@ export const state = createStore<AppState>(
     darkMode: darkModeUserPreference,
     scenario: scenarios[0],
     scenarios: scenarios,
+    
+    event: () => get().scenario.event,
+    program: () => get().scenario.program,
 
     toggleDarkMode: () => {
       set({ darkMode: !get().darkMode })
