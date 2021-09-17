@@ -3,6 +3,7 @@ import createStore, { GetState, SetState, UseStore } from "zustand";
 import { configurePersist } from "zustand-persist";
 import { Outcome } from "./client";
 import axios from "axios";
+import { DarkModeConfig } from "use-dark-mode";
 
 export type Event = object;
 export type Program = string;
@@ -83,6 +84,11 @@ export const ephemeral: UseStore<Ephemeral> = createStore<Ephemeral>((set: SetSt
     return e == get().event && p == get().program;
   }
 }));
+
+export const darkModeConfig: DarkModeConfig = {
+  classNameDark: "dark",
+
+};
 
 const scenarios: Scenario[] = SCENARIOS;
 

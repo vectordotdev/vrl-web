@@ -1,9 +1,5 @@
-import { useEffect } from "react";
-import { ErrorBoundary, FallbackProps } from "react-error-boundary";
-
 import 'react-edit-text/dist/index.css';
 
-import { Params } from "./App";
 import { ErrorDisplay } from "./ErrorDisplay";
 import { Export } from "./Export";
 import { EventEditor } from "./EventEditor";
@@ -13,13 +9,16 @@ import { Out } from "./Out";
 import { Title } from "./Title";
 import { Event, Output, state } from "../state";
 import { ErrorHandler } from "./ErrorHandler";
+import { useEffect } from 'react';
 
-export const MainWithHash = ({ hash }: Params) => {
+type Props = {
+  hash?: string;
+}
+
+export const MainWithHash = ({ hash }: Props) => {
   const setScenarioFromHash: (h: string) => void = state(s => s.setScenarioFromHash);
 
-  useEffect(() => {
-    setScenarioFromHash(hash);
-  });
+  useEffect(() => setScenarioFromHash(hash));
 
   return <Main />
 }
@@ -28,8 +27,6 @@ export const Main = () => {
   const resolve: () => void = state(s => s.resolve);
   const result: Event | null = state(s => s.result);
   const output: Output | null = state(s => s.output);
- 
-  
 
   return <ErrorHandler>
     <main>
