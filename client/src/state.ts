@@ -1,12 +1,12 @@
 import { HOST, SCENARIOS, VRL_WEB_SERVER_ADDRESS } from "./values";
 import createStore, { GetState, SetState, UseStore } from "zustand";
 import { configurePersist } from "zustand-persist";
-import { Error, Outcome } from "./client";
+import { Outcome } from "./client";
 import axios from "axios";
 
-export type Event = object
-export type Program = string
-export type Output = string
+export type Event = object;
+export type Program = string;
+export type Output = string;
 
 type Hashable = {
   event: Event;
@@ -47,7 +47,6 @@ type Persistent = {
   scenarios: Scenario[];
   
   toggleDarkMode: () => void;
-  setAesthetic: () => void;
   removeError: () => void;
   setEvent: (s: string) => void;
   setProgram: (s: string) => void;
@@ -93,15 +92,6 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
 
       set({ darkMode: !get().darkMode });
       set({ theme });
-      get().setAesthetic();
-    },
-
-    setAesthetic: () => {      
-      if (get().darkMode) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
     },
 
     setScenario: (id: number) => {

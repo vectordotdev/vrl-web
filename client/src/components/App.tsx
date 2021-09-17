@@ -15,12 +15,18 @@ export type Params = {
 
 type Props = RouteComponentProps<Params>;
 
-export const App = () => {
-  const setAesthetic: () => void = state(s => s.setAesthetic);
+const init = (isDark: boolean) => {
+  if (isDark) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+}
 
-  useEffect(() => {
-    setAesthetic();
-  });
+export const App = () => {
+  const darkMode: boolean = state(s => s.darkMode);
+
+  useEffect(() => init(darkMode));
 
   return <div className="page">
     <Navbar />
