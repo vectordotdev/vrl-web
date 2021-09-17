@@ -16,6 +16,7 @@ export const Main = (): JSX.Element => {
   useEffect(() => {
     if (hash != null) {
       setScenarioFromHash(hash);
+      window.location.href = '/';
     }
   });
 
