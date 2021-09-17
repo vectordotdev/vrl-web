@@ -1,13 +1,22 @@
-import { state } from "../state";
+import { globals, state } from "../state";
 
 export const ErrorDisplay = (): JSX.Element => {
-  const errorMsg: string | null = state(s => s.errorMsg);
+  var errorMsg: string | null = state(s => s.errorMsg);
 
-  return <div>
+  // Remove initial newline character
+  if (errorMsg != null) {
+    errorMsg = errorMsg.substring(1);
+  }
+
+  return <>
     {errorMsg && (
-      <p className="mt-2 text-lg text-red-500 dark:text-red-500">
-        {errorMsg}
-      </p>
+      <div>
+        <p className="text-xl text-red-500 font-semibold">
+          Error output
+        </p>
+
+        <pre className="mt-2 text-sm p-8 bg-black text-red-200">{errorMsg}</pre>
+      </div>
     )}
-  </div>
+  </>
 }

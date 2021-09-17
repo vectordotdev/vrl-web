@@ -70,7 +70,9 @@ export const Main = (): JSX.Element => {
         </div>
       )}
 
-      <ErrorDisplay />
+      <div className="mt-4">
+        <ErrorDisplay />
+      </div>
 
       <div className="mt-12">
         <button onClick={() => resolve()}>
