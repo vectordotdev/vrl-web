@@ -3,7 +3,11 @@ import Editor from "@monaco-editor/react";
 import { globals, Output } from "../state";
 import { READ_ONLY_EDITOR_OPTIONS } from "../values";
 
-export const Out = ({ output }: { output: Output }): JSX.Element => {
+type Props = {
+  output: Output;
+}
+
+export const Out = ({ output }: Props) => {
   const theme: string = globals(s => s.theme);
 
   return <Editor

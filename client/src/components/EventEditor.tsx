@@ -3,7 +3,7 @@ import Editor from "@monaco-editor/react";
 import { Event, globals, state } from "../state";
 import { EDITABLE_EDITOR_OPTIONS } from "../values";
 
-export const EventEditor = (): JSX.Element => {
+export const EventEditor = () => {
   const event: Event = state(s => s.event)
   const setEvent: (s: string) => void = state(s => s.setEvent);
   const theme: string = globals(s => s.theme);

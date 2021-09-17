@@ -1,6 +1,6 @@
-import { globals, state } from "../state";
+import { state } from "../state";
 
-export const ErrorDisplay = (): JSX.Element => {
+export const ErrorDisplay = () => {
   var errorMsg: string | null = state(s => s.errorMsg);
 
   // Remove initial newline character

@@ -1,6 +1,6 @@
 import { state } from "../state";
 
-const Hash = (): JSX.Element => {
+const Hash = () => {
   const hashUrl: string = state(s => s.hashUrl);
 
   const copyToClipboard = () => {
@@ -20,7 +20,7 @@ const Hash = (): JSX.Element => {
   </nav>
 }
 
-export const Export = (): JSX.Element => {
+export const Export = () => {
   return <div>
     <Hash />
   </div>

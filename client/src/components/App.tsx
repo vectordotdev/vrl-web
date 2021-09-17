@@ -10,7 +10,7 @@ import { NotFound } from "./NotFound";
 import { globals } from "../state";
 
 
-export const App = (): JSX.Element => {
+export const App = () => {
   const setMode: () => void = globals(s => s.setMode);
 
   useEffect(() => {

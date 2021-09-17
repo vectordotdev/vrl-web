@@ -9,7 +9,7 @@ import { Result } from "./Result";
 import { Out } from "./Out";
 import { Event, Output, state } from "../state";
 
-export const Main = (): JSX.Element => {
+export const Main = () => {
   const { hash } = useParams();
   const setScenarioFromHash: (hash: string) => void = state(s => s.setScenarioFromHash);
 

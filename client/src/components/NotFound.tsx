@@ -1,4 +1,4 @@
-export const NotFound = (): JSX.Element => {
+export const NotFound = () => {
   return <main>
     <p>
       The route {window.location.pathname} isn't recognized.
