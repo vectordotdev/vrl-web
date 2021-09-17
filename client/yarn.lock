@@ -189,7 +189,7 @@
     "@babel/helper-plugin-utils" "^7.14.5"
     "@babel/plugin-syntax-flow" "^7.14.5"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.13":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5":
   version "7.15.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.4.tgz#fd17d16bfdf878e6dd02d19753a39fa8a8d9c84a"
   integrity sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw==
@@ -4556,17 +4556,19 @@ react-dom@^17.0.2:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
-react-edit-inline@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/react-edit-inline/-/react-edit-inline-1.0.8.tgz#d144670b5217b5adc6c5bcb6976fc6b257f09b72"
-  integrity sha1-0URnC1IXta3Gxby2l2/Gslfwm3I=
-
 react-edit-text@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-edit-text/-/react-edit-text-4.2.0.tgz#e861daa665501f11d435d4007b2e98a3636b00d4"
   integrity sha512-3onhVkytD1BfFBG71dZnohO7YUTqJnJms7rHmWj+AkWiohoFtQOMHPDSak+zqNOA8DF3GE7YVm6StrL6ws3/sQ==
   dependencies:
     classnames "^2.2.6"
+
+react-error-boundary@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-3.1.3.tgz#276bfa05de8ac17b863587c9e0647522c25e2a0b"
+  integrity sha512-A+F9HHy9fvt9t8SNDlonq01prnU8AmkjvGKV4kk8seB9kU3xMEO8J/PQlLVmoOIDODl5U2kufSBs4vrWIqhsAA==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
