@@ -39,14 +39,12 @@ type Persistent = {
   errorMsg?: string | null;
   hashUrl: string | null;
 
-  darkMode: boolean;
   functions: string[];
   theme: string;
 
   scenario: Scenario;
   scenarios: Scenario[];
   
-  toggleDarkMode: () => void;
   removeError: () => void;
   setEvent: (s: string) => void;
   setProgram: (s: string) => void;
@@ -89,7 +87,7 @@ const scenarios: Scenario[] = SCENARIOS;
 
 const defaultScenario: Scenario = scenarios[0];
 
-const darkModeUserPreference: boolean = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+export const darkModeUserPreference: boolean = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const { persist } = configurePersist({
   storage: localStorage,
@@ -110,19 +108,11 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
     scenario: scenarios[0],
     scenarios: scenarios,
     hashUrl: null,
-    darkMode: darkModeUserPreference,
     functions: [],
     theme: (darkModeUserPreference) ? "vs-dark" : "vs",
 
     setTitle: (title: string) => {
       set({ title });
-    },
-
-    toggleDarkMode: () => {
-      const theme: string = (get().darkMode) ? "vs" : "vs-dark";
-
-      set({ darkMode: !get().darkMode });
-      set({ theme });
     },
 
     setScenario: (id: number) => {

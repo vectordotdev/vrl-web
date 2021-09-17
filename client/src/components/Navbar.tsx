@@ -1,12 +1,12 @@
-import { Scenario, state } from "../state";
+import useDarkMode, { DarkMode } from "use-dark-mode";
+import { darkModeUserPreference, Scenario, state } from "../state";
 
 export const Navbar = () => {
-  const darkMode: boolean = state(s => s.darkMode);
-  const toggleDarkMode: () => void = state(s => s.toggleDarkMode);
+  const darkMode: DarkMode = useDarkMode(darkModeUserPreference);
   const scenarios: Scenario[] = state(s => s.scenarios);
   const setScenario: (idx: number) => void = state(s => s.setScenario);
 
-  const buttonText: string = (darkMode) ? "Light" : "Dark";
+  const buttonText: string = (darkMode.value) ? "Light" : "Dark";
 
   return <nav className="flex items-center justify-between shadow-md">
     <div>
@@ -18,7 +18,7 @@ export const Navbar = () => {
     </div>
 
     <div className="flex space-x-8">
-      <button onClick={toggleDarkMode} className="font-bold toggler">
+      <button onClick={darkMode.toggle} className="font-bold toggler">
         {buttonText}
       </button>
 

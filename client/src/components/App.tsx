@@ -7,7 +7,8 @@ import { Footer } from "./Footer";
 import { Main, MainWithHash } from "./Main";
 import { Navbar } from "./Navbar";
 import { NotFound } from "./NotFound";
-import { state } from "../state";
+import { darkModeUserPreference, state } from "../state";
+import useDarkMode, { DarkMode } from "use-dark-mode";
 
 export type Params = {
   hash?: string;
@@ -24,9 +25,9 @@ const init = (isDark: boolean) => {
 }
 
 export const App = () => {
-  const darkMode: boolean = state(s => s.darkMode);
+  const darkMode: DarkMode = useDarkMode(darkModeUserPreference);
 
-  useEffect(() => init(darkMode));
+  useEffect(() => init(darkMode.value));
 
   return <div className="page">
     <Navbar />
