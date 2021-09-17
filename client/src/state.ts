@@ -45,6 +45,7 @@ type Persistent = {
   scenario: Scenario;
   scenarios: Scenario[];
   
+  setTheme: (isLight: boolean) => void;
   removeError: () => void;
   setEvent: (s: string) => void;
   setProgram: (s: string) => void;
@@ -110,6 +111,10 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
     hashUrl: null,
     functions: [],
     theme: (darkModeUserPreference) ? "vs-dark" : "vs",
+
+    setTheme: (isLight: boolean) => {
+      set({ theme: isLight ? "vs" : "vs-dark" });
+    },
 
     setTitle: (title: string) => {
       set({ title });

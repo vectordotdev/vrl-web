@@ -1,12 +1,30 @@
-import useDarkMode, { DarkMode } from "use-dark-mode";
+import { useEffect } from "react";
+import useDarkMode, { DarkMode, DarkModeConfig } from "use-dark-mode";
 import { darkModeUserPreference, Scenario, state } from "../state";
 
 export const Navbar = () => {
-  const darkMode: DarkMode = useDarkMode(darkModeUserPreference);
+  const setTheme: (t: boolean) => void = state(s => s.setTheme);
+  const darkModeConfig: DarkModeConfig = {
+    classNameDark: "dark",
+
+  };
+  const darkMode: DarkMode = useDarkMode(darkModeUserPreference, darkModeConfig);
   const scenarios: Scenario[] = state(s => s.scenarios);
   const setScenario: (idx: number) => void = state(s => s.setScenario);
-
   const buttonText: string = (darkMode.value) ? "Light" : "Dark";
+
+  useEffect(() => {
+    if (darkMode.value) {
+      darkMode.enable;
+    } else {
+      darkMode.disable;
+    }
+  });
+
+  const darkModeToggle = () => {
+    darkMode.toggle();
+    setTheme(darkMode.value);
+  }
 
   return <nav className="flex items-center justify-between shadow-md">
     <div>
@@ -18,7 +36,7 @@ export const Navbar = () => {
     </div>
 
     <div className="flex space-x-8">
-      <button onClick={darkMode.toggle} className="font-bold toggler">
+      <button onClick={darkModeToggle} className="font-bold toggler">
         {buttonText}
       </button>
 
