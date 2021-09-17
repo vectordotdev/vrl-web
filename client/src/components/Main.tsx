@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
+import { Params } from "./App";
 import { ErrorDisplay } from "./ErrorDisplay";
 import { Export } from "./Export";
 import { EventEditor } from "./EventEditor";
@@ -9,17 +9,17 @@ import { Result } from "./Result";
 import { Out } from "./Out";
 import { Event, Output, state } from "../state";
 
-export const Main = () => {
-  const { hash } = useParams();
-  const setScenarioFromHash: (hash: string) => void = state(s => s.setScenarioFromHash);
+export const MainWithHash = ({ hash }: Params) => {
+  const setScenarioFromHash: (h: string) => void = state(s => s.setScenarioFromHash);
 
   useEffect(() => {
-    if (hash != null) {
-      setScenarioFromHash(hash);
-      window.location.href = '/';
-    }
+    setScenarioFromHash(hash);
   });
 
+  return <Main />
+}
+
+export const Main = () => {
   const title: string = state(s => s.title);
   const resolve: () => void = state(s => s.resolve);
   const result: Event | null = state(s => s.result);

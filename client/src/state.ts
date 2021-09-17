@@ -35,7 +35,7 @@ type Globals = {
   theme: string
 
   toggleDarkMode: () => void
-  setMode: () => void
+  setAesthetic: () => void
 }
 
 type Persistent = {
@@ -87,10 +87,10 @@ export const globals = createStore<Globals>(
 
       set({ darkMode: !get().darkMode });
       set({ theme });
-      get().setMode();
+      get().setAesthetic();
     },
 
-    setMode: () => {      
+    setAesthetic: () => {      
       if (get().darkMode) {
         document.documentElement.classList.add('dark');
       } else {
@@ -159,8 +159,6 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
     },
 
     setProgram: (s: string) => {
-      console.log(s);
-
       set({ program: s });
     },
 

@@ -1,20 +1,25 @@
 import { useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, RouteComponentProps, Switch } from "react-router-dom";
 
 import "../style.css";
 
 import { Footer } from "./Footer";
-import { Main } from "./Main";
+import { Main, MainWithHash } from "./Main";
 import { Navbar } from "./Navbar";
 import { NotFound } from "./NotFound";
 import { globals } from "../state";
 
+export type Params = {
+  hash?: string;
+}
+
+type Props = RouteComponentProps<Params>;
 
 export const App = () => {
-  const setMode: () => void = globals(s => s.setMode);
+  const setAesthetic: () => void = globals(s => s.setAesthetic);
 
   useEffect(() => {
-    setMode();
+    setAesthetic();
   });
 
   return <div className="page">
@@ -26,9 +31,7 @@ export const App = () => {
           <Main />
         </Route>
 
-        <Route path="/h/:hash">
-          <Main />
-        </Route>
+        <Route path="/h/:hash" render={({ match }: Props) => <MainWithHash hash={match.params.hash} />} />
 
         <Route path="*">
           <NotFound />
