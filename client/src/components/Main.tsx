@@ -28,6 +28,8 @@ export const Main = () => {
   const resolve: () => void = state(s => s.resolve);
   const result: Event | null = state(s => s.result);
   const output: Output | null = state(s => s.output);
+
+  const defaultTitleText = "My VRL scenario"
  
   return <>
     <main>
@@ -35,10 +37,11 @@ export const Main = () => {
         <EditText
           value={title}
           onChange={setTitle}
-          className="text-3xl font-semibold"
+          className="text-3xl font-semibold dark:text-white focus:bg-gray-200
+           dark:focus:bg-gray-300 dark:focus:text-black dark:focus:ring-0"
           onSave={(p: onSaveProps) => {
             if (p.value.length == 0) {
-              setTitle("My VRL scenario");
+              setTitle(defaultTitleText);
             }
           }}
         />
