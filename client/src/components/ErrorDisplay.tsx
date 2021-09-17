@@ -15,7 +15,9 @@ export const ErrorDisplay = (): JSX.Element => {
           Error output
         </p>
 
-        <pre className="mt-2 text-sm p-8 bg-black text-red-200">{errorMsg}</pre>
+        <pre className="mt-2 text-sm p-8 bg-black text-red-200">
+          {errorMsg}
+        </pre>
       </div>
     )}
   </>
