@@ -1,19 +1,21 @@
 import Editor from "@monaco-editor/react";
-import { Program, state } from "../state";
+
+import { globals, Program, state } from "../state";
 import { EDITABLE_EDITOR_OPTIONS } from "../values";
 
 export const ProgramEditor = (): JSX.Element => {
   const program: Program = state(s => s.program);
   const setProgram: (s: string) => void = state(s => s.setProgram);
+  const theme: string = globals(s => s.theme);
 
-  const onEventChange = (val: string) => {
+  const onEventChange = (val: string): void => {
     setProgram(val);
   }
 
   return <Editor
-    height="400px"
+    height="200px"
     language="ruby"
-    theme="vs-dark"
+    theme={theme}
     value={program}
     options={EDITABLE_EDITOR_OPTIONS}
     onChange={onEventChange}

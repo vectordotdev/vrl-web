@@ -1,23 +1,13 @@
-import { Event, Output, state } from "../state";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+
+import { ErrorDisplay } from "./ErrorDisplay";
 import { Export } from "./Export";
 import { EventEditor } from "./EventEditor";
 import { ProgramEditor } from "./ProgramEditor";
 import { Result } from "./Result";
 import { Out } from "./Out";
-
-const ErrorDisplay = (): JSX.Element => {
-  const errorMsg: string | null = state(s => s.errorMsg);
-
-  return <div>
-    {errorMsg && (
-      <p className="text-lg text-red-500">
-        {errorMsg}
-      </p>
-    )}
-  </div>
-}
+import { Event, Output, state } from "../state";
 
 export const Main = (): JSX.Element => {
   const { hash } = useParams();
@@ -26,7 +16,6 @@ export const Main = (): JSX.Element => {
   useEffect(() => {
     if (hash != null) {
       setScenarioFromHash(hash);
-      window.location.href = '/';
     }
   });
 

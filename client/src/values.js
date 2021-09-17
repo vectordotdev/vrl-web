@@ -7,8 +7,8 @@ export const EDITABLE_EDITOR_OPTIONS = {
   contextmenu: false,
   fontSize: 14,
   padding: {
-    top: 0,
-    bottom: 0,
+    top: 15,
+    bottom: 15,
   },
   scrollBeyondLastLine: false,
   lineNumbers: "off",
@@ -19,8 +19,8 @@ export const READ_ONLY_EDITOR_OPTIONS = {
   contextmenu: false,
   fontSize: 14,
   padding: {
-    top: 0,
-    bottom: 0,
+    top: 15,
+    bottom: 15,
   },
   scrollBeyondLastLine: false,
   lineNumbers: "off",

@@ -30,7 +30,7 @@
 
 @layer components {
   .page {
-    @apply min-h-screen flex flex-col dark:bg-black;
+    @apply min-h-screen flex flex-col bg-gray-50 dark:bg-black;
   }
 
   .title {
@@ -39,6 +39,10 @@
 
   nav button {
     @apply bg-gray-500 text-white hover:bg-gray-700;
+  }
+
+  nav button.toggler {
+    @apply bg-black dark:bg-yellow-500;
   }
   
   main button {

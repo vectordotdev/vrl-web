@@ -32,6 +32,8 @@ export type Functions = {
 type Globals = {
   darkMode: boolean
   functions: string[]
+  theme: string
+
   toggleDarkMode: () => void
   setMode: () => void
 }
@@ -60,7 +62,10 @@ type Persistent = {
   setScenarioFromHash: (hash: string) => void;
 }
 
+
 const scenarios: Scenario[] = SCENARIOS;
+
+const defaultScenario: Scenario = scenarios[0];
 
 const darkModeUserPreference: boolean = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -75,9 +80,13 @@ export const globals = createStore<Globals>(
   }, (set: SetState<Globals>, get: GetState<Globals>) => ({
     darkMode: darkModeUserPreference,
     functions: [],
+    theme: (darkModeUserPreference) ? "vs-dark" : "vs",
 
     toggleDarkMode: () => {
-      set({ darkMode: !get().darkMode })
+      const theme: string = (get().darkMode) ? "vs" : "vs-dark";
+
+      set({ darkMode: !get().darkMode });
+      set({ theme });
       get().setMode();
     },
 
@@ -90,8 +99,6 @@ export const globals = createStore<Globals>(
     },
   }))
 )
-
-const defaultScenario: Scenario = scenarios[0];
 
 export const state: UseStore<Persistent> = createStore<Persistent>(
   persist<Persistent>({
@@ -148,11 +155,13 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
 
     setEvent: (s: string) => {
       const event: Event = JSON.parse(s);
-      set({ event: event })
+      set({ event });
     },
 
     setProgram: (s: string) => {
-      set({ program: s })
+      console.log(s);
+
+      set({ program: s });
     },
 
     getHashUrl: () => {

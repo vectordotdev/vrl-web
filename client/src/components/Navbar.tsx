@@ -1,4 +1,4 @@
-import { Scenario, globals, state } from '../state'
+import { Scenario, globals, state } from "../state";
 
 export const Navbar = (): JSX.Element => {
   const darkMode: boolean = globals(s => s.darkMode);
@@ -18,7 +18,7 @@ export const Navbar = (): JSX.Element => {
     </div>
 
     <div className="flex space-x-8">
-      <button onClick={toggleDarkMode} className="font-bold">
+      <button onClick={toggleDarkMode} className="font-bold toggler">
         {buttonText}
       </button>
 

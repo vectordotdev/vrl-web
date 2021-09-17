@@ -1,13 +1,13 @@
-import { globals } from '../state';
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import '../style.css';
+import "../style.css";
 
-import { Footer } from './Footer';
-import { Main } from './Main';
-import { Navbar } from './Navbar';
-import { NotFound } from './NotFound';
+import { Footer } from "./Footer";
+import { Main } from "./Main";
+import { Navbar } from "./Navbar";
+import { NotFound } from "./NotFound";
+import { globals } from "../state";
 
 
 export const App = (): JSX.Element => {
