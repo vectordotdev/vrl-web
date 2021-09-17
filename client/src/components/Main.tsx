@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import { EditText, EditTextarea, onSaveProps } from "react-edit-text";
+
+import 'react-edit-text/dist/index.css';
 
 import { Params } from "./App";
 import { ErrorDisplay } from "./ErrorDisplay";
@@ -21,15 +24,25 @@ export const MainWithHash = ({ hash }: Params) => {
 
 export const Main = () => {
   const title: string = state(s => s.title);
+  const setTitle: (title: string) => void = state(s => s.setTitle);
   const resolve: () => void = state(s => s.resolve);
   const result: Event | null = state(s => s.result);
   const output: Output | null = state(s => s.output);
-  
+ 
   return <>
     <main>
-      <p className="text-3xl font-semibold">
-        {title}
-      </p>
+      <div className="py-2">
+        <EditText
+          value={title}
+          onChange={setTitle}
+          className="text-3xl font-semibold"
+          onSave={(p: onSaveProps) => {
+            if (p.value.length == 0) {
+              setTitle("My VRL scenario");
+            }
+          }}
+        />
+      </div>
 
       <div className="mt-6 flex flex-col space-y-4">
         <div>

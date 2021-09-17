@@ -56,6 +56,7 @@ type Persistent = {
   resolve: () => void;
   resetOutcome: () => void;
   setScenarioFromHash: (hash: string) => void;
+  setTitle: (title: string) => void;
 }
 
 const scenarios: Scenario[] = SCENARIOS;
@@ -86,6 +87,10 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
     darkMode: darkModeUserPreference,
     functions: [],
     theme: (darkModeUserPreference) ? "vs-dark" : "vs",
+
+    setTitle: (title: string) => {
+      set({ title });
+    },
 
     toggleDarkMode: () => {
       const theme: string = (get().darkMode) ? "vs" : "vs-dark";
