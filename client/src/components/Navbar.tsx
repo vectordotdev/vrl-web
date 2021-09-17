@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import useDarkMode, { DarkMode, DarkModeConfig } from "use-dark-mode";
-import { darkModeConfig, darkModeUserPreference, Scenario, state } from "../state";
+import useDarkMode, { DarkMode } from "use-dark-mode";
+import { darkModeConfig, darkModeUserPreference } from "../mode";
+import { Scenario, state } from "../state";
 
 export const Navbar = () => {
-  const setTheme: (t: boolean) => void = state(s => s.setTheme);
   const darkMode: DarkMode = useDarkMode(darkModeUserPreference, darkModeConfig);
+  const setTheme: (t: boolean) => void = state(s => s.setTheme);
   const scenarios: Scenario[] = state(s => s.scenarios);
   const setScenario: (idx: number) => void = state(s => s.setScenario);
   const buttonText: string = (darkMode.value) ? "Light" : "Dark";

@@ -3,7 +3,7 @@ import createStore, { GetState, SetState, UseStore } from "zustand";
 import { configurePersist } from "zustand-persist";
 import { Outcome } from "./client";
 import axios from "axios";
-import { DarkModeConfig } from "use-dark-mode";
+import { darkModeUserPreference } from "./mode";
 
 export type Event = object;
 export type Program = string;
@@ -85,16 +85,9 @@ export const ephemeral: UseStore<Ephemeral> = createStore<Ephemeral>((set: SetSt
   }
 }));
 
-export const darkModeConfig: DarkModeConfig = {
-  classNameDark: "dark",
-
-};
-
 const scenarios: Scenario[] = SCENARIOS;
 
 const defaultScenario: Scenario = scenarios[0];
-
-export const darkModeUserPreference: boolean = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const { persist } = configurePersist({
   storage: localStorage,
