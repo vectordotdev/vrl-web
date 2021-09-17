@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { EditText, EditTextarea, onSaveProps } from "react-edit-text";
+import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 
 import 'react-edit-text/dist/index.css';
 
@@ -10,8 +10,9 @@ import { EventEditor } from "./EventEditor";
 import { ProgramEditor } from "./ProgramEditor";
 import { Result } from "./Result";
 import { Out } from "./Out";
-import { Event, Output, state } from "../state";
 import { Title } from "./Title";
+import { Event, Output, state } from "../state";
+import { ErrorHandler } from "./ErrorHandler";
 
 export const MainWithHash = ({ hash }: Params) => {
   const setScenarioFromHash: (h: string) => void = state(s => s.setScenarioFromHash);
@@ -28,7 +29,9 @@ export const Main = () => {
   const result: Event | null = state(s => s.result);
   const output: Output | null = state(s => s.output);
  
-  return <>
+  
+
+  return <ErrorHandler>
     <main>
       <Title />
 
@@ -49,7 +52,6 @@ export const Main = () => {
           <EventEditor />
         </div>
       </div>
-
 
       {(result && output) && (
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 space-x-6">
@@ -83,5 +85,5 @@ export const Main = () => {
     </main>
 
     <Export />
-  </>  
+  </ErrorHandler>  
 }
