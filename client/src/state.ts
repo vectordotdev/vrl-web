@@ -59,6 +59,32 @@ type Persistent = {
   setTitle: (title: string) => void;
 }
 
+type Ephemeral = {
+  event: Event;
+  program: Program;
+
+  setEvent: (e: Event) => void;
+  setProgram: (p: Program) => void;
+  diff: (e: Event, p: Program) => boolean;
+}
+
+export const ephemeral: UseStore<Ephemeral> = createStore<Ephemeral>((set: SetState<Ephemeral>, get: GetState<Ephemeral>) => ({
+  event: {},
+  program: "",
+
+  setEvent: (event: Event) => {
+    set({ event });
+  },
+
+  setProgram: (program: Program) => {
+    set({ program });
+  },
+
+  diff: (e: Event, p: Program) => {
+    return e == get().event && p == get().program;
+  }
+}));
+
 const scenarios: Scenario[] = SCENARIOS;
 
 const defaultScenario: Scenario = scenarios[0];
