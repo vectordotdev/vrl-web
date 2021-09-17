@@ -1,8 +1,8 @@
-import { Scenario, globals, state } from "../state";
+import { Scenario, state } from "../state";
 
 export const Navbar = () => {
-  const darkMode: boolean = globals(s => s.darkMode);
-  const toggleDarkMode: () => void = globals(s => s.toggleDarkMode);
+  const darkMode: boolean = state(s => s.darkMode);
+  const toggleDarkMode: () => void = state(s => s.toggleDarkMode);
   const scenarios: Scenario[] = state(s => s.scenarios);
   const setScenario: (idx: number) => void = state(s => s.setScenario);
 

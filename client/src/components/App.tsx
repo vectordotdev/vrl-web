@@ -7,7 +7,7 @@ import { Footer } from "./Footer";
 import { Main, MainWithHash } from "./Main";
 import { Navbar } from "./Navbar";
 import { NotFound } from "./NotFound";
-import { globals } from "../state";
+import { state } from "../state";
 
 export type Params = {
   hash?: string;
@@ -16,7 +16,7 @@ export type Params = {
 type Props = RouteComponentProps<Params>;
 
 export const App = () => {
-  const setAesthetic: () => void = globals(s => s.setAesthetic);
+  const setAesthetic: () => void = state(s => s.setAesthetic);
 
   useEffect(() => {
     setAesthetic();

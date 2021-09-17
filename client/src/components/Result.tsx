@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 
-import { Event, globals } from "../state";
+import { Event, state } from "../state";
 import { READ_ONLY_EDITOR_OPTIONS } from "../values";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const Result = ({ result }: Props) => {
-  const theme: string = globals(s => s.theme);
+  const theme: string = state(s => s.theme);
 
   return <Editor
     height="200px"

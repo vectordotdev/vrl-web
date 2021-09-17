@@ -29,15 +29,6 @@ export type Functions = {
   functions: string[]
 }
 
-type Globals = {
-  darkMode: boolean
-  functions: string[]
-  theme: string
-
-  toggleDarkMode: () => void
-  setAesthetic: () => void
-}
-
 type Persistent = {
   id: number
   title: string
@@ -48,9 +39,15 @@ type Persistent = {
   errorMsg?: string | null;
   hashUrl: string | null;
 
+  darkMode: boolean;
+  functions: string[];
+  theme: string;
+
   scenario: Scenario;
   scenarios: Scenario[];
-
+  
+  toggleDarkMode: () => void;
+  setAesthetic: () => void;
   removeError: () => void;
   setEvent: (s: string) => void;
   setProgram: (s: string) => void;
@@ -61,7 +58,6 @@ type Persistent = {
   resetOutcome: () => void;
   setScenarioFromHash: (hash: string) => void;
 }
-
 
 const scenarios: Scenario[] = SCENARIOS;
 
@@ -74,10 +70,20 @@ const { persist } = configurePersist({
   rootKey: "__vrl_playground"
 })
 
-export const globals = createStore<Globals>(
-  persist<Globals>({
-    key: 'globals',
-  }, (set: SetState<Globals>, get: GetState<Globals>) => ({
+export const state: UseStore<Persistent> = createStore<Persistent>(
+  persist<Persistent>({
+    key: 'scenario',
+  }, (set: SetState<Persistent>, get: GetState<Persistent>) => ({
+    id: defaultScenario.id,
+    title: defaultScenario.title,
+    event: defaultScenario.event,
+    program: defaultScenario.program,
+    result: null,
+    output: null,
+    errorMsg: null,
+    scenario: scenarios[0],
+    scenarios: scenarios,
+    hashUrl: null,
     darkMode: darkModeUserPreference,
     functions: [],
     theme: (darkModeUserPreference) ? "vs-dark" : "vs",
@@ -97,23 +103,6 @@ export const globals = createStore<Globals>(
         document.documentElement.classList.remove('dark');
       }
     },
-  }))
-)
-
-export const state: UseStore<Persistent> = createStore<Persistent>(
-  persist<Persistent>({
-    key: 'scenario',
-  }, (set: SetState<Persistent>, get: GetState<Persistent>) => ({
-    id: defaultScenario.id,
-    title: defaultScenario.title,
-    event: defaultScenario.event,
-    program: defaultScenario.program,
-    result: null,
-    output: null,
-    errorMsg: null,
-    scenario: scenarios[0],
-    scenarios: scenarios,
-    hashUrl: null,
 
     setScenario: (id: number) => {
       const s = get().scenarios[id];
