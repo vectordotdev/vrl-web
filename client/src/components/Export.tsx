@@ -2,8 +2,10 @@ import { state } from "../state";
 
 const Hash = () => {
   const hashUrl: string = state(s => s.hashUrl);
+  const setHashUrl: () => void = state(s => s.setHashUrl);
 
   const copyToClipboard = () => {
+    setHashUrl();
     navigator.clipboard.writeText(hashUrl);
   }
 

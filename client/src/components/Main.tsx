@@ -18,7 +18,10 @@ type Props = {
 export const MainWithHash = ({ hash }: Props) => {
   const setScenarioFromHash: (h: string) => void = state(s => s.setScenarioFromHash);
 
-  useEffect(() => setScenarioFromHash(hash));
+  useEffect(() => {
+    setScenarioFromHash(hash);
+    window.location.href = '/';
+  });
 
   return <Main />
 }
