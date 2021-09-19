@@ -1,4 +1,4 @@
-import { VRL_FUNCTIONS_ENDPOINT } from "./values";
+import { VRL_FUNCTIONS_ENDPOINT, VRL_RESOLVE_ENDPOINT } from "./values";
 import axios, { AxiosResponse } from "axios";
 import { Event, Functions, Program } from "./state";
 
@@ -30,11 +30,13 @@ class Client {
   }
 
   async getFunctions(): Promise<Functions> {
-    return axios.get(VRL_FUNCTIONS_ENDPOINT);
+    return axios.get<Functions, AxiosResponse<Functions>>(VRL_FUNCTIONS_ENDPOINT)
+      .then(res => res.data);
   }
 
   async resolve(request: Request): Promise<Outcome> {
-    return await this.post<Request, Outcome>('resolve', request);
+    return await this.post<Request, AxiosResponse>(VRL_RESOLVE_ENDPOINT, request)
+      .then(res => res.data);
   }
 }
 

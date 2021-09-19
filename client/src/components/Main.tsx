@@ -55,7 +55,7 @@ export const Main = () => {
       </div>
 
       {(result && output) && (
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 space-x-6">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <p className="title">
               Result

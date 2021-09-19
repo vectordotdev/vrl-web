@@ -1,8 +1,7 @@
-import { HOST, SCENARIOS, VRL_FUNCTIONS_ENDPOINT, VRL_WEB_SERVER_ADDRESS } from "./values";
+import { HOST, SCENARIOS } from "./values";
 import createStore, { GetState, SetState, UseStore } from "zustand";
 import { configurePersist } from "zustand-persist";
 import { client, Outcome } from "./client";
-import axios from "axios";
 import { darkModeUserPreference } from "./mode";
 
 // Local storage configuration
@@ -104,11 +103,10 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
 
     setFunctions: () => {
       if (get().functions.length === 0) {
-        axios.get(VRL_FUNCTIONS_ENDPOINT)
+        client.getFunctions()
           .then(res => {
-            const functions = res.data.functions;
-            set({ functions });
-          });
+            set({ functions: res.functions });
+          })
       }
     },
 
@@ -141,14 +139,12 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
       client.resolve(request)
         .then((outcome: Outcome) => {
           if (outcome.success) {
-            const res = outcome.success;
-            set({ result: res.result, output: res.output});
-            get().setHashUrl();
-            get().removeError();
+            const { output, result } = outcome.success;
+            set({ output, result });
+            set({ errorMsg: null });
           } else if (outcome.error) {
             set({ errorMsg: outcome.error });
-          } else {
-            console.error('something went wrong in the POST request');
+            set({ output: null, result: null });
           }
         });
     },
