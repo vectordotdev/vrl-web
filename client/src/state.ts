@@ -1,14 +1,23 @@
-import { HOST, SCENARIOS, VRL_WEB_SERVER_ADDRESS } from "./values";
+import { HOST, SCENARIOS, VRL_FUNCTIONS_ENDPOINT, VRL_WEB_SERVER_ADDRESS } from "./values";
 import createStore, { GetState, SetState, UseStore } from "zustand";
 import { configurePersist } from "zustand-persist";
-import { Outcome } from "./client";
+import { client, Outcome } from "./client";
 import axios from "axios";
 import { darkModeUserPreference } from "./mode";
 
-export type Event = object;
+// Local storage configuration
+const { persist } = configurePersist({
+  storage: localStorage,
+  rootKey: "__vrl_playground"
+});
+
+// Core types
+export type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
+export type Event = Json;
 export type Program = string;
 export type Output = string;
 
+// Used to construct scenario URLs
 type Hashable = {
   event: Event;
   program: Program;
@@ -16,25 +25,27 @@ type Hashable = {
   output?: Output | null;
 }
 
+// The full "state" of the application
 export type Scenario = {
-  id: number
-  title: string
-  event: Event
-  program: Program
-  result?: Event | null
-  output?: Output | null
-  errorMsg?: string | null
+  id: number;
+  title: string;
+  event: Event;
+  program: Program;
+  result?: Event | null;
+  output?: Output | null;
+  errorMsg?: string | null;
 }
 
+// The list of VRL functions fetched from the server
 export type Functions = {
-  functions: string[]
+  functions: string[];
 }
 
 type Persistent = {
-  id: number
-  title: string
-  event: Event
-  program: Program
+  id: number;
+  title: string;
+  event: Event;
+  program: Program;
   result?: Event | null;
   output?: Output | null;
   errorMsg?: string | null;
@@ -45,7 +56,11 @@ type Persistent = {
 
   scenario: Scenario;
   scenarios: Scenario[];
-  
+
+  showFunctions: boolean;
+  toggleShowFunctions: () => void;
+
+  setFunctions: () => void;
   setTheme: (isLight: boolean) => void;
   removeError: () => void;
   setEvent: (s: string) => void;
@@ -59,40 +74,11 @@ type Persistent = {
   setTitle: (title: string) => void;
 }
 
-type Ephemeral = {
-  event: Event;
-  program: Program;
-
-  setEvent: (e: Event) => void;
-  setProgram: (p: Program) => void;
-  diff: (e: Event, p: Program) => boolean;
-}
-
-export const ephemeral: UseStore<Ephemeral> = createStore<Ephemeral>((set: SetState<Ephemeral>, get: GetState<Ephemeral>) => ({
-  event: {},
-  program: "",
-
-  setEvent: (event: Event) => {
-    set({ event });
-  },
-
-  setProgram: (program: Program) => {
-    set({ program });
-  },
-
-  diff: (e: Event, p: Program) => {
-    return e == get().event && p == get().program;
-  }
-}));
-
 const scenarios: Scenario[] = SCENARIOS;
 
 const defaultScenario: Scenario = scenarios[0];
 
-const { persist } = configurePersist({
-  storage: localStorage,
-  rootKey: "__vrl_playground"
-})
+const defaultTheme: string = (darkModeUserPreference) ? "vs-dark" : "vs";
 
 export const state: UseStore<Persistent> = createStore<Persistent>(
   persist<Persistent>({
@@ -109,7 +95,22 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
     scenarios: scenarios,
     hashUrl: null,
     functions: [],
-    theme: (darkModeUserPreference) ? "vs-dark" : "vs",
+    theme: defaultTheme,
+    showFunctions: false,
+
+    toggleShowFunctions: () => {
+      set({ showFunctions: !get().showFunctions });
+    },
+
+    setFunctions: () => {
+      if (get().functions.length === 0) {
+        axios.get(VRL_FUNCTIONS_ENDPOINT)
+          .then(res => {
+            const functions = res.data.functions;
+            set({ functions });
+          });
+      }
+    },
 
     setTheme: (isLight: boolean) => {
       set({ theme: isLight ? "vs" : "vs-dark" });
@@ -137,9 +138,8 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
         program: get().program,
       }
 
-      axios.post(`${VRL_WEB_SERVER_ADDRESS}/resolve`, request)
-        .then(res => {
-          const outcome: Outcome = res.data;
+      client.resolve(request)
+        .then((outcome: Outcome) => {
           if (outcome.success) {
             const res = outcome.success;
             set({ result: res.result, output: res.output});

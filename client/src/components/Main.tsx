@@ -10,6 +10,7 @@ import { Title } from "./Title";
 import { Event, Output, state } from "../state";
 import { ErrorHandler } from "./ErrorHandler";
 import { useEffect } from 'react';
+import { Docs } from './Docs';
 
 type Props = {
   hash?: string;
@@ -81,6 +82,10 @@ export const Main = () => {
         <button onClick={() => resolve()}>
           Resolve
         </button>
+      </div>
+
+      <div className="mt-8">
+        <Docs />
       </div>
     </main>
 

@@ -14,6 +14,7 @@
     "@monaco-editor/react": "^4.2.2",
     "@types/react-edit-text": "^4.0.1",
     "axios": "^0.21.4",
+    "immer": "^9.0.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-edit-text": "^4.2.0",

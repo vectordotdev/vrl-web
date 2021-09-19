@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { BrowserRouter, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { state } from "../state";
 
 import "../style.css";
 
@@ -7,13 +9,16 @@ import { Main, MainWithHash } from "./Main";
 import { Navbar } from "./Navbar";
 import { NotFound } from "./NotFound";
 
-export type Params = {
-  hash?: string;
-}
-
-type Props = RouteComponentProps<Params>;
+type Props = RouteComponentProps<{ hash? : string }>;
 
 export const App = () => {
+  const [functions, setFunctions] = state(s => [s.functions, s.setFunctions]);
+
+  useEffect(() => {
+    // Fetch the VRL functions upon initial render
+    setFunctions();
+  }, [setFunctions]);
+
   return <div className="page">
     <Navbar />
 

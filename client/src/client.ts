@@ -1,5 +1,5 @@
-import { VRL_WEB_SERVER_ADDRESS } from "./values";
-import axios, { AxiosInstance } from "axios";
+import { VRL_FUNCTIONS_ENDPOINT } from "./values";
+import axios, { AxiosResponse } from "axios";
 import { Event, Functions, Program } from "./state";
 
 export type Success = {
@@ -7,11 +7,9 @@ export type Success = {
   output: any;
 }
 
-export type Error = string;
-
 export type Outcome = {
   success?: Success;
-  error?: Error;
+  error?: string;
 };
 
 type Request = {
@@ -20,18 +18,23 @@ type Request = {
 }
 
 class Client {
-  client: AxiosInstance;
+  async get<T, R = AxiosResponse<T>>(url: string): Promise<R> {
+    return await axios.get<T, R>(url);
+  }
 
-  constructor() {
-    this.client = axios.create({
-      baseURL: VRL_WEB_SERVER_ADDRESS,
-    })
+  async post<T, R = AxiosResponse<T>>(
+    url: string,
+    data?: T,
+  ): Promise<R> {
+    return await axios.post<T, R>(url, data);
+  }
+
+  async getFunctions(): Promise<Functions> {
+    return axios.get(VRL_FUNCTIONS_ENDPOINT);
   }
 
   async resolve(request: Request): Promise<Outcome> {
-    return this.client.post<Request, Outcome>('resolve', request)
-      .then(res => res)
-      .catch(e => e)
+    return await this.post<Request, Outcome>('resolve', request);
   }
 }
 
