@@ -171,7 +171,7 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
       };
 
       const s = JSON.stringify(input);
-      const hash = btoa(s);
+      const hash = window.btoa(s);
 
       return `${HOST}/h/${hash}`;
     },
@@ -183,7 +183,7 @@ export const state: UseStore<Persistent> = createStore<Persistent>(
     },
 
     setScenarioFromHash: (hash: string)  => {
-      const s: string = atob(hash);
+      const s: string = window.atob(hash);
       const obj: Hashable = JSON.parse(s);
 
       set({ event: obj.event, program: obj.program, output: obj.output, result: obj.result });
