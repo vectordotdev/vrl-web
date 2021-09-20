@@ -4,9 +4,9 @@ import { Scenario, state } from "../state";
 
 export const Navbar = () => {
   const darkMode: DarkMode = useDarkMode(darkModeUserPreference, darkModeConfig);
-  const setTheme: (t: boolean) => void = state(s => s.setTheme);
-  const scenarios: Scenario[] = state(s => s.scenarios);
-  const setScenario: (idx: number) => void = state(s => s.setScenario);
+  const setTheme: (t: boolean) => void = state.store(s => s.setTheme);
+  const scenarios: Scenario[] = state.store(s => s.scenarios);
+  const setScenario: (idx: number) => void = state.store(s => s.setScenario);
   const buttonText: string = (darkMode.value) ? "Light" : "Dark";
 
   const darkModeToggle = () => {

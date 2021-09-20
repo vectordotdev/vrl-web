@@ -1,7 +1,7 @@
 import { state } from "../state";
 
 export const ErrorDisplay = () => {
-  var errorMsg: string | null = state(s => s.errorMsg);
+  var errorMsg: string | null = state.store(s => s.errorMsg);
 
   // Remove initial newline character
   if (errorMsg != null) {

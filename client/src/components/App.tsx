@@ -12,7 +12,7 @@ import { NotFound } from "./NotFound";
 type Props = RouteComponentProps<{ hash? : string }>;
 
 export const App = () => {
-  const [functions, setFunctions] = state(s => [s.functions, s.setFunctions]);
+  const [functions, setFunctions] = state.store(s => [s.functions, s.setFunctions]);
 
   useEffect(() => {
     // Fetch the VRL functions upon initial render

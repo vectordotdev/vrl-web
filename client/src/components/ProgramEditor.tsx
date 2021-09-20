@@ -4,9 +4,9 @@ import { Program, state } from "../state";
 import { EDITABLE_EDITOR_OPTIONS } from "../values";
 
 export const ProgramEditor = () => {
-  const program: Program = state(s => s.program);
-  const setProgram: (s: string) => void = state(s => s.setProgram);
-  const theme: string = state(s => s.theme);
+  const program: Program = state.store(s => s.program);
+  const setProgram: (s: string) => void = state.store(s => s.setProgram);
+  const theme: string = state.store(s => s.theme);
 
   const onEventChange = (val: string): void => {
     setProgram(val);

@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const Out = ({ output }: Props) => {
-  const theme: string = state(s => s.theme);
+  const theme: string = state.store(s => s.theme);
 
   return <Editor
     height="200px"

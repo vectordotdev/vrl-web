@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const MainWithHash = ({ hash }: Props) => {
-  const setScenarioFromHash: (h: string) => void = state(s => s.setScenarioFromHash);
+  const setScenarioFromHash: (h: string) => void = state.store(s => s.setScenarioFromHash);
 
   useEffect(() => {
     setScenarioFromHash(hash);
@@ -28,9 +28,9 @@ export const MainWithHash = ({ hash }: Props) => {
 }
 
 export const Main = () => {
-  const resolve: () => void = state(s => s.resolve);
-  const result: Event | null = state(s => s.result);
-  const output: Output | null = state(s => s.output);
+  const resolve: () => void = state.store(s => s.resolve);
+  const result: Event | null = state.store(s => s.result);
+  const output: Output | null = state.store(s => s.output);
 
   return <ErrorHandler>
     <main>

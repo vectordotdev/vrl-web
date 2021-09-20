@@ -1,9 +1,9 @@
 import { state } from "../state"
 
 const Functions = () => {
-  const functions: string[] = state(s => s.functions);
-  const showFunctions: boolean = state(s => s.showFunctions);
-  const toggleShowFunctions: () => void = state(s => s.toggleShowFunctions);
+  const functions: string[] = state.store(s => s.functions);
+  const showFunctions: boolean = state.store(s => s.showFunctions);
+  const toggleShowFunctions: () => void = state.store(s => s.toggleShowFunctions);
 
   return <div>
     <p className="text-lg">

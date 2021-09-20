@@ -7,7 +7,7 @@ type Props = {
 
 const handleError = (e: Error, info: {componentStack: string}) => {
   console.log(info.componentStack);
-  alert(e.message);
+  console.error(e.message);
 }
 
 const ErrorDisplay = ({ error, resetErrorBoundary }: FallbackProps) => {

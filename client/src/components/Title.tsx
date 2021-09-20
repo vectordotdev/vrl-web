@@ -2,8 +2,8 @@ import { EditText, onSaveProps } from "react-edit-text";
 import { state } from "../state"
 
 export const Title = () => {
-  const title: string = state(s => s.title);
-  const setTitle: (t: string) => void = state(s => s.setTitle);
+  const title: string = state.store(s => s.title);
+  const setTitle: (t: string) => void = state.store(s => s.setTitle);
 
   const defaultTitleText = "My VRL scenario"
 
