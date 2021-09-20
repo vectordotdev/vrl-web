@@ -57,6 +57,7 @@ export type Output = string;
 
 // Used to construct scenario URLs
 type Hashable = {
+  title: string;
   event: Event;
   program: Program;
   result?: Event | null;
@@ -187,6 +188,7 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   },
   getHashUrl: () => {
     const input: Hashable = {
+      title: get().title,
       event: get().event,
       program: get().program,
       output: get().output,
@@ -207,7 +209,7 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
     const s: string = window.atob(hash);
     const obj: Hashable = JSON.parse(s);
 
-    set({ event: obj.event, program: obj.program, output: obj.output, result: obj.result });
+    set({ title: obj.title, event: obj.event, program: obj.program, output: obj.output, result: obj.result });
   },
 });
 
