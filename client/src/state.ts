@@ -197,8 +197,6 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
       result: get().result,
     };
 
-    alert(get().title);
-
     const s = JSON.stringify(input);
     const hash = window.btoa(s);
 
