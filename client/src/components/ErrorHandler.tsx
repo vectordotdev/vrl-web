@@ -11,7 +11,7 @@ const handleError = (e: Error, info: {componentStack: string}) => {
 }
 
 const ErrorDisplay = ({ error, resetErrorBoundary }: FallbackProps) => {
-  return <>
+  return <main>
     <p>
       An error has occurred: {error.message}
     </p>
@@ -19,7 +19,7 @@ const ErrorDisplay = ({ error, resetErrorBoundary }: FallbackProps) => {
     <button onClick={resetErrorBoundary}>
       Reset
     </button>
-  </>
+  </main>
 }
 
 export const ErrorHandler = ({ children }: Props) => {

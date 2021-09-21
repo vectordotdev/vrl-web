@@ -1,4 +1,4 @@
-import { state } from "../state"
+import { state } from "../state";
 
 const Functions = () => {
   const functions: string[] = state.store(s => s.functions);

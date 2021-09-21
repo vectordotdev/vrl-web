@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import 'react-edit-text/dist/index.css';
 
 import { ErrorDisplay } from "./ErrorDisplay";
@@ -9,7 +10,6 @@ import { Out } from "./Out";
 import { Title } from "./Title";
 import { Event, Output, state } from "../state";
 import { ErrorHandler } from "./ErrorHandler";
-import { useEffect } from 'react';
 import { Docs } from './Docs';
 
 type Props = {

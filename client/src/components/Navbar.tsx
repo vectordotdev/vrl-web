@@ -1,4 +1,5 @@
 import useDarkMode, { DarkMode } from "use-dark-mode";
+
 import { darkModeConfig, darkModeUserPreference } from "../mode";
 import { Scenario, state } from "../state";
 

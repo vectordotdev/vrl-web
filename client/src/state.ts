@@ -139,6 +139,7 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
         .then(res => {
           set({ functions: res.functions });
         })
+        .catch(e => { throw new Error(`Something went wrong when communicating with the server: ${e}`); });
     }
   },
   setTheme: (isLight: boolean) => {
@@ -175,8 +176,11 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
         } else if (outcome.error) {
           set({ errorMsg: outcome.error });
           set({ output: null, result: null });
+        } else {
+          throw new Error("The VRL web server returned a response that couldn't be interpreted");
         }
-      });
+      })
+      .catch(e => { throw new Error(`Something went wrong when communicating with the server: ${e}`); });
   },
   resetOutcome: () => {
     set({ result: null, output: null, errorMsg: null });

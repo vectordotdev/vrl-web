@@ -14,7 +14,6 @@ export const Result = ({ result }: Props) => {
     height="200px"
     language="json"
     theme={theme}
-    readOnly={true}
     value={JSON.stringify(result, null, 2)}
     options={READ_ONLY_EDITOR_OPTIONS}
   />

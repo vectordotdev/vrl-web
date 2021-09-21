@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, RouteComponentProps, Switch } from "react-router-dom";
-import { state } from "../state";
 
 import "../style.css";
 
@@ -8,6 +7,7 @@ import { Footer } from "./Footer";
 import { Main, MainWithHash } from "./Main";
 import { Navbar } from "./Navbar";
 import { NotFound } from "./NotFound";
+import { state } from "../state";
 
 type Props = RouteComponentProps<{ hash? : string }>;
 
