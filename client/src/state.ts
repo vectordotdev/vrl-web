@@ -1,53 +1,8 @@
 import { HOST, SCENARIOS } from "./values";
-import createStore, { GetState, SetState, StateCreator, UseStore } from "zustand";
-import { persist } from "zustand/middleware";
+import { GetState, SetState, StateCreator } from "zustand";
 import { client, Outcome } from "./client";
 import { darkModeUserPreference } from "./mode";
-import create from "zustand";
-
-// Core storage abstractions
-abstract class Store<T extends object> {
-  store: UseStore<T>;
-
-  constructor(store: UseStore<T>) {
-    this.store = store;
-  }
-}
-
-// Persistent data storage
-class LocalStorage<T extends object> extends Store<T> {
-  store: UseStore<T>;
-
-  constructor(name: string, state: StateCreator<T>) {
-    const local = persist<T>(state, { name, getStorage: () => localStorage });
-    const store = create<T>(local);
-
-    super(store);
-  }
-}
-
-// Ephemeral data storage (not yet used)
-class MemoryStorage<T extends object> extends Store<T> {
-  store: UseStore<T>;
-
-  constructor(state: StateCreator<T>) {
-    const store = create<T>(state);
-
-    super(store);
-  }
-}
-
-// Ephemeral data storage (not yet used)
-class SessionStorage<T extends object> extends Store<T> {
-  store: UseStore<T>;
-
-  constructor(name: string, state: StateCreator<T>) {
-    const local = persist<T>(state, { name, getStorage: () => sessionStorage });
-    const store = create<T>(local);
-
-    super(store);
-  }
-}
+import { LocalStorage } from "./storage";
 
 // Core types
 export type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
