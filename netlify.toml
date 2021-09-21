@@ -1,5 +1,5 @@
 [build]
-base = "client"
+base = "vrl-web-client"
 command = "make build"
 
 [[redirects]]
