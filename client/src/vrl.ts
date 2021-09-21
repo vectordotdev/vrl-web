@@ -18,19 +18,21 @@ type VrlFunction = {
 export type VrlFunctions = { [key: string]: VrlFunction };
 
 type VrlInfo = {
-  functions: VrlFunctions;
+  functions: VrlFunctions | null;
   setFunctions: () => void;
 }
 
 const vrlInfoHandler: StateCreator<VrlInfo> = (set: SetState<VrlInfo>, get: GetState<VrlInfo>) => ({
-  functions: {},
+  functions: null,
 
   setFunctions: () => {
-    client.getVrlInfo()
-      .then((functions: VrlFunctions) => {
-        set({ functions });
-      })
-      .catch(e => { throw new Error(`Something went wrong when communicating with the server: ${e}`); });
+    if (get().functions === null) {
+      client.getVrlInfo()
+        .then((functions: VrlFunctions) => {
+          set({ functions });
+        })
+        .catch(e => { throw new Error(`Something went wrong when communicating with the server: ${e}`); });
+    }
   }
 });
 
