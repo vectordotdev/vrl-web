@@ -60,6 +60,7 @@ type Persistent = {
 const scenarios: Scenario[] = SCENARIOS;
 const defaultScenario: Scenario = scenarios[0];
 const defaultTheme: string = (darkModeUserPreference) ? "vs-dark" : "vs";
+const defaultTitle: string = "My VRL scenario";
 
 // Getting/setting logic for all state
 const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: GetState<Persistent>) => ({
@@ -81,7 +82,11 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   },
 
   setTitle: (title: string) => {
-    set({ title });
+    if (title.length === 0) {
+      set({ title: defaultTitle });
+    } else {
+      set({ title });
+    }
   },
   setScenario: (id: number) => {
     const s = get().scenarios[id];
