@@ -1,13 +1,13 @@
 use serde::{Deserialize, Serialize};
 use std::convert::Infallible;
 use vector_shared::TimeZone;
-use vrl::{diagnostic::Formatter, state, Runtime, Value};
+use vrl::{diagnostic::Formatter, state, value, Runtime, Value};
 use warp::{reply::json, Reply};
 
 #[derive(Deserialize, Serialize)]
 pub struct Input {
     program: String,
-    event: Value,
+    event: Option<Value>,
 }
 
 #[derive(Deserialize, Serialize)]
@@ -22,8 +22,10 @@ pub async fn resolve_vrl_input(input: Input) -> Result<impl Reply, Infallible> {
     Ok(json(&outcome))
 }
 
-fn resolve(mut input: Input) -> Outcome {
-    let event = &mut input.event;
+fn resolve(input: Input) -> Outcome {
+    let mut value: Value = input.event.unwrap_or(value!({}));
+
+    let event = &mut value;
     let mut state = state::Compiler::default();
     let mut runtime = Runtime::new(state::Runtime::default());
     let tz = TimeZone::default();
