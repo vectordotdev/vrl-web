@@ -16,7 +16,11 @@ export const Title = () => {
       onSave={(p: onSaveProps) => {
         if (p.value.length == 0) {
           setTitle(defaultTitleText);
+        } else {
+          setTitle(p.value);
         }
+
+        console.log(title);
       }}
     />
   </div>

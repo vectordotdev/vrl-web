@@ -197,6 +197,8 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
       result: get().result,
     };
 
+    alert(get().title);
+
     const s = JSON.stringify(input);
     const hash = window.btoa(s);
 
@@ -214,4 +216,4 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   },
 });
 
-export const store = new LocalStorage("__vrl_playground", stateHandler);
+export const state = new LocalStorage("__vrl_playground", stateHandler);
