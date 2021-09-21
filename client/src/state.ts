@@ -58,7 +58,7 @@ export type Output = string;
 // Used to construct scenario URLs
 type Hashable = {
   title: string;
-  event: Event;
+  event: Event | null;
   program: Program;
   result?: Event | null;
   output?: Output | null;
@@ -68,7 +68,7 @@ type Hashable = {
 export type Scenario = {
   id: number;
   title: string;
-  event: Event;
+  event: Event | null;
   program: Program;
   result?: Event | null;
   output?: Output | null;
@@ -159,8 +159,10 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
     set({ errorMsg: null });
   },
   resolve: () => {
+    const event: Event = get().event || {};
+
     const request = {
-      event: get().event,
+      event,
       program: get().program,
     }
 
@@ -208,8 +210,11 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   setScenarioFromHash: (hash: string) => {
     const s: string = window.atob(hash);
     const obj: Hashable = JSON.parse(s);
+    console.log(obj);
 
     set({ title: obj.title, event: obj.event, program: obj.program, output: obj.output, result: obj.result });
+
+    console.log(get().output);
   },
 });
 

@@ -3,8 +3,11 @@ import Editor from "@monaco-editor/react";
 import { Event, state } from "../state";
 import { EDITABLE_EDITOR_OPTIONS } from "../values";
 
-export const EventEditor = () => {
-  const event: Event = state.store(s => s.event)
+type Props = {
+  event: Event;
+}
+
+export const EventEditor = ({ event }: Props) => {
   const setEvent: (s: string) => void = state.store(s => s.setEvent);
   const theme: string = state.store(s => s.theme);
 

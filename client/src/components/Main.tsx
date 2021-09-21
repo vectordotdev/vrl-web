@@ -21,14 +21,15 @@ export const MainWithHash = ({ hash }: Props) => {
 
   useEffect(() => {
     setScenarioFromHash(hash);
-    window.location.href = '/';
-  });
+    //window.location.href = '/';
+  }, [setScenarioFromHash]);
 
   return <Main />
 }
 
 export const Main = () => {
   const resolve: () => void = state.store(s => s.resolve);
+  var event: Event | null = state.store(s => s.event);
   const result: Event | null = state.store(s => s.result);
   const output: Output | null = state.store(s => s.output);
 
@@ -45,32 +46,38 @@ export const Main = () => {
           <ProgramEditor />
         </div>
 
-        <div>
-          <p className="title">
-            Event
-          </p>
+        {event && (
+          <div>
+            <p className="title">
+              Event
+            </p>
 
-          <EventEditor />
-        </div>
+            <EventEditor event={event} />
+          </div>
+        )}
       </div>
 
-      {(result && output) && (
+      {(result || output) && (
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <p className="title">
-              Result
-            </p>
+          {result && (
+            <div>
+              <p className="title">
+                Result
+              </p>
+
+              <Result result={result} />
+            </div>
+          )}
   
-            <Result result={result}/>
-          </div>
-  
-          <div>
-            <p className="title">
-              Output
-            </p>
-  
-            <Out output={output} />
-          </div>
+          {output && (
+            <div>
+              <p className="title">
+                Output
+              </p>
+
+              <Out output={output} />
+            </div>
+          )}
         </div>
       )}
 
