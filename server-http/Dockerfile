@@ -5,7 +5,7 @@ RUN apt update && apt install -y musl-tools musl-dev
 
 WORKDIR /build
 
-COPY ./server .
+COPY . .
 
 RUN ./setup.sh
 

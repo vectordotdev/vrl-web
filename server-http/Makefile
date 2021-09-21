@@ -1,8 +1,5 @@
 IMAGE = lucperkins/vrl-server:latest
 
-client-dev:
-	(cd client && yarn run start)
-
 docker-build:
 	docker buildx build -t $(IMAGE) .
 
