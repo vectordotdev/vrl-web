@@ -21,7 +21,7 @@ export const MainWithHash = ({ hash }: Props) => {
 
   useEffect(() => {
     setScenarioFromHash(hash);
-    //window.location.href = '/';
+    window.location.href = '/';
   }, [setScenarioFromHash]);
 
   return <Main />
