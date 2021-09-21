@@ -2,11 +2,12 @@ FROM rust:1.55.0 AS builder
 
 RUN cargo install cargo-make
 RUN apt update && apt install -y musl-tools musl-dev
-RUN ./setup.sh
 
 WORKDIR /build
 
 COPY ./server .
+
+RUN ./setup.sh
 
 RUN cargo make build-alpine
 
