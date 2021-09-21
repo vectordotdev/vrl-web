@@ -210,12 +210,8 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   setScenarioFromHash: (hash: string) => {
     const s: string = window.atob(hash);
     const obj: Hashable = JSON.parse(s);
-    console.log(obj);
-
     set({ title: obj.title, event: obj.event, program: obj.program, output: obj.output, result: obj.result });
-
-    console.log(get().output);
   },
 });
 
-export const state = new LocalStorage("__vrl_playground", stateHandler);
+export const store = new LocalStorage("__vrl_playground", stateHandler);
