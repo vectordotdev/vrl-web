@@ -9,7 +9,7 @@ COPY ./server .
 
 RUN ./setup.sh
 
-RUN cargo make build-alpine
+RUN cargo make build-musl
 
 FROM alpine:3.14
 
