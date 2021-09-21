@@ -2,33 +2,25 @@ import { useEffect } from "react";
 import { BrowserRouter, Route, RouteComponentProps, Switch } from "react-router-dom";
 
 import "../style.css";
+import { vrlInfo } from "../vrl";
 
 import { Footer } from "./Footer";
 import { Main, MainWithHash } from "./Main";
 import { Navbar } from "./Navbar";
 import { NotFound } from "./NotFound";
-import { state } from "../state";
-import { VrlFunctions, vrlInfo } from "../vrl";
 
 type Props = RouteComponentProps<{ hash? : string }>;
 
 export const App = () => {
-  const setFunctions: () => void = state.store(s => s.setFunctions);
-  const setVrlFunctions: () => void = vrlInfo.store(s => s.setFunctions);
-  const functions: VrlFunctions = vrlInfo.store(s => s.functions);
+  const setFunctions: () => void = vrlInfo.store(s => s.setFunctions);
 
   useEffect(() => {
     // Fetch the VRL functions upon initial render
     setFunctions();
-    setVrlFunctions();
-  }, [setFunctions, setVrlFunctions]);
+  }, [setFunctions]);
 
   return <div className="page">
     <Navbar />
-
-    <div>
-      {JSON.stringify(functions)}
-    </div>
 
     <BrowserRouter>
       <Switch>

@@ -1,9 +1,14 @@
 import { state } from "../state";
+import { VrlFunctions, vrlInfo } from "../vrl";
 
 const Functions = () => {
-  const functions: string[] = state.store(s => s.functions);
-  const showFunctions: boolean = state.store(s => s.showFunctions);
-  const toggleShowFunctions: () => void = state.store(s => s.toggleShowFunctions);
+  const functions: VrlFunctions = vrlInfo.store(s => s.functions);
+  const showFunctions: boolean = vrlInfo.store(s => s.showFunctions);
+  const toggleShowFunctions: () => void = vrlInfo.store(s => s.toggleShowFunctions);
+
+  Object.keys(functions).map((key: string) => {
+    console.log(key);
+  })
 
   return <div>
     <p className="text-lg">
@@ -16,10 +21,10 @@ const Functions = () => {
 
     {showFunctions && (
       <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {functions.map((func: string, idx: number) => (
-          <li key={idx} className="font-mono text-sm overflow-auto hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-500">
-            <a href={`https://vrl.dev/functions/#${func}`} target="_blank">
-              {func}
+        {Object.keys(functions).map((key: string) => (
+          <li key={key} className="font-mono text-sm overflow-auto hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-500">
+            <a href={`https://vrl.dev/functions/#${key}`} target="_blank">
+              {key}
             </a>
           </li>
         ))}

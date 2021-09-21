@@ -30,11 +30,6 @@ export type Scenario = {
   errorMsg?: string | null;
 }
 
-// The list of VRL functions fetched from the server
-export type Functions = {
-  functions: string[];
-}
-
 // Declaration of application state management logic
 type Persistent = {
   id: number;
@@ -45,13 +40,9 @@ type Persistent = {
   output?: Output | null;
   errorMsg?: string | null;
   hashUrl: string | null;
-  functions: string[];
   theme: string;
   scenario: Scenario;
   scenarios: Scenario[];
-  showFunctions: boolean;
-  toggleShowFunctions: () => void;
-  setFunctions: () => void;
   setTheme: (isLight: boolean) => void;
   removeError: () => void;
   setEvent: (s: string) => void;
@@ -85,18 +76,6 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   functions: [],
   theme: defaultTheme,
   showFunctions: false,
-  toggleShowFunctions: () => {
-    set({ showFunctions: !get().showFunctions });
-  },
-  setFunctions: () => {
-    if (get().functions.length === 0) {
-      client.getFunctions()
-        .then(res => {
-          set({ functions: res.functions });
-        })
-        .catch(e => { throw new Error(`Something went wrong when communicating with the server: ${e}`); });
-    }
-  },
   setTheme: (isLight: boolean) => {
     set({ theme: isLight ? "vs" : "vs-dark" });
   },
