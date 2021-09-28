@@ -82,11 +82,7 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   },
 
   setTitle: (title: string) => {
-    if (title.length === 0) {
-      set({ title: defaultTitle });
-    } else {
-      set({ title });
-    }
+    set({ title });
   },
   setScenario: (id: number) => {
     const s = get().scenarios[id];
