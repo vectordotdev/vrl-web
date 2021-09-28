@@ -20,14 +20,12 @@ export const Navbar = () => {
   }
 
   return <nav className="flex items-center justify-between py-5 px-8 bg-gray-100 dark:bg-black shadow-sm">
-    <div>
-      <p className="text-xl tracking-tight font-semibold">
-        {vectorIcon}
-      </p>
+    <div className="h-12">
+      {vectorIcon}
     </div>
 
     <div className="flex items-center space-x-4">
-      <span className="text-lg text-black dark:text-gray-200 tracking-tight">
+      <span className="text-lg text-black font-semibold dark:text-gray-200 tracking-tight">
         The VRL Playground
       </span>
 
@@ -63,8 +61,8 @@ const ScenarioSelector = () => {
 
   return <div className="relative inline-block text-left">
     <div>
-      <button onClick={toggleOpen} type="button" className="inline-flex items-center justify-center w-full rounded-sm border border-gray-300 dark:border-gray-800 shadow-sm px-4 py-2 bg-gray-50 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary" id="menu-button" aria-expanded="true" aria-haspopup="true">
-        <span className="text-gray-700 dark:text-gray-300 truncate">
+      <button onClick={toggleOpen} type="button" className="inline-flex space-x-2 items-center justify-center w-full rounded-sm border border-gray-300 dark:border-gray-800 shadow-sm px-4 py-2 bg-gray-50 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary" id="menu-button" aria-expanded="true" aria-haspopup="true">
+        <span className="text-lg text-gray-700 dark:text-gray-300 truncate tracking-tight">
           Built-in scenarios
         </span>
         <ChevronDownIcon className="h-5 w-5 text-secondary dark:text-primary" />

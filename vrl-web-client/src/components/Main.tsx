@@ -89,10 +89,6 @@ export const Main = () => {
           Resolve
         </button>
       </div>
-
-      <div className="mt-8">
-        <Docs />
-      </div>
     </main>
   </ErrorHandler>  
 }
