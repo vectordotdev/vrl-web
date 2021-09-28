@@ -1,4 +1,3 @@
-import { state } from "../state";
 import { VrlFunctions, vrlInfo } from "../vrl";
 
 const Functions = () => {
