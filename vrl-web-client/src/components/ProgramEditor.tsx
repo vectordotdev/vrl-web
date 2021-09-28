@@ -1,4 +1,5 @@
 import Editor from "@monaco-editor/react";
+import { editorHeight } from "../contants";
 
 import { Program, state } from "../state";
 import { EDITABLE_EDITOR_OPTIONS } from "../values";
@@ -13,7 +14,7 @@ export const ProgramEditor = () => {
   }
 
   return <Editor
-    height="200px"
+    height={editorHeight}
     language="ruby"
     theme={theme}
     value={program}

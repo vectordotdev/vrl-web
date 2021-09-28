@@ -1,11 +1,11 @@
 import { state } from "../state";
 
 const Hash = () => {
-  const hashUrl: string = state.store(s => s.hashUrl);
-  const setHashUrl: () => void = state.store(s => s.setHashUrl);
+  const getHashUrl: () => string = state.store(s => s.getHashUrl);
 
   const copyToClipboard = () => {
-    setHashUrl();
+    const hashUrl: string = getHashUrl();
+
     navigator.clipboard.writeText(hashUrl);
   }
 

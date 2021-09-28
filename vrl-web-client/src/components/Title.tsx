@@ -15,12 +15,11 @@ export const Title = () => {
     }
   }
 
-  return <div className="py-2">
+  return <div className="title">
     <EditText
       value={title}
       onChange={setTitle}
-      className="text-3xl font-semibold dark:text-white focus:bg-gray-200
-      dark:focus:bg-gray-300 dark:focus:text-black dark:focus:ring-0"
+      className="editor"
       onSave={onSave}
     />
   </div>

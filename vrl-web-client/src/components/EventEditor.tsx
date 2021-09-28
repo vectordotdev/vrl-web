@@ -1,4 +1,5 @@
 import Editor from "@monaco-editor/react";
+import { editorHeight } from "../contants";
 
 import { Event, state } from "../state";
 import { EDITABLE_EDITOR_OPTIONS } from "../values";
@@ -16,7 +17,7 @@ export const EventEditor = ({ event }: Props) => {
   }
 
   return <Editor
-    height="200px"
+    height={editorHeight}
     language="json"
     theme={theme}
     onChange={onEventChange}

@@ -1,3 +1,62 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
+
+@layer base {
+  main {
+    @apply flex-grow bg-gray-50 dark:bg-gray-800 py-8 px-6;
+  }
+
+  main .container {
+    @apply flex flex-col space-y-8;
+  }
+
+  main .container .top-container {
+    @apply block space-y-4 md:space-y-0 md:flex md:items-center md:justify-between md:space-x-8;
+  }
+
+  main .container .main-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-8;
+  }
+
+  main .main-grid .cell {
+    @apply flex flex-col space-y-4;
+  }
+}
+
+@layer components {
+  nav.navbar {
+    @apply py-4 px-6 bg-gray-200 dark:bg-black;
+  }
+
+  nav.navbar .container {
+    @apply flex items-center justify-between;
+  }
+
+  nav.navbar .container .logo {
+    @apply h-10;
+  }
+
+  nav.navbar .container .menu {
+    @apply flex items-center space-x-4;
+  }
+
+  .main-grid .cell .cell-title {
+    @apply text-black dark:text-gray-100 font-semibold text-2xl;
+  }
+
+  .title {
+    @apply w-full;
+  }
+
+  .title .editor {
+    @apply px-0 py-1 text-3xl font-semibold dark:text-white focus:bg-gray-200
+      dark:focus:bg-gray-300 dark:focus:text-black dark:focus:ring-0;
+  }
+
+  button.resolve {
+    @apply shadow rounded-md py-2 px-3 font-bold bg-primary
+      dark:bg-primary hover:bg-primary-dark dark:hover:bg-primary-dark;
+  }
+}

@@ -19,23 +19,25 @@ export const Navbar = () => {
     setTheme(darkMode.value);
   }
 
-  return <nav className="flex items-center justify-between py-5 px-8 bg-gray-100 dark:bg-black shadow-sm">
-    <div className="h-12">
-      {vectorIcon}
-    </div>
+  return <nav className="navbar">
+    <div className="container">
+      <div className="logo">
+        {vectorIcon}
+      </div>
 
-    <div className="flex items-center space-x-4">
-      <span className="text-lg text-black font-semibold dark:text-gray-200 tracking-tight">
-        The VRL Playground
-      </span>
+      <div className="menu">
+        <span className="text-lg text-black font-semibold dark:text-gray-200 tracking-tight">
+          The VRL Playground
+        </span>
 
-      <button onClick={darkModeToggle} className="font-bold toggler">
-        {darkMode.value ?
-          <SunIcon className="h-6 w-6 text-yellow-400" /> :
-          <MoonIcon className="h-6 w-6 text-blue-500" />}
-      </button>
+        <button onClick={darkModeToggle} className="font-bold toggler">
+          {darkMode.value ?
+            <SunIcon className="h-6 w-6 text-yellow-400" /> :
+            <MoonIcon className="h-6 w-6 text-blue-500" />}
+        </button>
 
-      <ScenarioSelector />
+        <ScenarioSelector />
+      </div>
     </div>
   </nav>
 }
