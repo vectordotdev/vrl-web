@@ -5,10 +5,6 @@ const Functions = () => {
   const showFunctions: boolean = vrlInfo.store(s => s.showFunctions);
   const toggleShowFunctions: () => void = vrlInfo.store(s => s.toggleShowFunctions);
 
-  Object.keys(functions).map((key: string) => {
-    console.log(key);
-  })
-
   return <div>
     <p className="text-lg">
       VRL functions
