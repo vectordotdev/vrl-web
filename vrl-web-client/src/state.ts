@@ -1,4 +1,4 @@
-import { HOST, SCENARIOS } from "./values";
+import { SCENARIOS } from "./values";
 import { GetState, SetState, StateCreator } from "zustand";
 import { client, Outcome } from "./client";
 import { darkModeUserPreference } from "./mode";
@@ -142,8 +142,9 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
 
     const s = JSON.stringify(input);
     const hash = window.btoa(s);
+    const host = window.location.host;
 
-    return `${HOST}/h/${hash}`;
+    return `${host}/h/${hash}`;
   },
   setHashUrl: () => {
     const url = get().getHashUrl();

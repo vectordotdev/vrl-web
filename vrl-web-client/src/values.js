@@ -28,7 +28,6 @@ export const READ_ONLY_EDITOR_OPTIONS = {
   wordWrap: "on"
 }
 
-export const HOST = process.env.HOST;
 export const VRL_WEB_SERVER_ADDRESS = process.env.VRL_WEB_SERVER_ADDRESS;
 export const VRL_RESOLVE_ENDPOINT = `${VRL_WEB_SERVER_ADDRESS}/resolve`;
 export const VRL_FUNCTIONS_ENDPOINT = `${VRL_WEB_SERVER_ADDRESS}/functions`;
