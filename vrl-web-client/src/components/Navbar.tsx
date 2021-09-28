@@ -9,6 +9,7 @@ import { ChevronDownIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 export const Navbar = () => {
   const darkMode: DarkMode = useDarkMode(darkModeUserPreference, darkModeConfig);
   const setTheme: (t: boolean) => void = state.store(s => s.setTheme);
+  const toggleDrawer: () => void = state.store(s => s.toggleDrawer);
 
   const vectorIcon: JSX.Element = (darkMode.value) ?
     <VectorDarkIcon /> :
@@ -30,10 +31,14 @@ export const Navbar = () => {
           The VRL Playground
         </span>
 
-        <button onClick={darkModeToggle} className="font-bold toggler">
+        <button onClick={darkModeToggle} className="toggler">
           {darkMode.value ?
             <SunIcon className="h-6 w-6 text-yellow-400" /> :
             <MoonIcon className="h-6 w-6 text-blue-500" />}
+        </button>
+
+        <button onClick={toggleDrawer} className="docs">
+          Docs
         </button>
 
         <ScenarioSelector />

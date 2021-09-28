@@ -4,6 +4,14 @@
 @tailwind variants;
 
 @layer base {
+  .main-container {
+    @apply min-h-screen flex flex-col;
+  }
+
+  .dark-overlay {
+    @apply absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity;
+  }
+
   main {
     @apply flex-grow bg-gray-50 dark:bg-gray-800 py-8 px-6;
   }
@@ -58,5 +66,9 @@
   button.resolve {
     @apply shadow rounded-md py-2 px-3 font-bold bg-primary
       dark:bg-primary hover:bg-primary-dark dark:hover:bg-primary-dark;
+  }
+
+  aside.drawer {
+    @apply fixed inset-0 overflow-hidden z-50;
   }
 }

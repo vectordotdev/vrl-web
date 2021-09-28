@@ -54,6 +54,10 @@ type Persistent = {
   resetOutcome: () => void;
   setScenarioFromHash: (hash: string) => void;
   setTitle: (title: string) => void;
+
+  // Slide-out drawer
+  drawer: boolean;
+  toggleDrawer: () => void;
 }
 
 // Calculate initial defaults
@@ -77,6 +81,12 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   functions: [],
   theme: defaultTheme,
   showFunctions: false,
+
+  drawer: false,
+  toggleDrawer: () => {
+    set({ drawer: !get().drawer });
+  },
+
   setTheme: (isLight: boolean) => {
     set({ theme: isLight ? "vs" : "vs-dark" });
   },
