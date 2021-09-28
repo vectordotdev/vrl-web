@@ -25,6 +25,7 @@
     "zustand-persist": "^0.3.1"
   },
   "devDependencies": {
+    "@parcel/transformer-svg-react": "^2.0.0-nightly.1739",
     "@parcel/transformer-yaml": "2.0.0-rc.0",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",

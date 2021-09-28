@@ -1,6 +1,7 @@
-import { VRL_INFO_SERVER_ADDRESS, VRL_RESOLVE_ENDPOINT } from "./values";
 import axios, { AxiosResponse } from "axios";
+
 import { Event, Program } from "./state";
+import { VRL_INFO_SERVER_ADDRESS, VRL_RESOLVE_ENDPOINT } from "./values";
 import { VrlFunctions, VrlInfoFromServer } from "./vrl";
 
 export type Success = {
