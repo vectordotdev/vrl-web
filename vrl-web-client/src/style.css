@@ -1,35 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  p {
-    @apply dark:text-white;
-  }
-
-  nav, footer {
-    @apply py-4 px-8;
-  }
-
-  nav {
-    @apply bg-gray-200 dark:bg-gray-800;
-  }
-
-  main {
-    @apply p-8 flex-grow;
-  }
-
-  footer {
-    @apply bg-gray-200 dark:bg-gray-800;
-  }
-}
-
-@layer components {
-  .page {
-    @apply min-h-screen flex flex-col bg-gray-50 dark:bg-black;
-  }
-
-  .title {
-    @apply text-2xl mb-3;
-  }
-}

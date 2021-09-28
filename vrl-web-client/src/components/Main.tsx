@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import 'react-edit-text/dist/index.css';
 
 import { ErrorDisplay } from "./ErrorDisplay";
-import { Export } from "./Export";
 import { EventEditor } from "./EventEditor";
 import { ProgramEditor } from "./ProgramEditor";
 import { Result } from "./Result";
@@ -34,7 +33,7 @@ export const Main = () => {
   const output: Output | null = state.store(s => s.output);
 
   return <ErrorHandler>
-    <main>
+    <main className="flex-grow bg-gray-50 dark:bg-gray-800 py-8 px-6">
       <Title />
 
       <div className="mt-6 flex flex-col space-y-4">
@@ -95,7 +94,5 @@ export const Main = () => {
         <Docs />
       </div>
     </main>
-
-    <Export />
   </ErrorHandler>  
 }

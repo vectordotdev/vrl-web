@@ -8,8 +8,7 @@ import { Footer } from "./Footer";
 import { Main, MainWithHash } from "./Main";
 import { Navbar } from "./Navbar";
 import { NotFound } from "./NotFound";
-
-type Props = RouteComponentProps<{ hash? : string }>;
+import { Router } from "./Router";
 
 export const App = () => {
   const setFunctions: () => void = vrlInfo.store(s => s.setFunctions);
@@ -19,23 +18,11 @@ export const App = () => {
     setFunctions();
   }, [setFunctions]);
 
-  return <div className="page">
+  return <div className="font-sans antialiased min-h-screen flex flex-col dark:bg-black">
     <Navbar />
 
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-
-        <Route path="/h/:hash" render={({ match }: Props) => <MainWithHash hash={match.params.hash} />} />
-
-        <Route path="*">
-          <NotFound />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Router />
 
     <Footer />
-  </div> 
+  </div>
 }

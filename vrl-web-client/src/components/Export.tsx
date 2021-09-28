@@ -10,15 +10,13 @@ const Hash = () => {
   }
 
   return <nav>
-    <div className="mt-2 flex items-center space-x-6">
-      <p className="text-xl font-semibold">
-        Export
-      </p>
+    <p className="text-xl font-semibold text-black dark:text-gray-200">
+      Export
+    </p>
 
-      <button onClick={copyToClipboard}>
-        Copy URL to clipboard
-      </button>
-    </div>
+    <button onClick={copyToClipboard}>
+      Copy URL to clipboard
+    </button>
   </nav>
 }
 
