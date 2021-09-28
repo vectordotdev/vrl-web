@@ -24,6 +24,10 @@ type VrlInfo = {
   toggleShowFunctions: () => void;
 }
 
+export type VrlInfoFromServer = {
+  vrl: VrlInfo;
+}
+
 const vrlInfoHandler: StateCreator<VrlInfo> = (set: SetState<VrlInfo>, get: GetState<VrlInfo>) => ({
   functions: null,
   showFunctions: false,
@@ -31,8 +35,8 @@ const vrlInfoHandler: StateCreator<VrlInfo> = (set: SetState<VrlInfo>, get: GetS
   setFunctions: () => {
     if (get().functions === null) {
       client.getVrlInfo()
-        .then((functions: VrlFunctions) => {
-          set({ functions });
+        .then((info: VrlInfoFromServer) => {
+          set({ functions: info.vrl.functions });
         })
         .catch(e => { throw new Error(`Something went wrong when communicating with the server: ${e}`); });
     }
