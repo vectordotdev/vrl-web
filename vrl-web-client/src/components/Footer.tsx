@@ -3,7 +3,7 @@ import { VRL_WEB_SERVER_ADDRESS } from '../values';
 import { Export } from "./Export";
 
 export const Footer = () => {
-  return <footer className="bg-gray-100 flex flex-col">
+  return <footer>
     <div className="py-4 px-6 bg-gray-100 dark:bg-gray-700">
       <Export />
     </div>

@@ -15,7 +15,7 @@ export const Title = () => {
     }
   }
 
-  return <div className="title">
+  return <div className="editable-title">
     <EditText
       value={title}
       onChange={setTitle}

@@ -28,6 +28,8 @@ export const MainWithHash = ({ hash }: Props) => {
 export const Main = () => {
   const resolve: () => void = state.store(s => s.resolve);
   var event: Event | null = state.store(s => s.event);
+  const output: Output | null = state.store(s => s.output);
+  var errorMsg: string | null = state.store(s => s.errorMsg);
 
   return <ErrorHandler>
     <main>
@@ -58,8 +60,22 @@ export const Main = () => {
           </div>
         </div>
 
-        <div className="mt-4">
-          <ErrorDisplay />
+        <div>
+          <div className="cell">
+            <div className="output-title">
+              <span className={(output || errorMsg) ? "output" : "no-output"}>
+                Output
+              </span>
+
+              {errorMsg && (
+                <span className="sirens">
+                  🚨 error 🚨
+                </span>
+              )}
+            </div>
+
+            <Out />
+          </div>
         </div>
       </div>
     </main>

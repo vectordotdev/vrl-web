@@ -1,20 +1,33 @@
 import Editor from "@monaco-editor/react";
+import { editorHeight } from "../contants";
 
 import { Output, state } from "../state";
 import { READ_ONLY_EDITOR_OPTIONS } from "../values";
 
-type Props = {
-  output: Output;
-}
-
-export const Out = ({ output }: Props) => {
+export const Out = () => {
   const theme: string = state.store(s => s.theme);
+  const output: Output | null = state.store(s => s.output);
+  var errorMsg: string | null = state.store(s => s.errorMsg);
 
-  return <Editor
-    height="200px"
-    language="json"
-    theme={theme}
-    value={JSON.stringify(output, null, 2)}
-    options={READ_ONLY_EDITOR_OPTIONS}
-  />
+  if (errorMsg != null) {
+    errorMsg = errorMsg.substring(1);
+  }
+
+  return <>
+    {output && (
+      <Editor
+        height={editorHeight}
+        language="json"
+        theme={theme}
+        value={JSON.stringify(output, null, 2)}
+        options={READ_ONLY_EDITOR_OPTIONS}
+      />
+    )}
+
+    {errorMsg && (
+      <pre className="error">
+        {errorMsg}
+      </pre>
+    )}
+  </>
 }

@@ -9,7 +9,6 @@ import { ChevronDownIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 export const Navbar = () => {
   const darkMode: DarkMode = useDarkMode(darkModeUserPreference, darkModeConfig);
   const setTheme: (t: boolean) => void = state.store(s => s.setTheme);
-  const toggleDrawer: () => void = state.store(s => s.toggleDrawer);
 
   const vectorIcon: JSX.Element = (darkMode.value) ?
     <VectorDarkIcon /> :
@@ -27,21 +26,17 @@ export const Navbar = () => {
       </div>
 
       <div className="menu">
-        <span className="text-lg text-black font-semibold dark:text-gray-200 tracking-tight">
+        <span className="site-title">
           The VRL Playground
         </span>
 
+        <ScenarioSelector />
+
         <button onClick={darkModeToggle} className="toggler">
           {darkMode.value ?
-            <SunIcon className="h-6 w-6 text-yellow-400" /> :
-            <MoonIcon className="h-6 w-6 text-blue-500" />}
+            <SunIcon className="sun-icon" /> :
+            <MoonIcon className="moon-icon" />}
         </button>
-
-        <button onClick={toggleDrawer} className="docs">
-          Docs
-        </button>
-
-        <ScenarioSelector />
       </div>
     </div>
   </nav>
@@ -66,19 +61,21 @@ const ScenarioSelector = () => {
     setOpen(false);
   };
 
-  return <div className="relative inline-block text-left">
+  return <div className="toggler">
     <div>
-      <button onClick={toggleOpen} type="button" className="inline-flex space-x-2 items-center justify-center w-full rounded-sm border border-gray-300 dark:border-gray-800 shadow-sm px-4 py-2 bg-gray-50 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary" id="menu-button" aria-expanded="true" aria-haspopup="true">
-        <span className="text-lg text-gray-700 dark:text-gray-300 truncate tracking-tight">
+      <button
+        className="toggle"
+        onClick={toggleOpen} type="button" id="menu-button" aria-expanded="true" aria-haspopup="true">
+        <span className="title">
           Built-in scenarios
         </span>
-        <ChevronDownIcon className="h-5 w-5 text-secondary dark:text-primary" />
+        <ChevronDownIcon className="chevron" />
       </button>
     </div>
 
     {open && (
       <div
-        className="z-50 origin-top-right absolute right-0 mt-3 w-56 shadow-lg bg-white dark:bg-black ring-1 ring-black ring-opacity-5 focus:outline-none"
+        className="dropdown"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="menu-button"
