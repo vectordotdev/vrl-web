@@ -40,17 +40,16 @@ type Persistent = {
   theme: string;
   scenario: Scenario;
   scenarios: Scenario[];
+  setScenario: (id: number) => void;
   setTheme: (isLight: boolean) => void;
-  removeError: () => void;
   setEvent: (s: string) => void;
+  setTitle: (title: string) => void;
   setProgram: (s: string) => void;
   getHashUrl: () => string;
   setHashUrl: () => void;
-  setScenario: (id: number) => void;
-  resolve: () => void;
   resetOutcome: () => void;
+  resolve: () => void;
   setScenarioFromHash: (hash: string) => void;
-  setTitle: (title: string) => void;
 }
 
 // Calculate initial defaults
@@ -72,14 +71,6 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   functions: [],
   theme: defaultTheme,
   showFunctions: false,
-
-  setTheme: (isLight: boolean) => {
-    set({ theme: isLight ? "vs" : "vs-dark" });
-  },
-
-  setTitle: (title: string) => {
-    set({ title });
-  },
   setScenario: (id: number) => {
     const s = get().scenarios[id];
 
@@ -87,41 +78,15 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
     get().resetOutcome();
     get().setHashUrl();
   },
-  removeError: () => {
-    set({ errorMsg: null });
-  },
-  resolve: () => {
-    const event: Event = get().event || {};
-
-    const request = {
-      event,
-      program: get().program,
-    }
-
-    client.resolve(request)
-      .then((outcome: Outcome) => {
-        if (outcome.success) {
-          const { output, result } = outcome.success;
-
-          const msg: string = `# Successfully resolved!\n# Enter a new program to act upon the new event`;
-
-          set({ output, event: result, program: msg });
-          set({ errorMsg: null });
-        } else if (outcome.error) {
-          set({ errorMsg: outcome.error });
-          set({ output: null });
-        } else {
-          throw new Error("The VRL web server returned a response that couldn't be interpreted");
-        }
-      })
-      .catch(e => { throw new Error(`Something went wrong when communicating with the server: ${e}`); });
-  },
-  resetOutcome: () => {
-    set({ output: null, errorMsg: null });
+  setTheme: (isLight: boolean) => {
+    set({ theme: isLight ? "vs" : "vs-dark" });
   },
   setEvent: (s: string) => {
     const event: Event = JSON.parse(s);
     set({ event });
+  },
+  setTitle: (title: string) => {
+    set({ title });
   },
   setProgram: (s: string) => {
     set({ program: s });
@@ -144,6 +109,35 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
     const url = get().getHashUrl();
 
     set({ hashUrl: url });
+  },
+  resetOutcome: () => {
+    set({ output: null, errorMsg: null });
+  },
+  resolve: () => {
+    const event: Event = get().event || {};
+
+    const request = {
+      event,
+      program: get().program,
+    };
+
+    client.resolve(request)
+      .then((outcome: Outcome) => {
+        if (outcome.success) {
+          const { output, result } = outcome.success;
+
+          const msg: string = `# Successfully resolved!\n# Enter a new program to act upon the new event`;
+
+          set({ output, event: result, program: msg });
+          set({ errorMsg: null });
+        } else if (outcome.error) {
+          set({ errorMsg: outcome.error });
+          set({ output: null });
+        } else {
+          throw new Error("The VRL web server returned a response that couldn't be interpreted");
+        }
+      })
+      .catch(e => { throw new Error(`Something went wrong when communicating with the server: ${e}`); });
   },
   setScenarioFromHash: (hash: string) => {
     const s: string = window.atob(hash);
