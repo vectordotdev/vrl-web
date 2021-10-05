@@ -14,16 +14,12 @@
 }
 
 @layer base {
-  .page {
+  body {
     @apply font-sans antialiased;
   }
 
-  .main-container {
+  article {
     @apply min-h-screen flex flex-col;
-  }
-
-  .dark-overlay {
-    @apply absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity;
   }
 
   main {
@@ -69,7 +65,8 @@
   }
 
   nav.navbar .container .menu .site-title {
-    @apply text-lg text-black font-semibold dark:text-gray-200 tracking-tight;
+    @apply text-lg text-black font-semibold dark:text-gray-200
+      tracking-tight;
   }
 
   .cell .cell-title {
@@ -81,8 +78,9 @@
   }
 
   .editable-title .editor {
-    @apply px-0 py-1 text-4xl tracking-tight font-semibold dark:text-white focus:bg-gray-200
-      dark:focus:bg-gray-300 dark:focus:text-black dark:focus:ring-0;
+    @apply px-0 py-1 text-4xl tracking-tight font-semibold dark:text-white
+      focus:bg-gray-200 dark:focus:bg-gray-300 dark:focus:text-black
+      dark:focus:ring-0;
   }
 
   button.resolve {
@@ -140,6 +138,7 @@
   }
 
   pre.error {
-    @apply overflow-auto py-4 px-6 font-semibold bg-gray-800 text-red-300 dark:bg-black dark:text-red-400;
+    @apply overflow-auto py-4 px-6 font-semibold bg-gray-800 text-red-300
+      dark:bg-black dark:text-red-400;
   }
 }

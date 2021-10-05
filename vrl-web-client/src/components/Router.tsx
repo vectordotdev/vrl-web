@@ -1,18 +1,15 @@
 import { BrowserRouter, Route, RouteComponentProps, Switch } from "react-router-dom";
-import { Main, MainWithHash } from "./Main";
+import { Main } from "./Main";
 import { NotFound } from "./NotFound";
 
-
-type Props = RouteComponentProps<{ hash?: string; }>;
+export type RouteParams = RouteComponentProps<{ hash?: string; }>;
 
 export const Router = () => {
   return <BrowserRouter>
     <Switch>
-      <Route exact path="/">
-        <Main />
-      </Route>
+      <Route exact path="/" render={() => <Main hash={null} />} />
 
-      <Route path="/h/:hash" render={({ match }: Props) => <MainWithHash hash={match.params.hash} />} />
+      <Route path="/h/:hash" render={({ match }: RouteParams) => <Main hash={match.params.hash} />} />
 
       <Route path="*">
         <NotFound />

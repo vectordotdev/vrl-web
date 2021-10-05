@@ -14,16 +14,13 @@ export const App = () => {
     setFunctions();
   }, [setFunctions]);
 
-  return <div className="page">
-    <div className="main-container">
-      <Navbar />
+  return <article>
+    <Navbar />
 
-      <Router />
+    <Router />
 
-      <Footer />
-    </div>
-
-  </div>
+    <Footer />
+  </article>
 }
 
 const DarkOverlay = () => {

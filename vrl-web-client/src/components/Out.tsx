@@ -7,7 +7,7 @@ import { READ_ONLY_EDITOR_OPTIONS } from "../values";
 export const Out = () => {
   const theme: string = state.store(s => s.theme);
   const output: Output | null = state.store(s => s.output);
-  var errorMsg: string | null = state.store(s => s.errorMsg);
+  let errorMsg: string | null = state.store(s => s.errorMsg);
 
   if (errorMsg != null) {
     errorMsg = errorMsg.substring(1);
@@ -25,9 +25,13 @@ export const Out = () => {
     )}
 
     {errorMsg && (
-      <pre className="error">
-        {errorMsg}
-      </pre>
+      <Editor
+        height={editorHeight}
+        language="rust"
+        theme={theme}
+        value={errorMsg}
+        options={READ_ONLY_EDITOR_OPTIONS}
+      />
     )}
   </>
 }
