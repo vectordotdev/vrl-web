@@ -36,7 +36,7 @@ pub async fn serve() {
 
     let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), 8080);
 
-    println!("starting up the server on {}", addr.to_string());
+    println!("starting up the VRL Web server on {}", addr.to_string());
 
     warp::serve(routes).run(addr).await
 }
