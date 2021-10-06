@@ -51,3 +51,7 @@
     foo: "bar"
   program: |-
     uh oh spaghettios
+- id: 4
+  title: No event
+  event: null
+  program: "."

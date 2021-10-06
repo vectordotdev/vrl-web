@@ -125,11 +125,11 @@
     dark:bg-black ring-1 ring-black ring-opacity-5 focus:outline-none;
   }
 
-  .output-title {
+  .output-title, .event-title {
     @apply cell-title flex items-center justify-between;
   }
 
-  .output-title .no-output {
+  .output-title .no-output, .event-title .no-event {
     @apply text-gray-300 dark:text-gray-400;
   }
 

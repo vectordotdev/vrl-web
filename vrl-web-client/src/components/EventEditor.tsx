@@ -5,7 +5,7 @@ import { Event, state } from "../state";
 import { EDITABLE_EDITOR_OPTIONS } from "../values";
 
 type Props = {
-  event: Event;
+  event?: Event;
 }
 
 export const EventEditor = ({ event }: Props) => {
@@ -16,12 +16,16 @@ export const EventEditor = ({ event }: Props) => {
     setEvent(val);
   }
 
-  return <Editor
-    height={editorHeight}
-    language="json"
-    theme={theme}
-    onChange={onEventChange}
-    value={JSON.stringify(event, null, 2)}
-    options={EDITABLE_EDITOR_OPTIONS}
-  />
+  return <>
+    {event && (
+      <Editor
+        height={editorHeight}
+        language="json"
+        theme={theme}
+        onChange={onEventChange}
+        value={JSON.stringify(event, null, 2)}
+        options={EDITABLE_EDITOR_OPTIONS}
+      />
+    )}
+  </>
 }

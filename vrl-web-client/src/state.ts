@@ -114,10 +114,8 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
     set({ output: null, errorMsg: null });
   },
   resolve: () => {
-    const event: Event = get().event || {};
-
     const request = {
-      event,
+      event: get().event,
       program: get().program,
     };
 

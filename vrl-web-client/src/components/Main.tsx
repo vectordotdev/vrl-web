@@ -48,9 +48,11 @@ export const Main = ({ hash }: Props) => {
           </div>
 
           <div className="cell">
-            <p className="cell-title">
-              Event
-            </p>
+            <div className="event-title">
+              <span className={event ? "event" : "no-event"}>
+                Event
+              </span>
+            </div>
 
             <EventEditor event={event} />
           </div>
