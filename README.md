@@ -5,6 +5,12 @@ This repo houses the assets used to build VRL Web, a browser interface for exper
 Vector [transforms], most notably the [`remap`][remap] transform. You can visit the app at
 https://vrl-web.netlify.app.
 
+## Status
+
+VRL Web is currently a work in progress. The basic contours are essentially in place—e.g. choosing
+from pre-selected example scenarios and resolving real program/event combinations—but the aesthetic
+and the UX remain a bit rough around the edges. This will change over the coming weeks and months.
+
 ## Client
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/da078a1c-a658-4e9b-9467-262b4d3afe9b/deploy-status)](https://app.netlify.com/sites/vrl-web/deploys)
