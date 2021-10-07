@@ -6,3 +6,11 @@ the [`vrl`][vrl_lib] libraries.
 
 The server is deployed as a [Docker image][dockerfile] on the [Fly] PaaS platform. The current web
 address of the server is https://vrl-server.fly-dev.
+
+[dockerfile]: ./vrl-web-server-warp/Dockerfile
+[fly]: https://fly.io
+[repo]: https://github.com/vectordotdev/vector
+[rust]: https://rust-lang.org
+[server]: ./vrl-web-server-warp
+[vrl_lib]: https://github.com/vectordotdev/vector/tree/master/lib/vrl
+[warp]: https://github.com/seanmonstar/warp
