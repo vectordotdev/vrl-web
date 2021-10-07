@@ -9,7 +9,7 @@ struct Info {
     mascot: &'static str,
 }
 
-pub async fn info() -> Result<impl Reply, Infallible> {
+pub(crate) async fn info() -> Result<impl Reply, Infallible> {
     let info = Info {
         vector_version: "0.17.0",
         vrl_version: "0.1.0",

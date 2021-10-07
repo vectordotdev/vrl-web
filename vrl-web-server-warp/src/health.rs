@@ -7,7 +7,7 @@ struct Health {
     ok: bool,
 }
 
-pub async fn healthy() -> Result<impl Reply, Infallible> {
+pub(crate) async fn healthy() -> Result<impl Reply, Infallible> {
     let healthy = Health { ok: true };
 
     Ok(json(&healthy))

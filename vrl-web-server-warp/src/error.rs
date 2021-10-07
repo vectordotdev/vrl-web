@@ -38,7 +38,7 @@ impl Error {
     }
 }
 
-pub async fn handle_err(err: Rejection) -> Result<impl Reply, Infallible> {
+pub(crate) async fn handle_err(err: Rejection) -> Result<impl Reply, Infallible> {
     let result = if err.is_not_found() {
         status(Error::not_found(), StatusCode::NOT_FOUND)
     } else if err.find::<MethodNotAllowed>().is_some() {

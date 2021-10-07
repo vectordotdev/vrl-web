@@ -5,21 +5,16 @@ use vrl::{diagnostic::Formatter, state, value, Runtime, Value};
 use warp::{reply::json, Reply};
 
 #[derive(Deserialize, Serialize)]
-pub struct Input {
+pub(crate) struct Input {
     program: String,
     event: Option<Value>,
 }
 
 #[derive(Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
-pub enum Outcome {
+enum Outcome {
     Success { output: Value, result: Value },
     Error(String),
-}
-
-pub async fn resolve_vrl_input(input: Input) -> Result<impl Reply, Infallible> {
-    let outcome = resolve(input);
-    Ok(json(&outcome))
 }
 
 fn resolve(input: Input) -> Outcome {
@@ -45,4 +40,9 @@ fn resolve(input: Input) -> Outcome {
         },
         Err(err) => Outcome::Error(err.to_string()),
     }
+}
+
+pub(crate) async fn resolve_vrl_input(input: Input) -> Result<impl Reply, Infallible> {
+    let outcome = resolve(input);
+    Ok(json(&outcome))
 }

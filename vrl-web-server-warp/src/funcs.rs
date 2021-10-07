@@ -23,7 +23,7 @@ struct Function {
     examples: Vec<Example>,
 }
 
-pub async fn function_metadata() -> Result<impl Reply, Infallible> {
+pub(crate) async fn function_metadata() -> Result<impl Reply, Infallible> {
     let functions: Vec<Function> = vrl_stdlib::all()
         .iter()
         .map(|f| Function {
