@@ -20,6 +20,7 @@ export type VrlFunctions = { [key: string]: VrlFunction };
 type VrlInfo = {
   functions: VrlFunctions | null;
   showFunctions: boolean;
+  setVrlInfo: () => void;
   setFunctions: () => void;
   toggleShowFunctions: () => void;
 }
@@ -31,6 +32,10 @@ export type VrlInfoFromServer = {
 const vrlInfoHandler: StateCreator<VrlInfo> = (set: SetState<VrlInfo>, get: GetState<VrlInfo>) => ({
   functions: null,
   showFunctions: false,
+
+  setVrlInfo: () => {
+    get().setFunctions();
+  },
 
   setFunctions: () => {
     if (get().functions === null) {

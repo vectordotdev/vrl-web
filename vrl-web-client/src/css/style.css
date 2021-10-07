@@ -26,20 +26,16 @@
     @apply flex-grow bg-gray-50 dark:bg-gray-800 py-8 px-6;
   }
 
-  main .container {
+  main .inner {
     @apply flex flex-col space-y-8;
   }
 
-  main .container .top-container {
+  main .inner .top-container {
     @apply block space-y-4 md:space-y-0 md:flex md:spread md:space-x-8;
   }
 
-  main .container .main-grid {
+  main .inner .main-grid {
     @apply grid-2x1 gap-8;
-  }
-
-  .cell {
-    @apply flex flex-col space-y-4;
   }
 
   footer {
@@ -48,25 +44,29 @@
 }
 
 @layer components {
-  nav.navbar {
+  .navbar {
     @apply py-4 px-6 bg-gray-200 dark:bg-black;
   }
 
-  nav.navbar .container {
+  .navbar .menu {
     @apply spread;
   }
 
-  nav.navbar .container .logo {
+  .navbar .menu .brand {
     @apply h-10;
   }
 
-  nav.navbar .container .menu {
+  .navbar .menu .sub-menu {
     @apply flex items-center space-x-6;
   }
 
-  nav.navbar .container .menu .site-title {
+  .navbar .menu .sub-menu .site-title {
     @apply text-lg text-black font-semibold dark:text-gray-200
       tracking-tight;
+  }
+
+  .cell {
+    @apply flex flex-col space-y-4;
   }
 
   .cell .cell-title {

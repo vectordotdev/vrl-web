@@ -20,12 +20,12 @@ export const Navbar = () => {
   }
 
   return <nav className="navbar">
-    <div className="container">
-      <div className="logo">
+    <div className="menu">
+      <div className="brand">
         {vectorIcon}
       </div>
 
-      <div className="menu">
+      <div className="sub-menu">
         <span className="site-title">
           The VRL Playground
         </span>
@@ -81,7 +81,7 @@ const ScenarioSelector = () => {
         aria-labelledby="menu-button"
         tabIndex={-1}>
 
-        <ul className="py-1" role="none">
+        <ul role="none">
           {scenarios.map((scenario: Scenario, idx: number) => (
             <li className="block hover:bg-gray-50 dark:hover:bg-gray-700">
               <button

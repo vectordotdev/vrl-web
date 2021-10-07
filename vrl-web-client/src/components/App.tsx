@@ -7,12 +7,11 @@ import { Navbar } from "./Navbar";
 import { Router } from "./Router";
 
 export const App = () => {
-  const setFunctions: () => void = vrlInfo.store(s => s.setFunctions);
+  const setVrlInfo: () => void = vrlInfo.store(s => s.setVrlInfo);
 
   useEffect(() => {
-    // Fetch the VRL functions upon initial render
-    setFunctions();
-  }, [setFunctions]);
+    setVrlInfo();
+  }, [setVrlInfo]);
 
   return <article>
     <Navbar />
@@ -21,8 +20,4 @@ export const App = () => {
 
     <Footer />
   </article>
-}
-
-const DarkOverlay = () => {
-  return <div className="dark-overlay"></div>
 }

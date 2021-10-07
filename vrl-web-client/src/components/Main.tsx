@@ -29,7 +29,7 @@ export const Main = ({ hash }: Props) => {
 
   return <ErrorHandler>
     <main>
-      <div className="container">
+      <div className="inner">
         <div className="top-container">
           <Title />
 
