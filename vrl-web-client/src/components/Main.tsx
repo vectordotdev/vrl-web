@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import 'react-edit-text/dist/index.css';
 
-import { EventEditor } from "./EventEditor";
-import { ProgramEditor } from "./ProgramEditor";
-import { Out } from "./Out";
-import { Title } from "./Title";
-import { Event, Output, state } from "../state";
+import { Event, Output, state } from "../data/state";
+
 import { ErrorHandler } from "./ErrorHandler";
+import { EventEditor } from "./EventEditor";
+import { Out } from "./Out";
+import { ProgramEditor } from "./ProgramEditor";
+import { Title } from "./Title";
 
 type Props = {
   hash?: string;

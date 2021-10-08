@@ -1,6 +1,6 @@
-import { state } from "../state";
+import { state } from "../data/state";
 
-const Hash = () => {
+export const Export = () => {
   const getHashUrl: () => string = state.store(s => s.getHashUrl);
 
   const copyToClipboard = () => {
@@ -26,10 +26,4 @@ const Hash = () => {
       Copy URL to clipboard
     </button>
   </nav>
-}
-
-export const Export = () => {
-  return <div>
-    <Hash />
-  </div>
 }

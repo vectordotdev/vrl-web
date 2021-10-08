@@ -1,8 +1,8 @@
 import Editor from "@monaco-editor/react";
-import { editorHeight } from "../contants";
+import { editorHeight } from "../data/constants";
 
-import { Event, state } from "../state";
-import { EDITABLE_EDITOR_OPTIONS } from "../values";
+import { Event, state } from "../data/state";
+import { EDITABLE_EDITOR_OPTIONS } from "../data/values";
 
 type Props = {
   event?: Event;

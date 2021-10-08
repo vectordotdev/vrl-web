@@ -141,4 +141,20 @@
     @apply overflow-auto py-4 px-6 font-semibold bg-gray-800 text-red-300
       dark:bg-black dark:text-red-400;
   }
+
+  footer section.export-section {
+    @apply py-4 px-6 bg-gray-100 dark:bg-gray-700;
+  }
+
+  footer section.sub-footer {
+    @apply bg-gray-200 dark:bg-black py-4 px-6;
+  }
+
+  footer section.sub-footer .sub-footer-text {
+    @apply text-black dark:text-gray-200;
+  }
+
+  footer section.sub-footer .sub-footer-text .link {
+    @apply font-semibold hover:text-secondary dark:hover:text-primary;
+  }
 }

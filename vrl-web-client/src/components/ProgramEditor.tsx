@@ -1,8 +1,8 @@
 import Editor from "@monaco-editor/react";
-import { editorHeight } from "../contants";
+import { editorHeight } from "../data/constants";
 
-import { Program, state } from "../state";
-import { EDITABLE_EDITOR_OPTIONS } from "../values";
+import { Program, state } from "../data/state";
+import { EDITABLE_EDITOR_OPTIONS } from "../data/values";
 
 export const ProgramEditor = () => {
   const program: Program = state.store(s => s.program);

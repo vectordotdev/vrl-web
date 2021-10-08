@@ -1,6 +1,6 @@
 import { EditText, onSaveProps } from "react-edit-text";
 
-import { state } from "../state"
+import { state } from "../data/state"
 
 export const Title = () => {
   const title: string = state.store(s => s.title);

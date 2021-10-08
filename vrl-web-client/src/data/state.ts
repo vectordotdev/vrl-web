@@ -1,7 +1,7 @@
 import { SCENARIOS } from "./values";
 import { GetState, SetState, StateCreator } from "zustand";
 import { client, Outcome } from "./client";
-import { darkModeUserPreference } from "./mode";
+import { darkModeUserPreference } from "../ui/mode";
 import { LocalStorage } from "./storage";
 
 // Core types

@@ -1,8 +1,8 @@
 import Editor from "@monaco-editor/react";
-import { editorHeight } from "../contants";
+import { editorHeight } from "../data/constants";
 
-import { Output, state } from "../state";
-import { READ_ONLY_EDITOR_OPTIONS } from "../values";
+import { Output, state } from "../data/state";
+import { READ_ONLY_EDITOR_OPTIONS } from "../data/values";
 
 export const Out = () => {
   const theme: string = state.store(s => s.theme);

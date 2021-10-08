@@ -2,8 +2,8 @@ import { useState } from "react";
 import useDarkMode, { DarkMode } from "use-dark-mode";
 import { VectorDarkIcon } from "../icons/VectorDarkIcon";
 import { VectorLightIcon } from "../icons/VectorLightIcon";
-import { darkModeConfig, darkModeUserPreference } from "../mode";
-import { Scenario, state } from "../state";
+import { darkModeConfig, darkModeUserPreference } from "../ui/mode";
+import { Scenario, state } from "../data/state";
 import { ChevronDownIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 
 export const Navbar = () => {
