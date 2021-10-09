@@ -1,24 +1,39 @@
-import Editor from "@monaco-editor/react";
-import { editorHeight } from "../data/constants";
+import { useEffect, useRef } from "react";
+import { match } from "ts-pattern";
+import { XTerm } from "xterm-for-react";
+import { ITerminalOptions } from "xterm";
+import { VrlTerminal } from "../data/terminal";
 
-import { Program, state } from "../data/state";
-import { EDITABLE_EDITOR_OPTIONS } from "../data/values";
+const ENTER = 13;
+const BACKSPACE = 127;
 
 export const ProgramEditor = () => {
-  const program: Program = state.store(s => s.program);
-  const setProgram: (s: string) => void = state.store(s => s.setProgram);
-  const theme: string = state.store(s => s.theme);
+  const ref = useRef<XTerm>(null);
+  const options: ITerminalOptions = {
+    fontFamily: 'Fira Code',
+  };
 
-  const onEventChange = (val: string): void => {
-    setProgram(val);
+  let term: VrlTerminal;
+
+  useEffect(() => {
+    term = new VrlTerminal(ref);
+    ref.current.terminal.focus();
+  });
+
+  const onData = (s: string) => {
+    const code: number = s.charCodeAt(0);
+
+    match(code)
+      .with(ENTER, () => term.clear())
+      .with(BACKSPACE, () => term.backspace())
+      .otherwise(() => term.write(s));
+    
+    console.log(code);
   }
 
-  return <Editor
-    height={editorHeight}
-    language="ruby"
-    theme={theme}
-    value={program}
-    options={EDITABLE_EDITOR_OPTIONS}
-    onChange={onEventChange}
+  return <XTerm
+    ref={ref}
+    onData={onData}
+    options={options}
   />
 }
