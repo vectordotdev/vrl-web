@@ -114,12 +114,10 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
     set({ output: null, errorMsg: null });
   },
   resolve: () => {
-    const request = {
-      event: get().event,
-      program: get().program,
-    };
+    const event: Event = get().event;
+    const program: Program = get().program;
 
-    client.resolve(request)
+    client.resolve(program, event)
       .then((outcome: Outcome) => {
         if (outcome.success) {
           const { output, result } = outcome.success;
