@@ -1,6 +1,6 @@
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
-use warp::Filter;
+use warp::{reject::Rejection, Filter, Reply};
 
 use crate::error::handle_err;
 use crate::funcs::function_metadata;
@@ -8,7 +8,7 @@ use crate::health::healthy;
 use crate::info::info;
 use crate::resolve::resolve_vrl_input;
 
-pub async fn serve() {
+pub(crate) fn router() -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
     let cors = warp::cors()
         .allow_any_origin()
         .allow_headers(vec!["content-type"])
@@ -27,16 +27,18 @@ pub async fn serve() {
 
     let info_endpoint = warp::path::end().and(warp::get()).and_then(info);
 
-    let routes = resolve_endpoint
+    resolve_endpoint
         .or(functions_endpoint)
         .or(health_endpoint)
         .or(info_endpoint)
         .recover(handle_err)
-        .with(cors);
+        .with(cors)
+}
 
+pub async fn serve() {
     let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), 8080);
 
     println!("starting up the VRL Web server on {}", addr.to_string());
 
-    warp::serve(routes).run(addr).await
+    warp::serve(router()).run(addr).await
 }
