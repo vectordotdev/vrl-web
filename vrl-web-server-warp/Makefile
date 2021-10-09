@@ -11,3 +11,6 @@ docker-run:
 
 docker-push:
 	docker push $(IMAGE)
+
+deploy: docker-build docker-push
+	fly deploy
