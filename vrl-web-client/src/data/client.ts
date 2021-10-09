@@ -17,7 +17,7 @@ export type Outcome = {
 type Request = {
   event: Event;
   program: Program;
-  timezoneOffset: number;
+  tz: string;
 }
 
 class Client {
@@ -33,9 +33,8 @@ class Client {
   }
 
   async resolve(program: Program, event: Event): Promise<Outcome> {
-    const timezoneOffset: number = new Date().getTimezoneOffset();
-
-    const request: Request = { program, event, timezoneOffset };
+    const tz: string = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const request: Request = { program, event, tz };
     return await this.post<Request, AxiosResponse>(VRL_RESOLVE_ENDPOINT, request)
       .then(res => res.data);
   }

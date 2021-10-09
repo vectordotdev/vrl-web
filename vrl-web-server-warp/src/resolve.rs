@@ -8,6 +8,7 @@ use warp::{reply::json, Reply};
 pub(crate) struct Input {
     program: String,
     event: Option<Value>,
+    tz: String,
 }
 
 #[derive(Deserialize, Serialize)]
@@ -23,7 +24,11 @@ fn resolve(input: Input) -> Outcome {
     let event = &mut value;
     let mut state = state::Compiler::default();
     let mut runtime = Runtime::new(state::Runtime::default());
-    let tz = TimeZone::default();
+
+    let time_zone = match TimeZone::parse(&input.tz) {
+        Some(tz) => tz,
+        None => TimeZone::Local,
+    };
 
     let program = match vrl::compile_with_state(&input.program, &vrl_stdlib::all(), &mut state) {
         Ok(program) => program,
@@ -33,7 +38,7 @@ fn resolve(input: Input) -> Outcome {
         }
     };
 
-    match runtime.resolve(event, &program, &tz) {
+    match runtime.resolve(event, &program, &time_zone) {
         Ok(result) => Outcome::Success {
             output: result,
             result: event.clone(),
