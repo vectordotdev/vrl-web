@@ -53,3 +53,37 @@ pub(crate) async fn resolve_vrl_input(input: Input) -> Result<impl Reply, Infall
     let outcome = resolve(input);
     Ok(json(&outcome))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::Input;
+    use crate::server::router;
+    use http::StatusCode;
+    use vrl::value;
+
+    #[tokio::test]
+    async fn test_successful_resolution() {
+        let test_inputs: Vec<Input> = vec![
+            Input {
+                program: r#".foo = "bar""#.to_owned(),
+                event: None,
+                tz: None,
+            },
+            Input {
+                program: r#"."#.to_owned(),
+                event: Some(value![{"booper": "bopper"}]),
+                tz: Some("America/Los_Angeles".into()),
+            },
+        ];
+
+        for input in test_inputs {
+            let res = warp::test::request()
+                .method("POST")
+                .path("/resolve")
+                .json(&input)
+                .reply(&router())
+                .await;
+            assert_eq!(res.status(), StatusCode::OK);
+        }
+    }
+}

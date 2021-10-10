@@ -1,3 +1,11 @@
 [tasks.build-musl]
 command = "cargo"
 args = ["build", "--target", "x86_64-unknown-linux-musl", "--release"]
+
+[tasks.run]
+command = "cargo"
+args = ["run"]
+
+[tasks.test]
+command = "cargo"
+args = ["test"]
