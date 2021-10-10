@@ -56,34 +56,54 @@ pub(crate) async fn resolve_vrl_input(input: Input) -> Result<impl Reply, Infall
 
 #[cfg(test)]
 mod tests {
-    use super::Input;
+    use super::{Input, Outcome};
     use crate::server::router;
     use http::StatusCode;
-    use vrl::value;
+    use vrl::{prelude::Bytes, value};
+
+    fn assert_outcome_matches_expected(outcome: Outcome, body: &Bytes) {
+        let s: String = serde_json::to_string(&outcome).unwrap();
+        let b: Bytes = Bytes::from(s);
+
+        assert_eq!(body, &b);
+    }
 
     #[tokio::test]
-    async fn test_successful_resolution() {
-        let test_inputs: Vec<Input> = vec![
-            Input {
-                program: r#".foo = "bar""#.to_owned(),
-                event: None,
-                tz: None,
-            },
-            Input {
-                program: r#"."#.to_owned(),
-                event: Some(value![{"booper": "bopper"}]),
-                tz: Some("America/Los_Angeles".into()),
-            },
+    async fn test_fully_successful_resolution() {
+        let test_cases: Vec<(Input, Outcome)> = vec![
+            (
+                Input {
+                    program: r#".foo = "bar""#.to_owned(),
+                    event: None,
+                    tz: None,
+                },
+                Outcome::Success {
+                    result: value!({"foo": "bar"}),
+                    output: value!("bar"),
+                },
+            ),
+            (
+                Input {
+                    program: r#".tags.environment = "staging"; del(.delete_me)"#.to_owned(),
+                    event: Some(value!({"delete_me": "bye bye"})),
+                    tz: None,
+                },
+                Outcome::Success {
+                    result: value!({"tags": {"environment": "staging"}}),
+                    output: value!("bye bye"),
+                },
+            ),
         ];
 
-        for input in test_inputs {
+        for tc in test_cases {
             let res = warp::test::request()
                 .method("POST")
                 .path("/resolve")
-                .json(&input)
+                .json(&tc.0)
                 .reply(&router())
                 .await;
             assert_eq!(res.status(), StatusCode::OK);
+            assert_outcome_matches_expected(tc.1, res.body());
         }
     }
 }

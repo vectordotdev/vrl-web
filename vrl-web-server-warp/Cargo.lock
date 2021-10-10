@@ -2465,6 +2465,7 @@ dependencies = [
  "http",
  "pretty_env_logger",
  "serde",
+ "serde_json",
  "shared",
  "tokio",
  "vrl",
