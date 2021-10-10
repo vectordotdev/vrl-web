@@ -85,12 +85,12 @@ mod tests {
             ),
             (
                 Input {
-                    program: r#".tags.environment = "staging"; del(.delete_me)"#.to_owned(),
+                    program: r#".tags.environment = "production"; del(.delete_me)"#.to_owned(),
                     event: Some(value!({"delete_me": "bye bye"})),
                     tz: None,
                 },
                 Outcome::Success {
-                    result: value!({"tags": {"environment": "staging"}}),
+                    result: value!({"tags": {"environment": "production"}}),
                     output: value!("bye bye"),
                 },
             ),
