@@ -15,6 +15,7 @@ env:
 jobs:
   test:
     name: Test Warp server
+    runs-on: ubuntu-latest
     defaults:
       working-directory: vrl-web-server-warp
     steps:
