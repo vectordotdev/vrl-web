@@ -16,19 +16,14 @@ jobs:
   test:
     name: Test Warp server
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: vrl-web-server-warp
     steps:
       - uses: davidB/rust-cargo-make@v1
       - uses: actions/checkout@v2
       - name: Run tests
         run: cargo make test
+        working-directory: vrl-web-server-warp
   docker:
     name: Build Docker image
-    defaults:
-      run:
-        working-directory: vrl-web-server-warp
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker buildx
@@ -48,11 +43,10 @@ jobs:
   deploy:
     name: Deploy VRL Web server
     defaults:
-      run:
-        working-directory: vrl-web-server-warp
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: superfly/flyctl-actions@1.1
         with:
           args: deploy
+        working-directory: vrl-web-server-warp
