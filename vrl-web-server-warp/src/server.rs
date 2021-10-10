@@ -8,6 +8,7 @@ use crate::health::healthy;
 use crate::info::info;
 use crate::resolve::resolve_vrl_input;
 
+// The server logic is put into a function for testing purposes
 pub(crate) fn router() -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
     let cors = warp::cors()
         .allow_any_origin()
@@ -36,9 +37,9 @@ pub(crate) fn router() -> impl Filter<Extract = impl Reply, Error = Rejection> +
 }
 
 pub async fn serve() {
-    let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), 8080);
+    pretty_env_logger::init();
 
-    println!("starting up the VRL Web server on {}", addr.to_string());
+    let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), 8080);
 
     warp::serve(router()).run(addr).await
 }

@@ -5,6 +5,7 @@ edition = "2018"
 
 [dependencies]
 http = "0.2.4"
+pretty_env_logger = "0.4.0"
 serde = { version = "1.0.130", default-features = false, features = ["derive"] }
 tokio = { version = "1.11.0", default-features = false, features = ["full"] }
 vector-shared = { package = "shared", git = "https://github.com/vectordotdev/vector" }

@@ -5,6 +5,7 @@ args = ["build", "--target", "x86_64-unknown-linux-musl", "--release"]
 [tasks.run]
 command = "cargo"
 args = ["run"]
+env = { RUST_LOG = "info" }
 
 [tasks.test]
 command = "cargo"
