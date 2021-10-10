@@ -59,6 +59,7 @@ mod tests {
     use super::{Input, Outcome};
     use crate::server::router;
     use http::StatusCode;
+    use serde_json::{json, Value};
     use vrl::{prelude::Bytes, value};
 
     fn assert_outcome_matches_expected(outcome: Outcome, body: &Bytes) {
@@ -69,7 +70,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_fully_successful_resolution() {
+    async fn test_successful_resolution() {
         let test_cases: Vec<(Input, Outcome)> = vec![
             (
                 Input {
@@ -104,6 +105,26 @@ mod tests {
                 .await;
             assert_eq!(res.status(), StatusCode::OK);
             assert_outcome_matches_expected(tc.1, res.body());
+        }
+    }
+
+    #[tokio::test]
+    async fn test_failures() {
+        let test_cases: Vec<Value> = vec![
+            // No program or event
+            json!({"this": "won't work"}),
+            // No program
+            json!({"event": {"tags": {"environment": "staging"}}}),
+        ];
+
+        for tc in test_cases {
+            let res = warp::test::request()
+                .method("POST")
+                .path("/resolve")
+                .body(tc.to_string())
+                .reply(&router())
+                .await;
+            assert_eq!(res.status(), StatusCode::BAD_REQUEST);
         }
     }
 }
