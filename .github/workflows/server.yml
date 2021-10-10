@@ -17,7 +17,8 @@ jobs:
     name: Test Warp server
     runs-on: ubuntu-latest
     defaults:
-      working-directory: vrl-web-server-warp
+      run:
+        working-directory: vrl-web-server-warp
     steps:
       - uses: davidB/rust-cargo-make@v1
       - uses: actions/checkout@v2
@@ -26,7 +27,8 @@ jobs:
   docker:
     name: Build Docker image
     defaults:
-      working-directory: vrl-web-server-warp
+      run:
+        working-directory: vrl-web-server-warp
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker buildx
@@ -46,7 +48,8 @@ jobs:
   deploy:
     name: Deploy VRL Web server
     defaults:
-      working-directory: vrl-web-server-warp
+      run:
+        working-directory: vrl-web-server-warp
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
