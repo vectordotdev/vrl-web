@@ -1,5 +1,6 @@
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
+use clap::{AppSettings, Clap};
 use warp::{reject::Rejection, Filter, Reply};
 
 use crate::error::handle_err;
@@ -36,10 +37,20 @@ pub(crate) fn router() -> impl Filter<Extract = impl Reply, Error = Rejection> +
         .with(cors)
 }
 
+#[derive(Clap)]
+#[clap(version = "0.1.0", author = "Vector Contributions <vector@timber.io>")]
+#[clap(setting = AppSettings::ColoredHelp)]
+struct Opts {
+    #[clap(env, short, long, default_value = "8080")]
+    port: u16,
+}
+
 pub async fn serve() {
+    let opts = Opts::parse();
+
     pretty_env_logger::init();
 
-    let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), 8080);
+    let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), opts.port);
 
     warp::serve(router()).run(addr).await
 }
