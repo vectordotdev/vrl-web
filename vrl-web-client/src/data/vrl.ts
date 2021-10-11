@@ -2,31 +2,29 @@ import { GetState, SetState, StateCreator } from "zustand";
 import { client } from "./client";
 import { LocalStorage } from "./storage";
 
-type Arg = {
-  description: string;
+type Example = {
+  title: string;
+  source: string;
+}
+
+type Parameter = {
+  name: string;
+  kind: string;
   required: boolean;
 }
 
-declare type Args = { [name: string]: Arg }
-
 export type VrlFunction = {
-  description: string;
-  category: string;
-  arguments: Args;
+  name: string;
+  parameters: Parameter[];
+  examples: Example[];
 }
 
-export type VrlFunctions = { [key: string]: VrlFunction };
-
 type VrlInfo = {
-  functions: VrlFunctions | null;
+  functions: VrlFunction[];
   showFunctions: boolean;
   setVrlInfo: () => void;
   setFunctions: () => void;
   toggleShowFunctions: () => void;
-}
-
-export type VrlInfoFromServer = {
-  vrl: VrlInfo;
 }
 
 const vrlInfoHandler: StateCreator<VrlInfo> = (set: SetState<VrlInfo>, get: GetState<VrlInfo>) => ({
@@ -40,8 +38,9 @@ const vrlInfoHandler: StateCreator<VrlInfo> = (set: SetState<VrlInfo>, get: GetS
   setFunctions: () => {
     if (get().functions === null) {
       client.getVrlInfo()
-        .then((info: VrlInfoFromServer) => {
-          set({ functions: info.vrl.functions });
+        .then((functions: VrlFunction[]) => {
+          console.log(functions);
+          set({ functions });
         })
         .catch(e => { throw new Error(`Something went wrong when communicating with the server: ${e}`); });
     }

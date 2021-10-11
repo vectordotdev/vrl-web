@@ -48,7 +48,7 @@ impl From<&Box<dyn vrl::Function>> for Function {
     }
 }
 
-pub(crate) async fn function_metadata() -> Result<impl Reply, Infallible> {
+pub(crate) async fn vrl_function_info() -> Result<impl Reply, Infallible> {
     let functions: Vec<Function> = vrl_stdlib::all().iter().map(Function::from).collect();
 
     Ok(json(&functions))

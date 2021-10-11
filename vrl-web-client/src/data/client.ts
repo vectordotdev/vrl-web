@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 
 import { Event, Program } from "./state";
-import { VRL_INFO_SERVER_ADDRESS, VRL_RESOLVE_ENDPOINT } from "./values";
-import { VrlFunctions, VrlInfoFromServer } from "./vrl";
+import { VRL_FUNCTION_INFO_ENDPOINT, VRL_RESOLVE_ENDPOINT } from "./values";
+import { VrlFunction } from "./vrl";
 
 export type Success = {
   result: Event;
@@ -39,8 +39,8 @@ class Client {
       .then(res => res.data);
   }
 
-  async getVrlInfo(): Promise<VrlInfoFromServer> {
-    return await this.get<VrlFunctions, AxiosResponse<VrlInfoFromServer>>(VRL_INFO_SERVER_ADDRESS)
+  async getVrlInfo(): Promise<VrlFunction[]> {
+    return await this.get<VrlFunction[], AxiosResponse<VrlFunction[]>>(VRL_FUNCTION_INFO_ENDPOINT)
       .then(res => res.data);
   }
 }

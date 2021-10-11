@@ -3,7 +3,7 @@ use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 use warp::{reject::Rejection, Filter, Reply};
 
 use crate::error::handle_err;
-use crate::funcs::function_metadata;
+use crate::funcs::vrl_function_info;
 use crate::health::healthy;
 use crate::info::info;
 use crate::resolve::resolve_vrl_input;
@@ -22,7 +22,7 @@ pub(crate) fn router() -> impl Filter<Extract = impl Reply, Error = Rejection> +
 
     let functions_endpoint = warp::path("functions")
         .and(warp::get())
-        .and_then(function_metadata);
+        .and_then(vrl_function_info);
 
     let health_endpoint = warp::path("health").and_then(healthy);
 
