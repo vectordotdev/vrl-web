@@ -5,6 +5,7 @@ import { Event, Output, state } from "../data/state";
 
 import { ErrorHandler } from "./ErrorHandler";
 import { EventEditor } from "./EventEditor";
+import { Help } from './Help';
 import { Out } from "./Out";
 import { ProgramEditor } from "./ProgramEditor";
 import { Title } from "./Title";
@@ -76,6 +77,10 @@ export const Main = ({ hash }: Props) => {
             <Out />
           </div>
         </div>
+      </div>
+
+      <div className="mt-10">
+        <Help />
       </div>
     </main>
   </ErrorHandler>  

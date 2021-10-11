@@ -2,12 +2,12 @@ import { GetState, SetState, StateCreator } from "zustand";
 import { client } from "./client";
 import { LocalStorage } from "./storage";
 
-type Example = {
+export type Example = {
   title: string;
   source: string;
 }
 
-type Parameter = {
+export type Parameter = {
   name: string;
   kind: string;
   required: boolean;

@@ -9,10 +9,6 @@ export const Out = () => {
   const output: Output | null = state.store(s => s.output);
   let errorMsg: string | null = state.store(s => s.errorMsg);
 
-  if (errorMsg != null) {
-    errorMsg = errorMsg.substring(1);
-  }
-
   return <>
     {output && (
       <Editor

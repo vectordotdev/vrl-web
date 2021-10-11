@@ -42,6 +42,7 @@ type Persistent = {
   scenarios: Scenario[];
   setScenario: (id: number) => void;
   setTheme: (isLight: boolean) => void;
+  removeEvent: () => void
   setEvent: (s: string) => void;
   setTitle: (title: string) => void;
   setProgram: (s: string) => void;
@@ -80,6 +81,9 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   },
   setTheme: (isLight: boolean) => {
     set({ theme: isLight ? "vs" : "vs-dark" });
+  },
+  removeEvent: () => {
+    set({ event: null });
   },
   setEvent: (s: string) => {
     const event: Event = JSON.parse(s);
