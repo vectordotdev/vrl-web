@@ -7,9 +7,9 @@ WORKDIR /build
 
 COPY . .
 
-RUN ./setup.sh
+RUN ./scripts/setup.sh
 
-RUN cargo make build-musl
+RUN cargo make release-musl
 
 FROM alpine:3.14
 

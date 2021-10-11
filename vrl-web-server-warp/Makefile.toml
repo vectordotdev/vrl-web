@@ -1,4 +1,8 @@
-[tasks.build-musl]
+[tasks.release]
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.release-musl]
 command = "cargo"
 args = ["build", "--target", "x86_64-unknown-linux-musl", "--release"]
 

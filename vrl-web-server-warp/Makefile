@@ -19,5 +19,8 @@ deploy: docker-build docker-push
 run:
 	$(CARGO) run
 
+release:
+	$(CARGO) release
+
 test:
 	$(CARGO) test
