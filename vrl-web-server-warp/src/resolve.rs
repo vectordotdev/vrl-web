@@ -25,7 +25,7 @@ fn resolve(input: Input) -> Outcome {
     let mut state = state::Compiler::default();
     let mut runtime = Runtime::new(state::Runtime::default());
 
-    let time_zone_str = input.tz.unwrap_or("local".into());
+    let time_zone_str = input.tz.unwrap_or_default();
 
     let time_zone = match TimeZone::parse(&time_zone_str) {
         Some(tz) => tz,

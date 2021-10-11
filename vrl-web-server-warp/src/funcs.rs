@@ -1,5 +1,5 @@
 use serde::Serialize;
-use std::convert::Infallible;
+use std::convert::{From, Infallible};
 use vrl::prelude::Kind;
 use warp::{reply::json, Reply};
 
@@ -23,10 +23,9 @@ struct Function {
     examples: Vec<Example>,
 }
 
-pub(crate) async fn function_metadata() -> Result<impl Reply, Infallible> {
-    let functions: Vec<Function> = vrl_stdlib::all()
-        .iter()
-        .map(|f| Function {
+impl From<&Box<dyn vrl::Function>> for Function {
+    fn from(f: &Box<dyn vrl::Function>) -> Function {
+        Function {
             name: f.identifier(),
             parameters: f
                 .parameters()
@@ -45,8 +44,12 @@ pub(crate) async fn function_metadata() -> Result<impl Reply, Infallible> {
                     source: e.source,
                 })
                 .collect(),
-        })
-        .collect();
+        }
+    }
+}
+
+pub(crate) async fn function_metadata() -> Result<impl Reply, Infallible> {
+    let functions: Vec<Function> = vrl_stdlib::all().iter().map(Function::from).collect();
 
     Ok(json(&functions))
 }
