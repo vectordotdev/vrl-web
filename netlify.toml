@@ -1,6 +1,10 @@
 [build]
 base = "vrl-web-client"
+publish = ".next"
 command = "make build"
+
+[[plugins]]
+package = "@netlify/plugin-nextjs-experimental"
 
 [[redirects]]
 from = "/*"
