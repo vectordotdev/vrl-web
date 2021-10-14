@@ -6,15 +6,20 @@
   "author": "Vector Contributors <vector@timber.io>",
   "license": "MPL-2.0",
   "scripts": {
-    "clean": "rm -rf .parcel-cache dist",
-    "start": "NODE_ENV=local parcel src/index.html --port 1313 --open",
-    "build": "yarn clean && NODE_ENV=production parcel build src/index.html"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/react": "^1.6.9",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@heroicons/react": "^1.0.4",
     "@monaco-editor/react": "^4.2.2",
     "@types/react-edit-text": "^4.0.1",
     "axios": "^0.21.4",
+    "framer-motion": "^4",
+    "next": "^11.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-edit-text": "^4.2.0",
