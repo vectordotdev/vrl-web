@@ -1,1 +1,0 @@
-export const editorHeight: string = "400px";
