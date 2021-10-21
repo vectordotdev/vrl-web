@@ -1,6 +1,6 @@
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
-use clap::{AppSettings, Clap};
+use clap::Parser;
 use warp::{reject::Rejection, Filter, Reply};
 
 use crate::error::handle_err;
@@ -37,9 +37,8 @@ pub(crate) fn router() -> impl Filter<Extract = impl Reply, Error = Rejection> +
         .with(cors)
 }
 
-#[derive(Clap)]
+#[derive(Parser)]
 #[clap(version = "0.1.0", author = "Vector Contributions <vector@timber.io>")]
-#[clap(setting = AppSettings::ColoredHelp)]
 struct Opts {
     #[clap(env, short, long, default_value = "8080")]
     port: u16,
