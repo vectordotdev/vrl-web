@@ -33,7 +33,7 @@
     "zustand-persist": "^0.3.1"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs-experimental": "^0.0.6",
+    "@netlify/plugin-nextjs": "^3.9.2",
     "@parcel/transformer-sass": "2.0.0-rc.0",
     "@parcel/transformer-svg-react": "^2.0.0-nightly.1739",
     "@parcel/transformer-yaml": "2.0.0-rc.0",
