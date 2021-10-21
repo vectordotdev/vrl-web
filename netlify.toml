@@ -1,7 +1,5 @@
 [build]
 base = "vrl-web-client"
-publish = "out"
-command = "make publish"
 
 [[plugins]]
 package = "@netlify/plugin-nextjs-experimental"
