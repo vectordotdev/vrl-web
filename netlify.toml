@@ -5,8 +5,3 @@ command = "make build"
 
 [[plugins]]
 package = "@netlify/plugin-nextjs-experimental"
-
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
