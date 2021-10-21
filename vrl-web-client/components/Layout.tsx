@@ -1,45 +1,19 @@
-import { Alert } from "@chakra-ui/alert";
-import { Box, Flex, Text } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/layout";
 import React from "react";
-
-type Props = {
-  children: JSX.Element;
-}
-
+import { Props } from "../lib/types/props";
+import Footer from "./Footer";
+import Main from "./Main";
+import Navbar from "./Navbar";
 
 export default function Layout({ children }: Props) {
   return <Flex
     minH="100vh"
     direction="column"
   >
-    <Box
-      p={4}
-      bgColor="black"
-    >
-      <Text
-        color="white"
-      >
-        Navbar
-      </Text>
-    </Box>
+    <Navbar />
 
-    <Box
-      p={4}
-      flex="1"
-      bgColor="gray.50"
-    >
-      {children}
-    </Box>
+    <Main children={children} />
 
-    <Box
-      p={4}
-      bgColor="black"
-    >
-      <Text
-        color="white"
-      >
-        Footer
-      </Text>
-    </Box>
+    <Footer />
   </Flex>
 }

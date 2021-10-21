@@ -1,11 +1,23 @@
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, Theme, ThemeConfig, extendTheme } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { useEffect } from "react";
 import Layout from "../components/Layout";
 
-export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  const colors = {}  
-  const theme = extendTheme({ colors });
+type ColorMode = "light" | "dark";
+
+export default function VrlWebApp({ Component, pageProps }: AppProps): JSX.Element {
+  let config: ThemeConfig;
+
+  useEffect(() => {
+    const mode: ColorMode = window.matchMedia('(prefers-color-schema: dark)').matches ? "dark" : "light";
+
+    config = {
+      initialColorMode: mode,
+    };
+  })
+
+  const theme = extendTheme({ config });
 
   return (
     <>
