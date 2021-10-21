@@ -6,8 +6,9 @@
   "author": "Vector Contributors <vector@timber.io>",
   "license": "MPL-2.0",
   "scripts": {
-    "dev": "next dev --port 1313",
     "build": "next build",
+    "dev": "next dev --port 1313",
+    "export": "next export",
     "start": "next start"
   },
   "dependencies": {

@@ -1,6 +1,5 @@
 /node_modules
-/dist
-/.parcel-cache
 /.vscode
 yarn-error.log
 /.next
+/out
