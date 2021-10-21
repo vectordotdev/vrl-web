@@ -1,4 +1,6 @@
-import { ChakraProvider, Theme, ThemeConfig, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, ThemeConfig, extendTheme } from "@chakra-ui/react";
+import { Colors, ComponentStyleConfig } from "@chakra-ui/theme";
+import { Styles } from "@chakra-ui/theme-tools";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { useEffect } from "react";
@@ -8,16 +10,25 @@ type ColorMode = "light" | "dark";
 
 export default function VrlWebApp({ Component, pageProps }: AppProps): JSX.Element {
   let config: ThemeConfig;
+  let mode: ColorMode;
 
   useEffect(() => {
-    const mode: ColorMode = window.matchMedia('(prefers-color-schema: dark)').matches ? "dark" : "light";
+    mode = window.matchMedia('(prefers-color-schema: dark)').matches ? "dark" : "light";
 
     config = {
       initialColorMode: mode,
     };
-  })
+  });
 
-  const theme = extendTheme({ config });
+  const colors: Colors = {
+    primary: "#28d9f2"
+  };
+
+  const components: ComponentStyleConfig = {};
+
+  const styles: Styles = {};
+
+  const theme = extendTheme({ colors, components, config, styles });
 
   return (
     <>
