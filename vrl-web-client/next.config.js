@@ -2,6 +2,7 @@ module.exports = {
   target: "serverless",
 
   env: {
-    VRL_WEB_SERVER_ADDRESS: 'https://vrl-server.fly.dev'
+    VRL_WEB_SERVER_ADDRESS: "https://vrl-server.fly.dev",
+    VRL_INFO_SERVER_ADDRESS: "https://vector.dev/index.json",
   }
 };

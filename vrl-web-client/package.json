@@ -19,7 +19,7 @@
     "@heroicons/react": "^1.0.4",
     "@monaco-editor/react": "^4.2.2",
     "@types/react-edit-text": "^4.0.1",
-    "axios": "^0.21.4",
+    "axios": "^0.23.0",
     "framer-motion": "^4",
     "next": "^11.1.2",
     "react": "^17.0.2",
@@ -29,7 +29,7 @@
     "react-router-dom": "^5.3.0",
     "use-dark-mode": "^2.3.1",
     "usehooks-ts": "^1.0.4",
-    "zustand": "^3.5.10",
+    "zustand": "^3.5.14",
     "zustand-persist": "^0.3.1"
   },
   "devDependencies": {

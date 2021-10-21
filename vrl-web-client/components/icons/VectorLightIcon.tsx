@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/layout";
 import Svg from "../Svg";
 
 export default function VectorLightIcon() {

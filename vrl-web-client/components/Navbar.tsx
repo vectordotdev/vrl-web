@@ -1,7 +1,7 @@
-import { Button, IconButton } from "@chakra-ui/button";
 import { useColorMode, useColorModeValue } from "@chakra-ui/color-mode";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Box, Flex, Text } from "@chakra-ui/layout";
+import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { Flex, Spacer } from "@chakra-ui/layout";
+import { Button, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import VectorDarkIcon from "./icons/VectorDarkIcon";
 import VectorLightIcon from "./icons/VectorLightIcon";
 
@@ -25,12 +25,41 @@ export default function Navbar() {
   >
     {vectorIcon}
 
-    <IconButton
-      size="md"
-      aria-label="Color mode toggler"
-      variant="ghost"
-      icon={colorModeIcon}
-      onClick={toggleColorMode}
-    />
+    <Flex
+      justifyContent="space-between"
+      alignItems="center"
+      
+    >
+      <IconButton
+        size="md"
+        aria-label="Color mode toggler"
+        variant="ghost"
+        icon={colorModeIcon}
+        onClick={toggleColorMode}
+      />
+
+      <Spacer px={2} />
+
+      <Menu>
+        <MenuButton
+          as={Button}
+          rightIcon={<ChevronDownIcon />}
+        >
+          Scenarios
+        </MenuButton>
+
+        <MenuList>
+          <MenuItem>
+            JSON
+          </MenuItem>
+          <MenuItem>
+            Syslog
+          </MenuItem>
+          <MenuItem>
+            Key/value
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    </Flex>
   </Flex>
 }
