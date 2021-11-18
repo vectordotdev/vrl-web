@@ -5,12 +5,12 @@ edition = "2021"
 
 [dependencies]
 clap = "3.0.0-beta.5"
-http = "0.2.4"
+http = "0.2.5"
 pretty_env_logger = "0.4.0"
 serde = { version = "1.0.130", default-features = false, features = ["derive"] }
-serde_json = "1.0.68"
-tokio = { version = "1.11.0", default-features = false, features = ["full"] }
+serde_json = "1.0.71"
+tokio = { version = "1.14.0", default-features = false, features = ["full"] }
 vector-shared = { package = "shared", git = "https://github.com/vectordotdev/vector" }
 vrl = { git = "https://github.com/vectordotdev/vector" }
 vrl-stdlib = { git = "https://github.com/vectordotdev/vector" }
-warp = "0.3.1"
+warp = "0.3.2"
