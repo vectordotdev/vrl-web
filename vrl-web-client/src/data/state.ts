@@ -1,8 +1,8 @@
-import { SCENARIOS } from "./values";
 import { GetState, SetState, StateCreator } from "zustand";
-import { client, Outcome } from "./client";
 import { darkModeUserPreference } from "../ui/mode";
+import { client, Outcome } from "./client";
 import { LocalStorage } from "./storage";
+import { SCENARIOS } from "./values";
 
 // Core types
 export type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
@@ -105,9 +105,10 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
 
     const s = JSON.stringify(input);
     const hash = window.btoa(s);
+    const protocol = window.location.protocol;
     const host = window.location.host;
 
-    return `${host}/h/${hash}`;
+    return `${protocol}//${host}/h/${hash}`;
   },
   setHashUrl: () => {
     const url = get().getHashUrl();
