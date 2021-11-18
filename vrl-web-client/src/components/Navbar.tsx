@@ -1,10 +1,10 @@
+import { ChevronDownIcon, CodeIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import useDarkMode, { DarkMode } from "use-dark-mode";
+import { Scenario, state } from "../data/state";
 import { VectorDarkIcon } from "../icons/VectorDarkIcon";
 import { VectorLightIcon } from "../icons/VectorLightIcon";
 import { darkModeConfig, darkModeUserPreference } from "../ui/mode";
-import { Scenario, state } from "../data/state";
-import { ChevronDownIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 
 export const Navbar = () => {
   const darkMode: DarkMode = useDarkMode(darkModeUserPreference, darkModeConfig);
@@ -31,6 +31,10 @@ export const Navbar = () => {
         </span>
 
         <ScenarioSelector />
+
+        <a href="https://github.com/vectordotdev/vrl-web" target="_blank">
+          <CodeIcon className="code-icon" />
+        </a>
 
         <button onClick={darkModeToggle} className="toggler">
           {darkMode.value ?
