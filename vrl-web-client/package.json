@@ -21,7 +21,7 @@
     "@types/react-edit-text": "^4.0.1",
     "axios": "^0.23.0",
     "framer-motion": "^4",
-    "next": "^11.1.2",
+    "next": "^12.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-edit-text": "^4.2.0",

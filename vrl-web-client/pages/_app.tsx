@@ -1,10 +1,11 @@
-import { ChakraProvider, ThemeConfig, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme, ThemeConfig } from "@chakra-ui/react";
 import { Colors, ComponentStyleConfig } from "@chakra-ui/theme";
 import { Styles } from "@chakra-ui/theme-tools";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { useEffect } from "react";
 import Layout from "../components/Layout";
+import { state, ZustandProvider } from "../lib/data/state";
 
 type ColorMode = "light" | "dark";
 
@@ -41,9 +42,11 @@ export default function VrlWebApp({ Component, pageProps }: AppProps): JSX.Eleme
       </Head>
 
       <ChakraProvider theme={theme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ZustandProvider initialStore={state}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ZustandProvider>
       </ChakraProvider>
     </>
   );

@@ -1,4 +1,5 @@
 import { GetState, SetState, StateCreator } from "zustand";
+import createContext from "zustand/context";
 import { client, Outcome } from "./client";
 import { scenarios } from './scenarios';
 import { LocalStorage } from "./storage";
@@ -49,6 +50,9 @@ type Persistent = {
   resolve: () => void;
   setScenarioFromHash: (hash: string) => void;
 }
+
+const zustandContext = createContext();
+export const ZustandProvider = zustandContext.Provider;
 
 // Calculate initial defaults
 const defaultScenario: Scenario = scenarios[0];
