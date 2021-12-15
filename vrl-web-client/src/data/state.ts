@@ -108,6 +108,7 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
     };
 
     const s = JSON.stringify(input);
+    console.log(s);
     const hash = window.btoa(s);
     const protocol = window.location.protocol;
     const host = window.location.host;

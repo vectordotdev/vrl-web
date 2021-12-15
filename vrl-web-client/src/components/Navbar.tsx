@@ -87,15 +87,15 @@ const ScenarioSelector = () => {
 
         <ul role="none">
           {scenarios.map((scenario: Scenario, idx: number) => (
-            <li className="block hover:bg-gray-50 dark:hover:bg-gray-700">
-              <button
+            <li className="hover:cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
+              <span
                 onClick={() => selectScenario(idx)}
                 className="block px-4 py-2 text-sm dark:text-gray-200"
                 role="menuitem"
                 id={`menu-item-${idx}`}
                 tabIndex={-1}>
                 {scenario.title}
-              </button>
+              </span>
             </li>
           ))}
         </ul>
