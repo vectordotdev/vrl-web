@@ -91,7 +91,7 @@ export const Main = ({ hash, scenarioId }: Props) => {
             </div>
 
             <p className={result ? "text" : "text-light"}>
-              The resulting event after the supplied program has been applied to the supplied.{!result && (" Click Resolve to see the result.")}
+              The resulting event after the supplied program has been applied to the supplied{!result && (" — click Resolve to see the result")}
             </p>
 
             {result && (
@@ -113,7 +113,7 @@ export const Main = ({ hash, scenarioId }: Props) => {
             </div>
 
             <p className={output ? "text" : "text-light"}>
-              The output of the program applied to the event (i.e. the result of the last expression in the program).{!output && (" Click Resolve to see the output.")}
+              The output of the program applied to the event (the result of the last expression in the program).{!output && (" — click Resolve to see the output")}
             </p>
 
             <Out />
