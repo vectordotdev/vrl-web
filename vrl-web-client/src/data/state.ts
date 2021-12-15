@@ -78,7 +78,7 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   setScenario: (id: number) => {
     const s = get().scenarios[id];
 
-    set({ id: s.id, title: s.title, event: s.event, program: s.program });
+    set({ id: s.id, title: s.title, event: s.event, program: s.program, result: null });
     get().resetOutcome();
     get().setHashUrl();
   },
