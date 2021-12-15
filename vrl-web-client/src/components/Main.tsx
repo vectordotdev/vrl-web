@@ -47,6 +47,10 @@ export const Main = ({ hash }: Props) => {
               Program
             </p>
 
+            <p className="text">
+              The VRL program to run against the target event
+            </p>
+
             <ProgramEditor />
           </div>
 
@@ -56,6 +60,10 @@ export const Main = ({ hash }: Props) => {
                 Event
               </span>
             </div>
+
+            <p className={event ? "text" : "text-light"}>
+              The Vector event targeted by the VRL program
+            </p>
 
             <EventEditor event={event} />
           </div>
@@ -68,6 +76,10 @@ export const Main = ({ hash }: Props) => {
                 Result
               </span>
             </div>
+
+            <p className={result ? "text" : "text-light"}>
+              The resulting event after the supplied program has been applied to the supplied. {output && ("Click Resolve to see the result")}.
+            </p>
 
             {result && (
               <Result result={result} />
@@ -86,6 +98,10 @@ export const Main = ({ hash }: Props) => {
                 </span>
               )}
             </div>
+
+            <p className={output ? "text" : "text-light"}>
+              The output of the program applied to the event (i.e. the result of the last expression in the program). {output && ("Click Resolve to see the output")}.
+            </p>
 
             <Out />
           </div>

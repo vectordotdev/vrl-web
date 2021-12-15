@@ -41,6 +41,14 @@
   footer {
     @apply bg-gray-100 flex flex-col;
   }
+
+  p.text {
+    @apply text-black dark:text-gray-200;
+  }
+
+  p.text-light {
+    @apply text-gray-400 dark:text-gray-300;
+  }
 }
 
 @layer components {
