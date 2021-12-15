@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import 'react-edit-text/dist/index.css';
-
 import { Event, Output, state } from "../data/state";
-
 import { ErrorHandler } from "./ErrorHandler";
 import { EventEditor } from "./EventEditor";
-import { Help } from './Help';
 import { Out } from "./Out";
 import { ProgramEditor } from "./ProgramEditor";
+import { Result } from './Result';
 import { Title } from "./Title";
+
+
 
 type Props = {
   hash?: string;
@@ -18,6 +18,7 @@ export const Main = ({ hash }: Props) => {
   const resolve: () => void = state.store(s => s.resolve);
   var event: Event | null = state.store(s => s.event);
   const output: Output | null = state.store(s => s.output);
+  const result: Event | null = state.store(s => s.result);
   var errorMsg: string | null = state.store(s => s.errorMsg);
 
   if (hash) {
@@ -60,7 +61,19 @@ export const Main = ({ hash }: Props) => {
           </div>
         </div>
 
-        <div>
+        <div className="main-grid">
+          <div className="cell">
+            <div className="event-title">
+              <span className={result ? "event" : "no-event"}>
+                Result
+              </span>
+            </div>
+
+            {result && (
+              <Result result={result} />
+            )}
+          </div>
+
           <div className="cell">
             <div className="output-title">
               <span className={(output || errorMsg) ? "output" : "no-output"}>
@@ -79,9 +92,11 @@ export const Main = ({ hash }: Props) => {
         </div>
       </div>
 
+      {/*
       <div className="mt-10">
         <Help />
       </div>
+      */}
     </main>
   </ErrorHandler>  
 }

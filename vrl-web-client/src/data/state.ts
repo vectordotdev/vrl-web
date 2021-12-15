@@ -16,6 +16,7 @@ type Hashable = {
   event: Event | null;
   program: Program;
   output?: Output | null;
+  result?: Event | null;
 }
 
 // The full "state" of the application
@@ -33,6 +34,7 @@ type Persistent = {
   id: number;
   title: string;
   event: Event;
+  result?: Event;
   program: Program;
   output?: Output | null;
   errorMsg?: string | null;
@@ -63,6 +65,7 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   id: defaultScenario.id,
   title: defaultScenario.title,
   event: defaultScenario.event,
+  result: null,
   program: defaultScenario.program,
   output: null,
   errorMsg: null,
@@ -101,6 +104,7 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
       event: get().event,
       program: get().program,
       output: get().output,
+      result: get().result,
     };
 
     const s = JSON.stringify(input);
@@ -127,9 +131,7 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
         if (outcome.success) {
           const { output, result } = outcome.success;
 
-          const msg: string = `# Successfully resolved!\n# Enter a new program to act upon the new event`;
-
-          set({ output, event: result, program: msg });
+          set({ output, result });
           set({ errorMsg: null });
         } else if (outcome.error) {
           set({ errorMsg: outcome.error });
