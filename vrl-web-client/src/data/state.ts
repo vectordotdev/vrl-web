@@ -1,6 +1,7 @@
 import { GetState, SetState, StateCreator } from "zustand";
 import { darkModeUserPreference } from "../ui/mode";
 import { client, Outcome } from "./client";
+import { Scenario } from './state';
 import { LocalStorage } from "./storage";
 import { SCENARIOS } from "./values";
 
@@ -76,8 +77,8 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   theme: defaultTheme,
   showFunctions: false,
   setScenario: (id: number) => {
-    const s = get().scenarios[id];
-
+    const scenarios: Scenario[] = get().scenarios;
+    const s: Scenario = scenarios[id] || scenarios[0]; // Default to scenario 0 if not found. TODO: provide better logic around this
     set({ id: s.id, title: s.title, event: s.event, program: s.program, result: null });
     get().resetOutcome();
     get().setHashUrl();

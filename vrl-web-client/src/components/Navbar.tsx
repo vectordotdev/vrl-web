@@ -22,7 +22,9 @@ export const Navbar = () => {
   return <nav className="navbar">
     <div className="menu">
       <div className="brand">
-        {vectorIcon}
+        <a href="https://vector.dev" target="_blank">
+          {vectorIcon}
+        </a>
       </div>
 
       <div className="sub-menu">

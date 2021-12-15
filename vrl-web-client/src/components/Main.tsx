@@ -8,26 +8,39 @@ import { ProgramEditor } from "./ProgramEditor";
 import { Result } from './Result';
 import { Title } from "./Title";
 
-
-
-type Props = {
+export type Props = {
   hash?: string;
+  scenarioId?: string;
 }
 
-export const Main = ({ hash }: Props) => {
+export const Main = ({ hash, scenarioId }: Props) => {
   const resolve: () => void = state.store(s => s.resolve);
   var event: Event | null = state.store(s => s.event);
   const output: Output | null = state.store(s => s.output);
   const result: Event | null = state.store(s => s.result);
   var errorMsg: string | null = state.store(s => s.errorMsg);
 
+  const resetPath = () => {
+    window.location.href = '/';
+  }
+
   if (hash) {
     const setScenarioFromHash: (h: string) => void = state.store(s => s.setScenarioFromHash);
 
     useEffect(() => {
       setScenarioFromHash(hash);
-      window.location.href = '/';
+      resetPath();
     }, [setScenarioFromHash]);
+  }
+
+  if (scenarioId) {
+    const id: number = parseInt(scenarioId);
+    const setScenario: (id: number) => void = state.store(s => s.setScenario);
+
+    useEffect(() => {
+      setScenario(id);
+      resetPath();
+    }, [setScenario]);
   }
 
   return <ErrorHandler>
