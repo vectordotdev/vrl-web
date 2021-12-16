@@ -1,4 +1,4 @@
-## The VRL Web server
+# The VRL Web server
 
 The VRL Web [server] is a [Rust] web server created using the [Warp] framework. It's essentially a
 thin HTTP layer over Vector Remap Language logic found in the main [Vector repo][repo], specifically
