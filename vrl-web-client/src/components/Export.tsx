@@ -17,6 +17,7 @@ export const Export = () => {
     <button
       onClick={copyToClipboard}
       className={`shadow rounded
+        focus:bg-primary focus:text-black dark:focus:bg-primary dark:focus:text-black
         py-1.5 px-3
         font-bold
         bg-gray-700 dark:bg-gray-100

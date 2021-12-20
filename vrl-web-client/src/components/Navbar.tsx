@@ -65,6 +65,7 @@ const ScenarioSelector = () => {
   const selectScenario = (id: number) => {
     setScenario(id);
     setOpen(false);
+    window.location.href = '/';
   };
 
   return <div className="toggler">
