@@ -1,4 +1,4 @@
-import { ChevronDownIcon, CodeIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, CodeIcon, HomeIcon, InformationCircleIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import useDarkMode, { DarkMode } from "use-dark-mode";
 import { Scenario, state } from "../data/state";
@@ -36,6 +36,14 @@ export const Navbar = () => {
 
         <a href="https://github.com/vectordotdev/vrl-web" target="_blank">
           <CodeIcon className="code-icon" />
+        </a>
+
+        <a href="/help">
+          <InformationCircleIcon className="info-icon" />
+        </a>
+
+        <a href="/">
+          <HomeIcon className="home-icon" />
         </a>
 
         <button onClick={darkModeToggle} className="toggler">
