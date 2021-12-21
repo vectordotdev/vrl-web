@@ -147,7 +147,14 @@ const stateHandler: StateCreator<Persistent> = (set: SetState<Persistent>, get: 
   setScenarioFromHash: (hash: string) => {
     const s: string = window.atob(hash);
     const obj: Hashable = JSON.parse(s);
-    set({ title: obj.title, event: obj.event, program: obj.program, output: obj.output, errorMsg: null });
+    set({
+      title: obj.title,
+      event: obj.event,
+      program: obj.program,
+      output: obj.output,
+      result: obj.result,
+      errorMsg: null
+    });
   },
 });
 
