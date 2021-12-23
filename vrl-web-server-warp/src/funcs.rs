@@ -3,12 +3,14 @@ use std::convert::{From, Infallible};
 use vrl::prelude::Kind;
 use warp::{reply::json, Reply};
 
+// VRL example
 #[derive(Serialize)]
 struct Example {
     title: &'static str,
     source: &'static str,
 }
 
+// VRL function parameter
 #[derive(Serialize)]
 struct Parameter {
     name: &'static str,
@@ -16,6 +18,7 @@ struct Parameter {
     required: bool,
 }
 
+// VRL function info
 #[derive(Serialize)]
 struct Function {
     name: &'static str,
@@ -23,6 +26,7 @@ struct Function {
     examples: Vec<Example>,
 }
 
+// Convert a VRL Function struct into our custom Function type (to display as JSON)
 impl From<&Box<dyn vrl::Function>> for Function {
     fn from(f: &Box<dyn vrl::Function>) -> Function {
         Function {
@@ -48,6 +52,7 @@ impl From<&Box<dyn vrl::Function>> for Function {
     }
 }
 
+// All VRL function info as an HTTP JSON response
 pub(crate) async fn vrl_function_info() -> Result<impl Reply, Infallible> {
     let functions: Vec<Function> = vrl_stdlib::all().iter().map(Function::from).collect();
 

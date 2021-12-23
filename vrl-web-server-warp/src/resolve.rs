@@ -4,6 +4,7 @@ use vector_shared::TimeZone;
 use vrl::{diagnostic::Formatter, state, value, Runtime, Value};
 use warp::{reply::json, Reply};
 
+// The VRL program plus (optional) event plus (optional) time zone
 #[derive(Deserialize, Serialize)]
 pub(crate) struct Input {
     program: String,
@@ -11,6 +12,7 @@ pub(crate) struct Input {
     tz: Option<String>,
 }
 
+// An enum for the result of a VRL resolution operation
 #[derive(Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 enum Outcome {
@@ -18,13 +20,20 @@ enum Outcome {
     Error(String),
 }
 
+// The VRL resolution logic
 fn resolve(input: Input) -> Outcome {
     let mut value: Value = input.event.unwrap_or(value!({}));
 
     let event = &mut value;
+
+    // TODO: instantiate this logic elsewhere rather than for each invocation,
+    // as these values are basically constants. This is fine for now, as
+    // performance shouldn't be an issue in the near term, but low-hanging fruit
+    // for optimization later.
     let mut state = state::Compiler::default();
     let mut runtime = Runtime::new(state::Runtime::default());
 
+    // Default to default timezone if none
     let time_zone_str = input.tz.unwrap_or_default();
 
     let time_zone = match TimeZone::parse(&time_zone_str) {
@@ -43,12 +52,16 @@ fn resolve(input: Input) -> Outcome {
     match runtime.resolve(event, &program, &time_zone) {
         Ok(result) => Outcome::Success {
             output: result,
+            // VRL's resolve function takes a mutable event, thus this clone
+            // operation is actually on the mutated event, which may not be
+            // immediately apparent here.
             result: event.clone(),
         },
         Err(err) => Outcome::Error(err.to_string()),
     }
 }
 
+// The VRL resolution logic as an HTTP handler
 pub(crate) async fn resolve_vrl_input(input: Input) -> Result<impl Reply, Infallible> {
     let outcome = resolve(input);
     Ok(json(&outcome))
@@ -56,6 +69,10 @@ pub(crate) async fn resolve_vrl_input(input: Input) -> Result<impl Reply, Infall
 
 #[cfg(test)]
 mod tests {
+    // Just a small handful of tests here that pretty much only test the HTTP
+    // plumbing. The assumption, of course, is that VRL itself has its ducks in
+    // a row.
+    
     use super::{Input, Outcome};
     use crate::server::router;
     use http::StatusCode;

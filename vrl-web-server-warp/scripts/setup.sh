@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Setup script for MUSL builds (used only in the Docker build process)
+
 apt-get update && apt-get install -y apt-transport-https wget gnupg2
 
 cat <<-EOF > /etc/apt/sources.list.d/llvm.list
