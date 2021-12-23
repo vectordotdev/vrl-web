@@ -1,6 +1,6 @@
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
-use clap::Parser;
+use structopt::StructOpt;
 use warp::{reject::Rejection, Filter, Reply};
 
 use crate::error::handle_err;
@@ -37,15 +37,15 @@ pub(crate) fn router() -> impl Filter<Extract = impl Reply, Error = Rejection> +
         .with(cors)
 }
 
-#[derive(Parser)]
-#[clap(version = "0.1.0", author = "Vector Contributions <vector@timber.io>")]
+#[derive(Debug, StructOpt)]
+#[structopt(version = "0.1.0", author = "Vector Contributions <vector@timber.io>")]
 struct Opts {
-    #[clap(env, short, long, default_value = "8080")]
+    #[structopt(env, short, long, default_value = "8080")]
     port: u16,
 }
 
 pub async fn serve() {
-    let opts = Opts::parse();
+    let opts = Opts::from_args();
 
     pretty_env_logger::init();
 
