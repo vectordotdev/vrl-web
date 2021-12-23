@@ -1,4 +1,4 @@
-CARGO = cargo make
+CARGO = cargo
 IMAGE = lucperkins/vrl-server:latest
 
 docker-build:
@@ -18,9 +18,6 @@ deploy: docker-build docker-push
 
 run:
 	$(CARGO) run
-
-release:
-	$(CARGO) release
 
 test:
 	$(CARGO) test

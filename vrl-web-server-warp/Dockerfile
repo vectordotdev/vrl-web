@@ -1,6 +1,5 @@
-FROM rust:1.55.0 AS builder
+FROM rust:1.56.1 AS builder
 
-RUN cargo install cargo-make
 RUN apt update && apt install -y musl-tools musl-dev
 
 WORKDIR /build
@@ -9,9 +8,9 @@ COPY . .
 
 RUN ./scripts/setup.sh
 
-RUN cargo make release-musl
+RUN cargo build --release --target x86_64-unknown-linux-musl
 
-FROM alpine:3.14
+FROM alpine:3.15.0
 
 WORKDIR /app
 
