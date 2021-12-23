@@ -7,6 +7,8 @@ app = "vrl-server"
   ENV = "production"
   HOST = "vrl_web_server"
   USER = "vector-power-user-1337"
+  VECTOR_INSTANCE_ID = "vector-1"
+  REGION = "eu-2"
 
 [[services]]
   internal_port = 8080
