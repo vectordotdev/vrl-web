@@ -44,7 +44,7 @@ pub(crate) fn router() -> impl Filter<Extract = impl Reply, Error = Rejection> +
 
 // CLI helper struct
 #[derive(Debug, StructOpt)]
-#[structopt(version = "0.1.0", author = "Vector Contributions <vector@timber.io>")]
+#[structopt(version = "0.1.0", author = "Vector Contributors <vector@datadoghq.com>")]
 struct Opts {
     #[structopt(env, short, long, default_value = "8080")]
     port: u16,

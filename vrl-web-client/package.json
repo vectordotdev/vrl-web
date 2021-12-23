@@ -2,8 +2,8 @@
   "name": "vrl-web-app",
   "version": "0.1.0-SNAPSHOT",
   "description": "A web playground for Vector Remap Language",
-  "repository": "https://github.com/lucperkins/vrl-web-app",
-  "author": "Vector Contributors <vector@timber.io>",
+  "repository": "https://github.com/vectordotdev/vrl-web",
+  "author": "Vector Contributors <vector@datadoghq.com>",
   "license": "MPL-2.0",
   "scripts": {
     "clean": "rm -rf .parcel-cache dist",

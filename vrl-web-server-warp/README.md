@@ -13,6 +13,11 @@ address of the server is https://vrl-server.fly.dev.
 cargo run
 ```
 
+### CLI options
+
+The default HTTP port is 8080. You can specify a different port using the `-p` or `--port` flag
+or the `PORT` environment variable.
+
 ## Deploying
 
 The server is deployed as a Docker image running on [Fly]. To build and push the image:
