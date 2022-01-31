@@ -58,7 +58,7 @@ export const Main = ({ hash, scenarioId }: Props) => {
         </p>
 
         <p className="text">
-          The VRL program to run against the target event
+          The VRL program to run against the target event (editable)
         </p>
 
         <ProgramEditor />
@@ -72,7 +72,7 @@ export const Main = ({ hash, scenarioId }: Props) => {
         </div>
 
         <p className={event ? "text" : "text-light"}>
-          The Vector event targeted by the VRL program
+          The Vector event targeted by the VRL program (editable)
         </p>
 
         <EventEditor event={event} />
