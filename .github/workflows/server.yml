@@ -3,13 +3,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'vrl-web-server-warp/Cargo.*'
-      - 'vrl-web-server-warp/Dockerfile'
-      - 'vrl-web-server-warp/rust-toolchain.toml'
-      - 'vrl-web-server-warp/fly.toml'
-      - 'vrl-web-server-warp/setup.sh'
-      - 'vrl-web-server-warp/src/**'
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
