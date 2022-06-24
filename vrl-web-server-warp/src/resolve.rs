@@ -41,14 +41,15 @@ fn resolve(input: Input) -> Outcome {
         None => TimeZone::Local,
     };
 
-    let (program, _) = match vrl::compile_with_state(&input.program, &vrl_stdlib::all(), &mut state)
-    {
-        Ok(program) => program,
-        Err(diagnostics) => {
-            let msg = Formatter::new(&input.program, diagnostics).to_string();
-            return Outcome::Error(msg);
-        }
-    };
+    // TODO return warnings too
+    let (program, _warnings) =
+        match vrl::compile_with_state(&input.program, &vrl_stdlib::all(), &mut state) {
+            Ok(program) => program,
+            Err(diagnostics) => {
+                let msg = Formatter::new(&input.program, diagnostics).to_string();
+                return Outcome::Error(msg);
+            }
+        };
 
     let mut metadata = Value::Object(BTreeMap::new());
     let mut secrets = Secrets::new();
