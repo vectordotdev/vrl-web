@@ -42,7 +42,6 @@ jobs:
           tags: lucperkins/vrl-server:latest
   deploy:
     name: Deploy VRL Web server
-    defaults:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
