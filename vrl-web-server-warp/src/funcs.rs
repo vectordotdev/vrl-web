@@ -1,6 +1,5 @@
 use serde::Serialize;
 use std::convert::{From, Infallible};
-use vrl::prelude::Kind;
 use warp::{reply::json, Reply};
 
 // VRL example
@@ -14,7 +13,7 @@ struct Example {
 #[derive(Serialize)]
 struct Parameter {
     name: &'static str,
-    kind: &'static str,
+    kind: String,
     required: bool,
 }
 
@@ -36,7 +35,7 @@ impl From<&Box<dyn vrl::Function>> for Function {
                 .iter()
                 .map(|p| Parameter {
                     name: p.keyword,
-                    kind: Kind::new(p.kind).as_str(),
+                    kind: p.kind().to_string(),
                     required: p.required,
                 })
                 .collect(),

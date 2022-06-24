@@ -1,7 +1,9 @@
+use ::value::{Secrets, Value};
 use serde::{Deserialize, Serialize};
+use std::collections::BTreeMap;
 use std::convert::Infallible;
-use vector_shared::TimeZone;
-use vrl::{diagnostic::Formatter, state, value, Runtime, Value};
+use vector_common::TimeZone;
+use vrl::{diagnostic::Formatter, state, value, Runtime, TargetValueRef};
 use warp::{reply::json, Reply};
 
 // The VRL program plus (optional) event plus (optional) time zone
@@ -24,13 +26,11 @@ enum Outcome {
 fn resolve(input: Input) -> Outcome {
     let mut value: Value = input.event.unwrap_or(value!({}));
 
-    let event = &mut value;
-
     // TODO: instantiate this logic elsewhere rather than for each invocation,
     // as these values are basically constants. This is fine for now, as
     // performance shouldn't be an issue in the near term, but low-hanging fruit
     // for optimization later.
-    let mut state = state::Compiler::default();
+    let mut state = state::ExternalEnv::default();
     let mut runtime = Runtime::new(state::Runtime::default());
 
     // Default to default timezone if none
@@ -41,7 +41,8 @@ fn resolve(input: Input) -> Outcome {
         None => TimeZone::Local,
     };
 
-    let program = match vrl::compile_with_state(&input.program, &vrl_stdlib::all(), &mut state) {
+    let (program, _) = match vrl::compile_with_state(&input.program, &vrl_stdlib::all(), &mut state)
+    {
         Ok(program) => program,
         Err(diagnostics) => {
             let msg = Formatter::new(&input.program, diagnostics).to_string();
@@ -49,13 +50,21 @@ fn resolve(input: Input) -> Outcome {
         }
     };
 
-    match runtime.resolve(event, &program, &time_zone) {
+    let mut metadata = Value::Object(BTreeMap::new());
+    let mut secrets = Secrets::new();
+    let mut target = TargetValueRef {
+        value: &mut value,
+        metadata: &mut metadata,
+        secrets: &mut secrets,
+    };
+
+    match runtime.resolve(&mut target, &program, &time_zone) {
         Ok(result) => Outcome::Success {
             output: result,
             // VRL's resolve function takes a mutable event, thus this clone
             // operation is actually on the mutated event, which may not be
             // immediately apparent here.
-            result: event.clone(),
+            result: value.clone(),
         },
         Err(err) => Outcome::Error(err.to_string()),
     }
@@ -72,7 +81,7 @@ mod tests {
     // Just a small handful of tests here that pretty much only test the HTTP
     // plumbing. The assumption, of course, is that VRL itself has its ducks in
     // a row.
-    
+
     use super::{Input, Outcome};
     use crate::server::router;
     use http::StatusCode;
