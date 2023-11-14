@@ -1,3 +1,5 @@
+**Status** This repository was replaced by a new implementation of the VRL playground that can be found here: https://github.com/vectordotdev/vector/tree/master/lib/vector-vrl/web-playground
+
 # VRL Web
 
 This repo houses the assets used to build VRL Web, a browser interface for experimenting with
